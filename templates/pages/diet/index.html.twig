@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} La liste de régimes {% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+<h1>Les régimes</h1>
+
+<a href="{{ path('diet.new') }} " class="btn btn-info">Créer une régime</a>
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+{{ message }}
+</div>
+{%endfor %}
+<table class="table table-hover">
+<thead>
+<tr>
+<th scope="col">Numéro</th>
+<th scope="col">Nom</th>
+<th scope="col">Edition</th>
+<th scope="col">Suppression</th>
+</tr>
+</thead>
+<tbody>
+{% for diet in diets %}
+<tr class="table-primary">
+<th scope="row">{{ diet.id }}</th>
+<td>{{ diet.name }}</td>
+<td><a href="{{ path('diet.edit', {id: diet.id}) }}" class="btn btn-danger">Modifier</a></td>
+<td><a href="{{ path('diet.delete', {id: diet.id}) }}" class="btn btn-warning">Supprimer</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endblock %}
+
+
