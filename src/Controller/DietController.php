@@ -50,7 +50,7 @@ class DietController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $diet = $form->getData();
-            $diet->setUser($this->getUser());
+            // $diet->setUser($this->getUser());
 
             $manager->persist($diet);
             $manager->flush();
