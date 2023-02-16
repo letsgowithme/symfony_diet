@@ -78,7 +78,7 @@ class AppFixtures extends Fixture
         for ($n = 0; $n < 20; $n++) {
             $diet = new Diet();
             $diet->setName($this->faker->word());
-            // $diet->setUser($users[mt_rand(0, count($users) - 1)]);
+            $diet->setUser($users[mt_rand(0, count($users) - 1)]);
             $diets[] = $diet;
             $manager->persist($diet);
         }
@@ -92,7 +92,7 @@ class AppFixtures extends Fixture
                 ->setPreparationTime(mt_rand(1, 1440))
                 ->setPauseTime(mt_rand(1, 1440))
                 ->setCookingTime(mt_rand(1, 1440));
-
+               
             for ($k = 0; $k < mt_rand(5, 15); $k++) {
                 $recipe->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
             }
@@ -105,7 +105,7 @@ class AppFixtures extends Fixture
                 $recipe->addDiet($diets[mt_rand(0, count($diets) - 1)]);
             }
             $recipe->setUser($users[mt_rand(0, count($users) - 1)]);
-           
+            $recipe ->setIsBase(mt_rand(0, 1) == 1 ? true : false);
 
             $recipes[] = $recipe;
             $manager->persist($recipe);
