@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class UserController extends AbstractController
 {
@@ -22,6 +21,7 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/users', name: 'user.index', methods: ['GET'])]
+    // #[IsGranted('ROLE_ADMIN')]
     public function index(UserRepository $repository): Response
     {
         $users = $repository->findAll();
@@ -38,6 +38,7 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/user/new', 'user.new', methods: ['GET', 'POST'])]
+    // #[IsGranted('ROLE_ADMIN')]
     public function new(
         Request $request,
         EntityManagerInterface $manager
@@ -76,6 +77,7 @@ return $this->render('pages/user/new.html.twig', [
 
 
      #[Route('user/edition/{id}', 'user.edit', methods: ['GET', 'POST'])]
+    //  #[IsGranted('ROLE_ADMIN')]
      public function edit(
  
         User $user,
@@ -113,7 +115,7 @@ return $this->render('pages/user/new.html.twig', [
      * @return Response
      */
     #[Route('/user/suppression/{id}', 'user.delete', methods: ['GET'])]
-
+    // #[IsGranted('ROLE_ADMIN')]
     public function delete(
         EntityManagerInterface $manager,
         User $user

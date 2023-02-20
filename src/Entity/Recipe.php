@@ -51,14 +51,18 @@ class Recipe
     private ?User $user = null;
 
     #[ORM\Column]
-    private ?bool $isBase = null;
-  
+    private ?bool $isPublic = null;
 
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class)]
+    private Collection $marks;
+  
+    private ?float $average = null;
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->allergens = new ArrayCollection();
         $this->diets = new ArrayCollection();
+        $this->marks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -231,14 +235,14 @@ class Recipe
         return $this;
     }
 
-    public function isIsBase(): ?bool
+    public function getIsPublic(): ?bool
     {
-        return $this->isBase;
+        return $this->isPublic;
     }
 
-    public function setIsBase(bool $isBase): self
+    public function setIsPublic(bool $isPublic): self
     {
-        $this->isBase = $isBase;
+        $this->isPublic = $isPublic;
 
         return $this;
     }
@@ -247,7 +251,53 @@ class Recipe
 return (string) $this->name;
 }
 
-  
+    /**
+     * @return Collection<int, Mark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
 
-    
+    public function addMark(Mark $mark): self
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks->add($mark);
+            $mark->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): self
+    {
+        if ($this->marks->removeElement($mark)) {
+            // set the owning side to null (unless already changed)
+            if ($mark->getRecipe() === $this) {
+                $mark->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * Get the value of average
+     */ 
+    public function getAverage()
+    {
+        $marks = $this->marks;
+
+        if ($marks->toArray() === []) {
+                $this->average = null;
+                return $this->average;
+        }
+     $total = 0;
+     foreach ($marks as $mark) {
+        $total += $mark->getMark();
+        $this->average = $total / count($marks);
+     }
+
+        return $this->average;
+    }
+
 }

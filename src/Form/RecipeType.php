@@ -175,7 +175,7 @@ class RecipeType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('isBase', CheckboxType::class, [
+            ->add('isPublic', CheckboxType::class, [
                 'attr' => [
                     'class' => 'form-check-input mt-4',
                 ],

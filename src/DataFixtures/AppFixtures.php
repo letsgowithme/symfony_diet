@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Allergen;
 use App\Entity\Diet;
 use App\Entity\Ingredient;
+use App\Entity\Mark;
 use App\Entity\Recipe;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -94,7 +95,7 @@ class AppFixtures extends Fixture
             for ($g = 0; $g < mt_rand(0, 5); $g++) {
                 $recipe->addDiet($diets[mt_rand(0, count($diets) - 1)]);
             }
-            $recipe->setIsBase(mt_rand(0, 1) == 1 ? true : false);
+            $recipe->setisPublic(mt_rand(0, 1) == 1 ? true : false);
             
             $recipe->setUser($users[mt_rand(0, count($users) - 1)]);
            
@@ -102,6 +103,18 @@ class AppFixtures extends Fixture
             $recipes[] = $recipe;
             $manager->persist($recipe);
         }
+         // Marks
+         foreach ($recipes as $recipe) {
+            for ($i = 0; $i < mt_rand(0, 4); $i++) {
+                $mark = new Mark();
+                $mark->setMark(mt_rand(1, 5))
+                    ->setUser($users[mt_rand(0, count($users) - 1)])
+                    ->setRecipe($recipe);
+
+                $manager->persist($mark);
+            }
+        }
+
 
        
        

@@ -37,7 +37,23 @@ class RecipeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+
+       
     }
+    /**
+     * Show public recipes
+     * @param integer $nbRecipes
+     * @return array
+     */
+    public function findPublicRecipe(?int $nbRecipes) : array {
+            return  $this->createQueryBuilder('r')
+                    ->where('r.isPublic = 1')
+                    ->orderBy('r.name', 'ASC')
+                    ->setMaxResults($nbRecipes)
+                    ->getQuery()
+                    ->getResult();
+    } 
+
 
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
