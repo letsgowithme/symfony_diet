@@ -24,8 +24,8 @@ class DietController extends AbstractController
     #[Route('/diet', name: 'diet.index', methods: ['GET'])]
     public function index(DietRepository $repository): Response
     {
-        // $diets = $repository->findBy(['user' => $this->getUser()]);
-        $diets = $repository->findAll();
+        $diets = $repository->findBy(['user' => $this->getUser()]);
+        // $diets = $repository->findAll();
         return $this->render('pages/diet/index.html.twig', [
             'diets' =>  $diets
         ]);
@@ -50,7 +50,7 @@ class DietController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $diet = $form->getData();
-            // $diet->setUser($this->getUser());
+            $diet->setUser($this->getUser());
 
             $manager->persist($diet);
             $manager->flush();

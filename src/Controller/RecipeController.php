@@ -17,11 +17,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RecipeController extends AbstractController
 {
-    #[Route('/recette', name: 'recipe.index', methods: ['GET'])]
+    #[Route('/admin/recette', name: 'recipe.index', methods: ['GET'])]
     public function index(RecipeRepository $repository): Response
     {
-        // $recipes = $repository->findBy(['user' => $this->getUser()]);
-        $recipes = $repository->findAll();
+        $recipes = $repository->findBy(['user' => $this->getUser()]);
+        // $recipes = $repository->findAll();
         return $this->render('pages/recipe/index.html.twig', [
             'recipes' => $recipes,
         ]);
@@ -47,7 +47,7 @@ class RecipeController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
-            // $recipe->setUser($this->getUser());
+            $recipe->setUser($this->getUser());
 
             $manager->persist($recipe);
             $manager->flush();

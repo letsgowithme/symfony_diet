@@ -23,12 +23,15 @@ class Ingredient
     #[ORM\Column(nullable: true)]
     private ?bool $isAllergen = null;
 
+    #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -51,7 +54,26 @@ class Ingredient
 
         return $this;
     }
+    
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
     public function __toString() {
-        return $this->name;
+        return (string) $this->getName();
         }
-}
+
+
+    /**
+     * Get the value of name
+     */ 
+   
+    }

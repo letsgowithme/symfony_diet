@@ -34,9 +34,8 @@ class Allergen
         $this->name = $name;
 
         return $this;
-    }public function __toString() {
-        return $this->name;
-        }
+    }
+   
 
     public function getUser(): ?User
     {
@@ -49,4 +48,8 @@ class Allergen
 
         return $this;
     }
+    public function __toString() {
+        return $this->name;
+        }
+   
 }

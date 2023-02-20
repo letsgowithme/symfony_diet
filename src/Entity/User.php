@@ -41,20 +41,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 private ?string $password = 'password';
 
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
     private Collection $allergens;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Diet::class)]
+    private Collection $diets;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
     private Collection $recipes;
 
+    #[ORM\Column]
+    private ?\DateTime $dateOfBirth = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
         $this->allergens = new ArrayCollection();
+        $this->diets = new ArrayCollection();
         $this->recipes = new ArrayCollection();
+        $this->dateOfBirth = new \DateTime();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -158,27 +166,10 @@ public function eraseCredentials()
 // $this->plainPassword = null;
 }
 
-   
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-    public function __toString()
-{
-return (string) $this->getFullName();
-}
-
     /**
-     * @return Collection<int, Allergen>
+     *  @return Collection<int, Allergen>
      */
+     
     public function getAllergens(): Collection
     {
         return $this->allergens;
@@ -200,6 +191,38 @@ return (string) $this->getFullName();
             // set the owning side to null (unless already changed)
             if ($allergen->getUser() === $this) {
                 $allergen->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     *   @return Collection<int, Diet>
+     */
+   
+     
+    public function getDiets(): Collection
+    {
+        return $this->diets;
+    }
+
+    public function addDiet(Diet $diet): self
+    {
+        if (!$this->diets->contains($diet)) {
+            $this->diets->add($diet);
+            $diet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiet(Diet $diet): self
+    {
+        if ($this->diets->removeElement($diet)) {
+            // set the owning side to null (unless already changed)
+            if ($diet->getUser() === $this) {
+                $diet->setUser(null);
             }
         }
 
@@ -235,4 +258,32 @@ return (string) $this->getFullName();
 
         return $this;
     }
+
+    public function getDateOfBirth(): ?\DateTimeInterface
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth(\DateTimeInterface $dateOfBirth): self
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+    public function __toString()
+{
+return (string) $this->fullName;
+}
 }

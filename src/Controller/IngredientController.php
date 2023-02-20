@@ -23,7 +23,7 @@ class IngredientController extends AbstractController
   #[Route('/ingredient', name: 'ingredient.index', methods: ['GET'])]
   public function index(IngredientRepository $repository): Response
   {
-    $ingredients = $repository->findAll();
+    $ingredients = $repository->findBy(['user' => $this->getUser()]);
     return $this->render('pages/ingredient/index.html.twig', [
       'ingredients' => $ingredients
     ]);
@@ -47,6 +47,7 @@ class IngredientController extends AbstractController
     $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
       $ingredient = $form->getData();
+      $ingredient->setUser($this->getUser());
 
       $manager->persist($ingredient);
       $manager->flush();

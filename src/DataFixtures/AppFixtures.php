@@ -35,31 +35,21 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setFullName($this->faker->name())
                 ->setEmail($this->faker->email())
+                // ->setDateOfBirth(new \DateTime('22-06-2000'))
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password');
-               
+             
                 $users[] = $user;
             $manager->persist($user);
         }
-        
-         // Patients
-        //  $patients = [];
-        // for ($j = 0; $j < 10; $j++) {
-        //     $patient = new Patient();
-        //     $patient->setFullName($this->faker->name())
-        //            ->setEmail($this->faker->email())
-        //            ->setUser($user);
-        //  $patients[] = $patient;
-        //     $manager->persist($patient);
-        // }
         
         //Ingredients
         $ingredients = [];
         for ($i = 0; $i < 50; $i++) {
             $ingredient = new Ingredient();
             $ingredient->setName($this->faker->word())
-                ->setIsAllergen(mt_rand(0, 1) == 1 ? true : false);
-
+                       ->setIsAllergen(mt_rand(0, 1) == 1 ? true : false);
+            $ingredient->setUser($users[mt_rand(0, count($users) - 1)]);
             $ingredients[] = $ingredient;
             $manager->persist($ingredient);
         }
@@ -92,7 +82,7 @@ class AppFixtures extends Fixture
                 ->setPreparationTime(mt_rand(1, 1440))
                 ->setPauseTime(mt_rand(1, 1440))
                 ->setCookingTime(mt_rand(1, 1440));
-               
+
             for ($k = 0; $k < mt_rand(5, 15); $k++) {
                 $recipe->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
             }
@@ -104,8 +94,10 @@ class AppFixtures extends Fixture
             for ($g = 0; $g < mt_rand(0, 5); $g++) {
                 $recipe->addDiet($diets[mt_rand(0, count($diets) - 1)]);
             }
+            $recipe->setIsBase(mt_rand(0, 1) == 1 ? true : false);
+            
             $recipe->setUser($users[mt_rand(0, count($users) - 1)]);
-            $recipe ->setIsBase(mt_rand(0, 1) == 1 ? true : false);
+           
 
             $recipes[] = $recipe;
             $manager->persist($recipe);
