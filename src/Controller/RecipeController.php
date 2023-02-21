@@ -139,7 +139,7 @@ return $this->render('pages/recipe/new.html.twig', [
       * @param Recipe $recipe
       * @return Response
       */
-      #[IsGranted('ROLE_USER')]
+      #[Security("is_granted('ROLE_USER') and user === recipe.getUser()")]
      #[Route('/recette/suppression/{id}', 'recipe.delete', methods: ['GET'])]
      
      public function delete(
