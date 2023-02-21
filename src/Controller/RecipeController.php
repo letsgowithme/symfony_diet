@@ -124,7 +124,7 @@ return $this->render('pages/recipe/new.html.twig', [
                  'Votre recette a été modifié avec succès !'
              );
  
-             return $this->redirectToRoute('recipe.index');
+             return $this->redirectToRoute('recipe.admin_index');
          }
  
  
@@ -207,7 +207,20 @@ return $this->render('pages/recipe/new.html.twig', [
                 'form' => $form->createView()
             ]);
     }
- 
+   /**
+     * This controller shows he page of recipes pour admin
+     *
+     * @return Response
+     */
+    #[Route('/admin/recettes', name: 'recipe.admin_index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function adminRecipe(RecipeRepository $repository): Response
+    {
+        $recipes = $repository->findAll();
+        return $this->render('pages/recipe/admin_index.html.twig', [
+            'recipes' => $recipes,
+        ]);
+    }
  
  
  }

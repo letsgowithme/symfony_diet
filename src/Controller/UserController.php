@@ -131,7 +131,17 @@ return $this->render('pages/user/new.html.twig', [
 
         return $this->redirectToRoute('user.index');
     }
+    /**
+     * This controller shows he page of admin
+     *
+     * @return Response
+     */
+    #[Route('/admin', name: 'user.admin', methods: ['GET'])]
+    public function admin(): Response
+    {
+    return $this->render('pages/user/admin.html.twig');
+    }
 
-
+   
 
 }

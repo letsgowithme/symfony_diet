@@ -1,79 +1,25 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}
-	La liste de recettes
+	Mes recettes
 {% endblock %}
-
 {% block body %}
 	<div class="container mt-4">
 		<h1>Mes recettes</h1>
-
-
-		 <a href="{{ path('recipe.new') }}  " class="btn btn-info">Créer une recette</a> 
-
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success">
-				{{ message }}
-			</div>
-		{%endfor %}
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th scope="col">Numéro</th>
-					<th scope="col text-uppercase">Nom</th>
-					<th scope="col">Description</th>
-					<th scope="col">Temps de préparation</th>
-					<th scope="col">temps de pause</th>
-					<th scope="col">Temps de cuisson</th>
-					<th scope="col">Ingredients</th>
-					<th scope="col">Étapes</th>
-					<th scope="col">Allergènes</th>
-					<th scope="col">Régime</th>
-					<th scope="col">Edition</th>
-					<th scope="col">Suppression</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for recipe in recipes %}
-					<tr class="table-primary">
-						<th scope="row">{{ recipe.id }}</th>
-						<td class="text-capitalize">{{ recipe.name }}</td>
-						<td>{{ recipe.description }}</td>
-						<td>{{ recipe.preparationTime }}</td>
-						<td>
-							{% if  recipe.pauseTime is null %}
-								'...'
-							{% else %}
-								{{ recipe.pauseTime }}
-							{% endif %}
-						</td>
-						<td>{{ recipe.cookingTime }}</td>
-						<td>
-						{% for ingredient in recipe.ingredients %}
-                {{ ingredient.name }}	
-							{% endfor %}
-							
-						</td>
-						<td>{{ recipe.steps }}</td>
-						<td>
-							{% for allergen in recipe.allergens %}
-								{{ allergen.name }}
-							{% endfor %}
-						</td>
-						<td>
-							{% for diet in recipe.diets %}
-								{{ diet.name }}
-							{% endfor %}
-						</td>
-						<td>
-							<a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-danger">Modifier</a>
-						</td>
-						<td>
-							<a href="{{ path('recipe.delete', {id: recipe.id}) }}" class="btn btn-warning">Supprimer</a>
-						</td>
-					</tr>
-				</tbody>
-			</tbody>
-		</tr>
-	{% endfor %}
-</tbody></table></div>{% endblock %}
+		<div class="d-flex justify-content-center flex-wrap">
+			{% for recipe in recipes %}
+				<div class="card border-primary mb-3 me-3" style="max-width: 20rem;">
+					<div class="card-header">Recette numéro
+						{{ recipe.id }}</div>
+					<div class="card-body">
+						<h4 class="card-title">
+						<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a></h4>
+						<div class="recipe__image card-image">
+			<img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+		</div>
+						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

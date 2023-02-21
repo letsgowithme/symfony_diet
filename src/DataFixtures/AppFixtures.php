@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Allergen;
+use App\Entity\Contact;
 use App\Entity\Diet;
 use App\Entity\Ingredient;
 use App\Entity\Mark;
@@ -46,7 +47,7 @@ class AppFixtures extends Fixture
         
         //Ingredients
         $ingredients = [];
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $ingredient = new Ingredient();
             $ingredient->setName($this->faker->word())
                        ->setIsAllergen(mt_rand(0, 1) == 1 ? true : false);
@@ -114,11 +115,20 @@ class AppFixtures extends Fixture
                 $manager->persist($mark);
             }
         }
+             // Contact
+             for ($j = 0; $j < 5; $j++) {
+            $contact = new Contact();
+            $contact->setFullName($this->faker->name())
+                ->setEmail($this->faker->email())
+                ->setSubject('Demande n°' . ($i + 1))
+                ->setMessage($this->faker->text());
 
+            $manager->persist($contact);
+        }
 
-       
-       
+        
 
         $manager->flush();
     }
 }
+

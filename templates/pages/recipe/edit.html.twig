@@ -16,7 +16,8 @@
 			</div>
 		</div>
    
-
+ <div class="form-image">
+ {{ form_row(form.imageFile) }}
 
 		<div class="form-group">
 			{{ form_label(form.description) }}
@@ -101,7 +102,7 @@
 			<div class="form-error">
 				{{ form_errors(form.isPublic) }}
 			</div>
-			  {{ form_row(form.imageFile) }}
+			 
 			<div class="form-group mb-4">
 				{{ form_row(form.submit) }}
 			</div>
