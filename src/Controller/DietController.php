@@ -37,7 +37,7 @@ class DietController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('/diet/nouveau', 'diet.new', methods: ['GET', 'POST'])]
+    #[Route('/diet/creation', 'diet.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager

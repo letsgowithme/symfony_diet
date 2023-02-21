@@ -21,17 +21,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-// use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 
 class RecipeType extends AbstractType
 {
-    // private $token;
-
-    // public function __construct(TokenStorageInterface $token)
-    // {
-            
-    //         $this->token = $token;
-    // }
+    
    
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -52,6 +47,8 @@ class RecipeType extends AbstractType
                 new Assert\NotBlank()
             ]
         ])
+        
+
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control'
@@ -109,15 +106,13 @@ class RecipeType extends AbstractType
                     new Assert\LessThan(1440)
                 ]
             ])
+            
 
             ->add('ingredients', EntityType::class,[
                 'class' => Ingredient::class,
                 'query_builder' => function (IngredientRepository $r) {
                     return $r->createQueryBuilder('i')
-                        // ->where('i.user = :user')
-                        ->orderBy('i.name', 'ASC')
-                        // ->setParameter('user', $this->token->getToken()->getUser());
-               ;
+                        ->orderBy('i.name', 'ASC');
                     },
                 'label' => 'Ingrédients',
                 'label_attr' => [
@@ -188,6 +183,14 @@ class RecipeType extends AbstractType
                     new Assert\NotNull()
                 ]
             ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image de la recette',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
+                ],
+                'required' => false
+            ])
+    
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4 mb-4 text-dark fs-5'

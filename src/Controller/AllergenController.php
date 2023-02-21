@@ -37,7 +37,7 @@ class AllergenController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('/allergen/nouveau', 'allergen.new', methods: ['GET', 'POST'])]
+    #[Route('/allergen/creation', 'allergen.new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
         EntityManagerInterface $manager
