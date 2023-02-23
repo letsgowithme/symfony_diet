@@ -13,9 +13,9 @@
 					<div class="card-body">
 						<h4 class="card-title">
 						<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a></h4>
-						<div class="recipe__image card-image">
+						{# <div class="recipe__image card-image">
 			<img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
-		</div>
+		</div> #}
 						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 					</div>
 				</div>

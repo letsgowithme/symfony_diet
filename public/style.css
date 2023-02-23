@@ -14,7 +14,9 @@ body {
   display: flex;
   min-height: 100vh;
   justify-content: space-between;
+  width: 100%;
 }
+
 .recipe__image {
  width: 500px;
  height: auto;

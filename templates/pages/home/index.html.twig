@@ -1,37 +1,88 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Page d'Accueil {% endblock %}
+{% block title %}
+	Page d'Accueil
+{% endblock %}
 
 {% block body %}
 
-<div class="container mt-4">
-<div class="img-fluid main_bg" style="background-image: url('{{asset('/images/main_bg.img')}}')"></div> 
-    <div class="jumbotron">
-        <h1 class="display-5 text-center">Sandrine Coupart <br>  diététicienne-nutritionniste</h1>
-        <p class="lead">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
-            professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques.
-            J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
-        <hr class="my-4">
-    </div>
-<div class="recipes">
-<h2 class="mt-4 text-center mb-3">Recettes de base</h2>
-		<div class="d-flex justify-content-between flex-wrap">
-			{% for recipe in recipes %}
-				<div class="card border-primary mb-3" style="max-width: 20rem;">
-					<div class="card-header">Recette numéro
-						{{ recipe.id }}</div>
-					<div class="card-body">
-						<h4 class="card-title">
-						<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a></h4>*
+	<div class="container mt-4">
+		{% include "partials/_header_img.html.twig" %}
+		<h1 class="display-5 text-center mb-5 bg-primary py-3" style="z-index: 5; color: white">Sandrine Coupart
+			<br>
+			diététicienne-nutritionniste
+			<span class="mt-4">{% include "partials/_doctor_img.html.twig" %}</span>
+		</h1>
 
-						
-						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
-					</div>
+		<div class="jumbotron">
+
+			<div class="d-flex flex-row about align-items-center">
+				<div class="col-md-6 col-sm-6 col-xs-12  d-flex flex-column text-center">
+					<h3>À  propos</h3>
+					<p class="lead fs-4">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
+										            professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques.
+										            J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
 				</div>
-			{% endfor %} 
+
+				<div class="col-md-6 col-sm-6 col-xs-12 text-center">
+					{% include "partials/_home_img1.html.twig" %}
+				</div>
+			</div>
+
+			<hr class="my-4 mb-5">
+		</div>
+		<div class="d-flex flex-row about align-items-center">
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				{% include "partials/_home_img2.html.twig" %}
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 me-2 d-flex flex-column text-center">
+				<h3>Mes services</h3>
+				<ul class="lead fs-4">
+					<li>
+						<h5>Bilan nutritionnel</h5>
+						<p>50€ séance</p>
+					</li>
+					<li>
+						<h5>Suivi nutritionnel</h5>
+						<p>50€ séance</p>
+					<li>
+						<h5>Coaching diététiquel</h5>
+						<p>100€/mois</p>
+					<li>
+						<h5>Accompagnement menus</h5>
+						<p>45€/mois</p>
+					<li>
+						<h5>Suivi grossesse</h5>
+						<p>120€/mois</p>
+
+				</ul>
+			</div>
+
+
+		</div>
+			<hr class="my-4 mb-5">
+		<div class="recipes">
+			<h2 class="mt-4 text-center mb-3">Recettes de base</h2>
+			<div class="d-flex justify-content-between flex-wrap">
+				{% for recipe in recipes %}
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">Recette numéro
+							{{ recipe.id }}</div>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a>
+							</h4>*
+							<div class="recipe__image card-image">
+								<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+							</div>
+
+							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
 		</div>
 	</div>
-</div>
+
 
 {% endblock %}
-
