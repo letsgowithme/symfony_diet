@@ -136,7 +136,7 @@ return $this->render('pages/user/new.html.twig', [
      *
      * @return Response
      */
-    #[Route('/admin', name: 'user.admin', methods: ['GET'])]
+    #[Route('/admin_office', name: 'user.admin', methods: ['GET'])]
     public function admin(): Response
     {
     return $this->render('pages/user/admin.html.twig');

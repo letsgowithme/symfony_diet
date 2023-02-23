@@ -120,7 +120,7 @@ class AppFixtures extends Fixture
             $contact = new Contact();
             $contact->setFullName($this->faker->name())
                 ->setEmail($this->faker->email())
-                ->setSubject('Demande n°' . ($i + 1))
+                ->setSubject($this->faker->words(3))
                 ->setMessage($this->faker->text());
 
             $manager->persist($contact);

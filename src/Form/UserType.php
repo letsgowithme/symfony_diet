@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Repository\AllergenRepository;
 use App\Repository\DietRepository;
 use App\Repository\RecipeRepository;
+use Doctrine\DBAL\Types\DateTimeImmutableType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -67,7 +68,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'choices'  => [
                     'User' => 'ROLE_USER',
-                    // 'Admin' => 'ROLE_ADMIN',
+                    'Admin' => 'ROLE_ADMIN',
                 ]
             ])
 
@@ -133,15 +134,15 @@ class UserType extends AbstractType
                 'label' => 'Date de naissance',
                 ])
 
-             ->add('createdAt',  DateType::class, [
-                'attr' => [
-                    'class' => 'ms-3'
-                ],
-                'widget' => 'single_text',
-                // this is actually the default format for single_text
-                'format' => 'yyyy-MM-dd',
-                'label' => 'Créé:',
-            ])
+            //  ->add('createdAt',  DateTimeImmutableType::class, [
+            //     'attr' => [
+            //         'class' => 'ms-3'
+            //     ],
+            //     'widget' => 'single_text',
+            //     // this is actually the default format for single_text
+            //     'format' => 'yyyy-MM-dd',
+            //     'label' => 'Créé:',
+            // ])
 
             ->add('submit', SubmitType::class, [
                 'attr' => [
