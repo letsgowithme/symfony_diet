@@ -1,68 +1,75 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	La recette {{ recipe.name }}
+	La recette
+	{{ recipe.name }}
 {% endblock %}
 
 {% block body %}
-  <div class="container">
-  	{% for message in app.flashes('success') %}
+	<div class="container">
+		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
 				{{ message }}
 			</div>
 		{%endfor %}
-<h1 class="mt-4">{{ recipe.name }}</h1>
+		<h1 class="mt-4">{{ recipe.name }}</h1>
 
-<div class="recipe__image">
+		<div class="recipe__image">
 			<img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 		</div>
 
 
-<p>La moyenne de cette recette est de {{ recipe.average|number_format(2,'.', '.') }} / 5</p>
+		<p>La moyenne de cette recette est de
+			{{ recipe.average|number_format(2,'.', '.') }}
+			/ 5</p>
 
-   <p class="mt-3 text-dark">Description:</p>
-  {{ recipe.description|raw }}
+		<p class="mt-3 text-dark">Description:</p>
+		{{ recipe.description|raw }}
 
-   <p class="mt-3 text-dark">Temps de préparation (en minutes): 
-  <span class="badge bg-primary mt-1">{{ recipe.preparationTime }}</span></p>
+		<p class="mt-3 text-dark">Temps de préparation (en minutes):
+			<span class="badge bg-primary mt-1">{{ recipe.preparationTime }}</span>
+		</p>
 
-  {% if recipe.pauseTime %} 
-   <p class="mt-3 text-dark">Temps de pause (en minutes):
-   <span class="badge bg-primary mt-1">  
-  {{ recipe.pauseTime }}</span></p>
-  {% else %}
-  <p class="mt-3 text-dark">Temps non renseigné</p>
-  {% endif %}
+		{% if recipe.pauseTime %}
+			<p class="mt-3 text-dark">Temps de pause (en minutes):
+				<span class="badge bg-primary mt-1">
+					{{ recipe.pauseTime }}</span>
+			</p>
+		{% else %}
+			<p class="mt-3 text-dark">Temps non renseigné</p>
+		{% endif %}
 
-   <p class="mt-3 text-dark">Temps de cuisson (en minutes): 
-   <span class="badge bg-primary mt-1"> 
-  {{ recipe.cookingTime }}</span></p>
+		<p class="mt-3 text-dark">Temps de cuisson (en minutes):
+			<span class="badge bg-primary mt-1">
+				{{ recipe.cookingTime }}</span>
+		</p>
 
- <p class="mt-3 text-dark">Ingrédients: </p>
-  {% for ingredient in recipe.ingredients %}
-    <span class="badge bg-primary mb-4">{{ ingredient.name }}</span>
-  {% endfor %}
-  
-  <p class="mt-3 text-dark">Étapes: </p>
-  {{ recipe.steps|raw }}
+		<p class="mt-3 text-dark">Ingrédients:
+		</p>
+		{% for ingredient in recipe.ingredients %}
+			<span class="badge bg-primary mb-4">{{ ingredient.name }}</span>
+		{% endfor %}
 
-{# {% if recipe.allergen %}  #}
-  <p class="mt-3 text-dark">Allergènes :
-  {% for allergen in recipe.allergens %}
-    <span class="badge bg-primary">{{ allergen.name }}</span></p>
-  {% endfor %}
- {# {% else %}
-  <p>Allergènes non renseignés</p>
-  {% endif %} #}
-
-  <p class="mt-3 text-dark">Régime :</p>
-  {% for diets in recipe.diets %}
-    <span class="badge bg-primary mt-1">{{ diets.name }}</span>
-  {% endfor %} 
-  <div class="mark">
-{{ form(form) }}
-</div>
-  </div>
+		<p class="mt-3 text-dark">Étapes:
+		</p>
+		{{ recipe.steps|raw }}
 
 
-{% endblock %}
+		<p class="mt-3 text-dark">Allergènes :
+			{% for allergen in recipe.allergens %}
+				<span class="badge bg-primary">{{ allergen.name }}</span>
+			</p>
+		{% endfor %}
+
+
+		<p class="mt-3 text-dark">Régime :</p>
+		{% for diets in recipe.diets %}
+			<span class="badge bg-primary mt-1">{{ diets.name }}</span>
+		{% endfor %}
+		<div class="mark">
+			{{ form(form) }}
+			</div>
+		</div>
+
+
+	{% endblock %}

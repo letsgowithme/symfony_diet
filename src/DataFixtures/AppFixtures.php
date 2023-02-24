@@ -33,6 +33,17 @@ class AppFixtures extends Fixture
     {
          // Users
          $users = [];
+
+         $admin = new User();
+         $admin->setFullName('Administrateur')
+                ->setEmail('administrateur@diet.fr')
+                ->setRoles(['ROLE_USER', 'ROLE_ADMIN'])
+                ->setPlainPassword('password');
+             
+                $users[] = $admin;
+            $manager->persist($admin);
+
+
          for ($j = 0; $j < 10; $j++) {
             $user = new User();
             $user->setFullName($this->faker->name())
@@ -120,7 +131,7 @@ class AppFixtures extends Fixture
             $contact = new Contact();
             $contact->setFullName($this->faker->name())
                 ->setEmail($this->faker->email())
-                ->setSubject($this->faker->words(3))
+                ->setSubject($this->faker->word())
                 ->setMessage($this->faker->text());
 
             $manager->persist($contact);

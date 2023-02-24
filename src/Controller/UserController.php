@@ -77,7 +77,7 @@ return $this->render('pages/user/new.html.twig', [
 
 
      #[Route('user/edition/{id}', 'user.edit', methods: ['GET', 'POST'])]
-    //  #[IsGranted('ROLE_ADMIN')]
+     #[IsGranted('ROLE_ADMIN')]
      public function edit(
  
         User $user,

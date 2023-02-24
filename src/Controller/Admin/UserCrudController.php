@@ -36,8 +36,7 @@ IdField::new('id')
 ->hideOnForm(),
 TextField::new('fullName'),
 
-TextField::new('email')
-->setFormTypeOption('disabled', 'disabled'),
+TextField::new('email'),
 DateTimeField::new('dateOfBirth')
 ->hideOnForm(),
 ArrayField::new('allergens'),

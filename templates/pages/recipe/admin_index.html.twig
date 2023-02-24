@@ -9,7 +9,7 @@
 		<h1>Mes recettes</h1>
 
 
-		 <a href="{{ path('recipe.new') }}  " class="btn btn-info">Créer une recette</a> 
+		<a href="{{ path('recipe.new') }} " class="btn btn-info">Créer une recette</a>
 
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
@@ -49,10 +49,10 @@
 						</td>
 						<td>{{ recipe.cookingTime }}</td>
 						<td>
-						{% for ingredient in recipe.ingredients %}
-                {{ ingredient.name }}	
+							{% for ingredient in recipe.ingredients %}
+								{{ ingredient.name }}
 							{% endfor %}
-							
+
 						</td>
 						<td>{{ recipe.steps }}</td>
 						<td>
@@ -76,4 +76,5 @@
 			</tbody>
 		</tr>
 	{% endfor %}
+
 </tbody></table></div>{% endblock %}

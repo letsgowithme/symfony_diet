@@ -22,50 +22,50 @@
 			<div class="form-error">
 				{{ form_errors(form.email) }}
 			</div>
-		</div>		 
-<br>
-<div class="form-group mb-4" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
-		{{ form_label(form.allergens) }}
-		<br>
-		<br>
-		<div class="choiceList-wrapper" style="color: rgb(85, 85, 93);">
-			{% for field in form.allergens %}
-				<div style="min-width: 15%;">
-					{{ form_widget(field) }}
-					{{ form_label(field) }}
-				</div>
-			{% endfor %}
 		</div>
-</div>
-<hr>
-<div class="form-group mb-3" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
-		{{ form_label(form.diets) }}
 		<br>
-		<br>
-		<div class="choiceList-wrapper" style="color: rgb(85, 85, 93);">
-			{% for field in form.diets %}
-				<div style="min-width: 15%;">
-					{{ form_widget(field) }}
-					{{ form_label(field) }}
-				</div>
-			{% endfor %}
+		<div class="form-group mb-4" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
+			{{ form_label(form.allergens) }}
+			<br>
+			<br>
+			<div class="choiceList-wrapper" style="color: rgb(85, 85, 93);">
+				{% for field in form.allergens %}
+					<div style="min-width: 15%;">
+						{{ form_widget(field) }}
+						{{ form_label(field) }}
+					</div>
+				{% endfor %}
+			</div>
 		</div>
+		<hr>
+		<div class="form-group mb-3" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
+			{{ form_label(form.diets) }}
+			<br>
+			<br>
+			<div class="choiceList-wrapper" style="color: rgb(85, 85, 93);">
+				{% for field in form.diets %}
+					<div style="min-width: 15%;">
+						{{ form_widget(field) }}
+						{{ form_label(field) }}
+					</div>
+				{% endfor %}
+			</div>
 		</div>
-<hr>
+		<hr>
 		<div class="form-group" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
-		{{ form_label(form.recipes) }}
-		<br>
-		<br>
-		<div class="choiceList-wrapper" style="color: rgb(85, 85, 93);">
-			{% for field in form.recipes %}
-				<div style="min-width: 15%;">
-					{{ form_widget(field) }}
-					{{ form_label(field) }}
-				</div>
-			{% endfor %}
+			{{ form_label(form.recipes) }}
+			<br>
+			<br>
+			<div class="choiceList-wrapper" style="color: rgb(85, 85, 93);">
+				{% for field in form.recipes %}
+					<div style="min-width: 15%;">
+						{{ form_widget(field) }}
+						{{ form_label(field) }}
+					</div>
+				{% endfor %}
+			</div>
 		</div>
-		</div>
-<hr>
+		<hr>
 		<div class="form-group" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
 			{{ form_label(form.dateOfBirth) }}
 			{{ form_widget(form.dateOfBirth) }}
@@ -75,13 +75,13 @@
 		</div>
 		<br>
 		<hr>
-	{# <div class="form-group" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
-			{{ form_label(form.createdAt) }}
-			{{ form_widget(form.createdAt) }}
-			<div class="form-error">
-				{{ form_errors(form.createdAt) }}
-			</div>
-		</div> #}
+		{# <div class="form-group" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
+					{{ form_label(form.createdAt) }}
+					{{ form_widget(form.createdAt) }}
+					<div class="form-error">
+						{{ form_errors(form.createdAt) }}
+					</div>
+				</div> #}
 		<br>
 		<hr>
 		<div class="form-group" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
@@ -92,18 +92,18 @@
 			</div>
 		</div>
 		<hr>
-			<div class="form-group mb-4" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
+		<div class="form-group mb-4" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
 			{{ form_label(form.plainPassword) }}
 			{{ form_widget(form.plainPassword) }}
 			<div class="form-error">
 				{{ form_errors(form.plainPassword) }}
 			</div>
 		</div>
-		
-			<div class="form-group" style="font-size: 1.6rem;">
-				{{ form_row(form.submit) }}
-			</div>
-<br><br>
-			{{ form_end(form) }}
+
+		<div class="form-group" style="font-size: 1.6rem;">
+			{{ form_row(form.submit) }}
 		</div>
-	{% endblock %}
+		<br><br>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}
