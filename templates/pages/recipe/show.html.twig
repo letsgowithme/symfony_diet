@@ -15,7 +15,7 @@
 		<h1 class="mt-4">{{ recipe.name }}</h1>
 
 		<div class="recipe__image">
-			<img style="max-width: 500px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+			<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 		</div>
 
 
@@ -68,8 +68,29 @@
 		{% endfor %}
 		<div class="mark">
 			{{ form(form) }}
+
+				<div class="mt-5">
+					<h2 class="text-2xl mb-8">Commentaire(s)</h2>
+					<div class="comments">
+						{% for comment in recipe.comments %}
+							<div class="comment flex justify-start mb-4">
+								<div>
+									<div class="block p-6 rounded-lg shadow-lg bg-white">
+										<div class="md-ml-6">
+										<p>{{ comment.author }}</p>
+											<p class="text-dark fs-5">
+												{{ comment.content|raw }}
+											</p>
+											
+										</div>
+
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
 			</div>
 		</div>
-
 
 	{% endblock %}

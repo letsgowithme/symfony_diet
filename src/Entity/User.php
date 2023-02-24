@@ -286,10 +286,7 @@ public function eraseCredentials()
 
         return $this;
     }
-    public function __toString()
-{
-return (string) $this->fullName;
-}
+   
 
     /**
      * @return Collection<int, Mark>
@@ -319,5 +316,9 @@ return (string) $this->fullName;
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+    return (string) $this->fullName;
     }
 }

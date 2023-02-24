@@ -9,6 +9,7 @@ use App\Entity\Ingredient;
 use App\Entity\Mark;
 use App\Entity\Recipe;
 use App\Entity\User;
+use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -85,7 +86,7 @@ class AppFixtures extends Fixture
             $diets[] = $diet;
             $manager->persist($diet);
         }
-
+        
         //Recipes
         $recipes = [];
         for ($j = 0; $j < 25; $j++) {
@@ -110,11 +111,25 @@ class AppFixtures extends Fixture
             $recipe->setisPublic(mt_rand(0, 1) == 1 ? true : false);
             
             $recipe->setUser($users[mt_rand(0, count($users) - 1)]);
+
+           
            
 
             $recipes[] = $recipe;
             $manager->persist($recipe);
         }
+        //Comments
+        // $comments = [];
+        for ($n = 0; $n < 15; $n++) {
+            $comment = new Comment();
+            $comment->setContent($this->faker->text())
+                    ->setIsApprouved(mt_rand(0, 3) === 0 ? false : true)
+                    ->setAuthor($users[mt_rand(0, count($users) - 1)])
+                    ->setRecipe($recipe);
+
+            $manager->persist($comment);
+        }
+
          // Marks
          foreach ($recipes as $recipe) {
             for ($i = 0; $i < mt_rand(0, 4); $i++) {

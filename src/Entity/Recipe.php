@@ -70,6 +70,9 @@ class Recipe
 
     private ?float $average = null;
 
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'recipe', orphanRemoval: true)]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -77,6 +80,7 @@ class Recipe
         $this->diets = new ArrayCollection();
         $this->marks = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->comments = new ArrayCollection();
     }
 // #[ORM\PrePersist()]
 //     public function setUpdatedAtValue()
@@ -371,6 +375,26 @@ return (string) $this->name;
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of comments
+     */ 
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set the value of comments
+     *
+     * @return  self
+     */ 
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
 
         return $this;
     }
