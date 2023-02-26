@@ -37,7 +37,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Demandes de contact', 'fas fa-envelope', Contact::class);
         yield MenuItem::linkToCrud('Allergènes', 'fas fa-hand-dots', Allergen::class);
         yield MenuItem::linkToCrud('Recettes', 'fas fa-bowl-food', Recipe::class);
-        yield MenuItem::linkToCrud('Régimes', 'fas fa-fork', Diet::class);
+        yield MenuItem::linkToCrud('Régimes', 'fas fa-seedling', Diet::class);
     }
 }
 
