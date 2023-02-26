@@ -66,31 +66,52 @@
 		{% for diets in recipe.diets %}
 			<span class="badge bg-primary mt-1">{{ diets.name }}</span>
 		{% endfor %}
-		<div class="mark">
-			{{ form(form) }}
+<div>
+{% if formMark is defined %}
+		{{ form_start(formMark) }}
 
-				<div class="mt-5">
-					<h2 class="text-2xl mb-8">Commentaire(s)</h2>
-					<div class="comments">
-						{% for comment in recipe.comments %}
-							<div class="comment flex justify-start mb-4">
-								<div>
-									<div class="block p-6">
-										<div class="md-ml-6">
-										<p>{{ comment.author }}</p>
-											<p class="text-dark fs-5">
-												{{ comment.content|raw }}
-											</p>
-											
-										</div>
+						{{ form_label(formMark.mark) }}
+						{{ form_widget(formMark.mark) }}
+						{{ form_row(formMark.submit) }}
+					
+		{{ form_end(formMark) }}
+		{% endif %}
+		</div>
+			<div class="mt-5"> <h2 class="text-2xl mb-8">Commentaire(s)</h2>
+			<div class="comments">
+			{% if app.user %}
+				<div class="comments__new">
+					<div class="w-full-width">
+						{{ form_start(formComment) }}
 
-									</div>
-								</div>
-							</div>
-						{% endfor %}
+						{{ form_label(formComment.content) }}
+						{{ form_widget(formComment.content) }}
+						{{ form_row(formComment.submit) }}
+					
+						{{ form_end(formComment) }}
 					</div>
 				</div>
+{% endif %}
+				{% for comment in recipe.comments %}
+					{% if comment.isApproved %}
+						<div class="comment flex justify-start mb-4">
+							<div>
+								<div class="block p-6 mx-4">
+									<div class="md-ml-6">
+										<p>{{ comment.author }}</p>
+										<p class="text-dark fs-5">
+											{{ comment.content|raw }}
+										</p>
+										<hr class="mx-4">
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					{% endif %}
+				{% endfor %}
 			</div>
 		</div>
-
-	{% endblock %}
+	</div>
+</div>{% endblock %}

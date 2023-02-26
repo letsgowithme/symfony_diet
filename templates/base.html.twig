@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/_variables.scss') }}">
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+		{# <link rel="stylesheet" href="{{ asset('assets/css/fontawesome.min.css') }}"> #}
 		<link
 		rel="stylesheet" href="/style.css">
 		{# <link rel="bg-img" sizes="1980x1780" href="{{ asset('/assets/images/bg.jpg') }}"> #}
@@ -27,10 +28,10 @@
 	<body style="display: flex; flex-direction: column; min-height: 100vh; width: 100%;">
 		{% block header %}
 		{% include "partials/_nav.html.twig" %}
-		
 		{% endblock %}
 	
 		{% block body %}{% endblock %}
+		
 		{% include "partials/_footer.html.twig" %}
 	</body>
 </html>

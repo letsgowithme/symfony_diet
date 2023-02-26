@@ -14,7 +14,7 @@ class RecipeTest extends KernelTestCase
         $recipe = new Recipe();
         $recipe->setName('Recipe #1')
                ->setDescription('Recipe #1 description')
-            //    ->setCreatedAt(new \DateTimeImmutable())
+            //    ->setcreatedAt(new \DateTimeImmutable())
                ->setUpdatedAt(new \DateTimeImmutable());
 
         $errors = $container->get('validator')->validate($recipe);

@@ -19,14 +19,14 @@
 		<div class="jumbotron">
 
 			<div class="d-flex flex-row justify-between about align-items-center" style="background-color: rgb(135, 219, 237); height: auto;">
-				<div class="col-md-6 col-sm-6 col-xs-12  d-flex flex-column text-center">
+				<div class="col-md-6 col-sm-6 col-xs-12  d-flex flex-column text-center me-5">
 					<h3 class="mb-5">À  propos</h3>
 					<p class="lead fs-4">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
 										            professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques.
 										            J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
 				</div>
 
-				<div class="col-md-6 col-sm-6 col-xs-12 text-center">
+				<div class="col-md-6 col-sm-6 col-xs-12 me-0">
 					{% include "partials/_home_img1.html.twig" %}
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 				{% include "partials/_home_img2.html.twig" %}
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12 me-2 d-flex flex-column text-center">
-				<h3 class="mb-4">Mes services</h3>
+				<h3 class="mb-4 mt-3">Mes services</h3>
 				<ul class="lead fs-4" style="list-style-type: none;">
 					<li>
 						<h5>Bilan nutritionnel</h5>
@@ -74,7 +74,7 @@
 						<div class="card-body">
 							<h4 class="card-title">
 								<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a>
-							</h4>*
+							</h4>
 							<div class="recipe__image card-image">
 								<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 							</div>

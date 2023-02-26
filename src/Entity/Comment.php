@@ -25,14 +25,14 @@ class Comment
     private Recipe $recipe; 
 
     #[ORM\Column(type: 'boolean')]
-    private ?bool $isApprouved = false;
+    private ?bool $isApproved = false;
 
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private \DateTimeImmutable $createdat;
+    private \DateTimeImmutable $createdAt;
 
     public function __construct(){
-        $this->createdat = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
     }
         
 
@@ -103,23 +103,43 @@ class Comment
     }
 
     /**
-     * Get the value of isApprouved
+     * Get the value of isApproved
      */ 
-    public function getIsApprouved()
+    public function getisApproved()
     {
-        return $this->isApprouved;
+        return $this->isApproved;
     }
 
     /**
-     * Set the value of isApprouved
+     * Set the value of isApproved
      *
      * @return  self
      */ 
-    public function setIsApprouved($isApprouved)
+    public function setisApproved($isApproved)
     {
-        $this->isApprouved = $isApprouved;
+        $this->isApproved = $isApproved;
 
         return $this;
     }
     
+
+    /**
+     * Get the value of createdAt
+     */ 
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set the value of createdAt
+     *
+     * @return  self
+     */ 
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 }

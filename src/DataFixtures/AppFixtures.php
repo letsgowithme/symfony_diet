@@ -120,14 +120,16 @@ class AppFixtures extends Fixture
         }
         //Comments
         // $comments = [];
+        foreach ($recipes as $recipe) {
         for ($n = 0; $n < 15; $n++) {
             $comment = new Comment();
             $comment->setContent($this->faker->text())
-                    ->setIsApprouved(mt_rand(0, 3) === 0 ? false : true)
+                    ->setisApproved(mt_rand(0, 3) === 0 ? false : true)
                     ->setAuthor($users[mt_rand(0, count($users) - 1)])
                     ->setRecipe($recipe);
 
             $manager->persist($comment);
+        }
         }
 
          // Marks

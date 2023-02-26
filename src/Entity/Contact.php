@@ -95,12 +95,12 @@ class Contact
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getcreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    public function setcreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
