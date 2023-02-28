@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ingredient{% endblock %}
+
+{% block body %}
+    <h1>Ingredient</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ingredient.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ ingredient.name }}</td>
+            </tr>
+            <tr>
+                <th>Allergen ?</th>
+                <td>{{ ingredient.isAllergen ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ingredient.index') }}">Liste d'ingredients</a>
+
+    <a href="{{ path('ingredient.edit', {'id': ingredient.id}) }}">Modifier</a>
+
+   
+{% endblock %}

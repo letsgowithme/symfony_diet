@@ -26,6 +26,9 @@ class Recipe
     #[Assert\NotBlank()]
     private ?string $name = null;
 
+    // #[ORM\Column(length: 250)]
+    // private ?string $image = null;
+
     #[Vich\UploadableField(mapping: 'recipe_images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
@@ -62,7 +65,7 @@ class Recipe
     #[ORM\Column]
     private ?bool $isPublic = false;
 
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class, orphanRemoval: true)]
     private Collection $marks;
   
     #[ORM\Column]
@@ -114,11 +117,11 @@ class Recipe
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(?File $ImageFile = null): void
     {
-        $this->imageFile = $imageFile;
+        $this->imageFile = $ImageFile;
 
-        if (null !== $imageFile) {
+        if (null !== $ImageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
@@ -304,10 +307,7 @@ class Recipe
 
         return $this;
     }
-    public function __toString()
-{
-return (string) $this->name;
-}
+  
 
     /**
      * @return Collection<int, Mark>
@@ -398,4 +398,27 @@ return (string) $this->name;
 
         return $this;
     }
+    public function __toString() {
+        return (string) $this->name;
+        }
+
+    /**
+     * Get the value of image
+     */ 
+    // public function getImage()
+    // {
+    //     return $this->image;
+    // }
+
+    // /**
+    //  * Set the value of image
+    //  *
+    //  * @return  self
+    //  */ 
+    // public function setImage($image)
+    // {
+    //     $this->image = $image;
+
+    //     return $this;
+    // }
 }

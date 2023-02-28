@@ -25,7 +25,6 @@ class AllergenController extends AbstractController
     public function index(AllergenRepository $repository): Response
     {
         $allergens = $repository->findBy(['user' => $this->getUser()]);
-        // $allergens = $repository->findAll();
         return $this->render('pages/allergen/index.html.twig', [
             'allergens' =>  $allergens
         ]);

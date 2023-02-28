@@ -1,21 +1,23 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-	Mes recettes
+	Recettes mubliques
 {% endblock %}
+
 {% block body %}
-	<div class="container mt-4">
-		<h1>Mes recettes</h1>
+	<div class="container mt-4"">
+		<h1>Recettes de base</h1>
 		<div class="d-flex justify-content-center flex-wrap">
 			{% for recipe in recipes %}
-				<div class="card border-primary mb-3 me-3" style="max-width: 20rem;">
+				<div class="card border-primary mb-3 me-3" style="width: 20rem;">
 					<div class="card-header">Recette numéro
 						{{ recipe.id }}</div>
 					<div class="card-body">
 						<h4 class="card-title">
-						<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a></h4>
+						<a href="{{ path('recipe.show_public', {id: recipe.id}) }}">{{ recipe.name }}</a></h4>
+
 						<div class="recipe__image card-image">
-			<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
-		</div>
+							<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+						</div>
 						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 					</div>
 				</div>

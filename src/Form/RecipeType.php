@@ -186,14 +186,14 @@ class RecipeType extends AbstractType
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image de la recette',
                 'label_attr' => [
-                    'class' => 'form-label mt-4'
+                    'class' => 'form-label mt-4 w-350 h-auto'
                 ],
                 'required' => false
             ])
     
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4 mb-4 text-dark fs-5'
+                    'class' => 'btn btn-primary mt-4 mb-4 fs-5'
                 ],
             'label' => 'Sauvegarder la recette'
         ]);

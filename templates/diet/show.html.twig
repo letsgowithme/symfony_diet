@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diet{% endblock %}
+
+{% block body %}
+    <h1>Diet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ diet.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ diet.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('diet.index') }}">Liste de régimes</a>
+
+    <a href="{{ path('diet_edit', {'id': diet.id}) }}">Modifier</a>
+
+    
+{% endblock %}

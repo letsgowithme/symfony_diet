@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} La liste d'allergènes' {% endblock %}
+{% block title %} La liste de régimes {% endblock %}
 
 {% block body %}
 <div class="container mt-4">
-<h1>Les allergènes</h1>
+<h1>Les régimes</h1>
 
-<a href="{{ path('allergen.new') }} " class="btn btn-info">Créer un allergène</a>
+<a href="{{ path('diet.new') }} " class="btn btn-info">Créer une régime</a>
 {% for message in app.flashes('success') %}
 <div class="alert alert-success">
 {{ message }}
@@ -22,12 +22,12 @@
 </tr>
 </thead>
 <tbody>
-{% for allergen in allergens %}
+{% for diet in diets %}
 <tr class="table-primary">
-<th scope="row">{{ allergen.id }}</th>
-<td>{{ allergen.name }}</td>
-<td><a href="{{ path('allergen.edit', {id: allergen.id}) }}" class="btn btn-danger">Modifier</a></td>
-<td><a href="{{ path('allergen.delete', {id: allergen.id}) }}" class="btn btn-warning">Supprimer</a>
+<th scope="row">{{ diet.id }}</th>
+<td>{{ diet.name }}</td>
+<td><a href="{{ path('diet.edit', {id: diet.id}) }}" class="btn btn-danger">Modifier</a></td>
+<td><a href="{{ path('diet.delete', {id: diet.id}) }}" class="btn btn-warning">Supprimer</a>
 </td>
 </tr>
 {% endfor %}
@@ -35,5 +35,4 @@
 </table>
 </div>
 {% endblock %}
-
 

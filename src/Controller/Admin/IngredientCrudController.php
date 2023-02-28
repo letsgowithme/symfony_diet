@@ -2,16 +2,16 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Allergen;
+use App\Entity\Ingredient;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class AllergenCrudController extends AbstractCrudController
+class IngredientCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Allergen::class;
+        return Ingredient::class;
     }
 
     
@@ -20,7 +20,7 @@ class AllergenCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('name'),
-          
+            
         ];
     }
     

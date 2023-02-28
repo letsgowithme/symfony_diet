@@ -25,7 +25,6 @@ class DietController extends AbstractController
     public function index(DietRepository $repository): Response
     {
         $diets = $repository->findBy(['user' => $this->getUser()]);
-        // $diets = $repository->findAll();
         return $this->render('pages/diet/index.html.twig', [
             'diets' =>  $diets
         ]);

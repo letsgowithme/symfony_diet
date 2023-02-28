@@ -33,7 +33,7 @@ class MarkType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary mt-4 mb-4 text-dark fs-5'
+                    'class' => 'btn btn-primary mt-4 mb-4 fs-5'
                 ],
             'label' => 'Noter la recette'
         ]);

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 class IngredientController extends AbstractController
@@ -20,11 +21,12 @@ class IngredientController extends AbstractController
    * @param IngredientRepository $repository
    * @return Response
    */
+  #[IsGranted('ROLE_ADMIN')]
   #[Route('/ingredient', name: 'ingredient.index', methods: ['GET'])]
   public function index(IngredientRepository $repository): Response
   {
     $ingredients = $repository->findBy(['user' => $this->getUser()]);
-    return $this->render('pages/ingredient/index.html.twig', [
+    return $this->render('ingredient/index.html.twig', [
       'ingredients' => $ingredients
     ]);
   }
@@ -35,7 +37,7 @@ class IngredientController extends AbstractController
    * @param EntityManagerInterface $manager
    * @return Response
    */
-  #[Route('/ingredient/creation', 'ingredient.new', methods: ['GET', 'POST'])]
+  #[Route('/ingredient/new', 'ingredient.new', methods: ['GET', 'POST'])]
   public function new(
     Request $request,
     EntityManagerInterface $manager
@@ -59,7 +61,7 @@ class IngredientController extends AbstractController
 
       return $this->redirectToRoute('ingredient.index');
     }
-    return $this->render('pages/ingredient/new.html.twig', [
+    return $this->render('ingredient/new.html.twig', [
       'form' => $form->createView()
     ]);
   }
@@ -70,7 +72,7 @@ class IngredientController extends AbstractController
    * @return Response
    */
 
-  #[Route('ingredient/edition/{id}', 'ingredient.edit', methods: ['GET', 'POST'])]
+  #[Route('ingredient/edit/{id}', 'ingredient.edit', methods: ['GET', 'POST'])]
   public function edit(
 
     Ingredient $ingredient,
@@ -99,7 +101,7 @@ class IngredientController extends AbstractController
       return $this->redirectToRoute('ingredient.index');
     }
 
-    return $this->render('pages/ingredient/edit.html.twig', [
+    return $this->render('ingredient/edit.html.twig', [
       'form' => $form->createView()
     ]);
   }

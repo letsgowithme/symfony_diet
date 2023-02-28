@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	Créer un patient
+
+{% block title %}Modification de l'utilisateur
 {% endblock %}
+
 {% block body %}
 	<div class="container">
+		<h1 class="mt-4">Formulaire de modification des informations de l'utilisateur</h1>
+		{% for message in app.flashes('warning') %}
+			<div class="alert alert-warning mt-4">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-		<h1 class="mt-4">Créer un patient</h1>
 
 		{{ form_start(form) }}
 
@@ -73,16 +79,6 @@
 				{{ form_errors(form.dateOfBirth) }}
 			</div>
 		</div>
-		<br>
-		<hr>
-		{# <div class="form-group" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
-					{{ form_label(form.createdAt) }}
-					{{ form_widget(form.createdAt) }}
-					<div class="form-error">
-						{{ form_errors(form.createdAt) }}
-					</div>
-				</div> #}
-		<br>
 		<hr>
 		<div class="form-group" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
 			{{ form_label(form.roles) }}
@@ -92,14 +88,6 @@
 			</div>
 		</div>
 		<hr>
-		<div class="form-group mb-4" style="color: rgb(13, 108, 149); font-size: 1.4rem;">
-			{{ form_label(form.plainPassword) }}
-			{{ form_widget(form.plainPassword) }}
-			<div class="form-error">
-				{{ form_errors(form.plainPassword) }}
-			</div>
-		</div>
-
 		<div class="form-group" style="font-size: 1.6rem;">
 			{{ form_row(form.submit) }}
 		</div>

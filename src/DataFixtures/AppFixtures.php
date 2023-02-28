@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
         
         //Ingredients
         $ingredients = [];
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $ingredient = new Ingredient();
             $ingredient->setName($this->faker->word())
                        ->setIsAllergen(mt_rand(0, 1) == 1 ? true : false);
@@ -69,7 +69,7 @@ class AppFixtures extends Fixture
         }
         //Allergens
         $allergens = [];
-        for ($n = 0; $n < 20; $n++) {
+        for ($n = 0; $n < 5; $n++) {
             $allergen = new Allergen();
             $allergen->setName($this->faker->word());
             $allergen->setUser($users[mt_rand(0, count($users) - 1)]);
@@ -79,7 +79,7 @@ class AppFixtures extends Fixture
 
         //Diets
         $diets = [];
-        for ($n = 0; $n < 20; $n++) {
+        for ($n = 0; $n < 5; $n++) {
             $diet = new Diet();
             $diet->setName($this->faker->word());
             $diet->setUser($users[mt_rand(0, count($users) - 1)]);
@@ -89,7 +89,7 @@ class AppFixtures extends Fixture
         
         //Recipes
         $recipes = [];
-        for ($j = 0; $j < 25; $j++) {
+        for ($j = 0; $j < 5; $j++) {
             $recipe = new Recipe();
             $recipe->setName($this->faker->word())
                 ->setDescription($this->faker->text(100))
@@ -97,7 +97,7 @@ class AppFixtures extends Fixture
                 ->setPauseTime(mt_rand(1, 1440))
                 ->setCookingTime(mt_rand(1, 1440));
 
-            for ($k = 0; $k < mt_rand(5, 15); $k++) {
+            for ($k = 0; $k < mt_rand(5, 5); $k++) {
                 $recipe->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
             }
             $recipe->setSteps($this->faker->text(100));
@@ -112,16 +112,13 @@ class AppFixtures extends Fixture
             
             $recipe->setUser($users[mt_rand(0, count($users) - 1)]);
 
-           
-           
-
             $recipes[] = $recipe;
             $manager->persist($recipe);
         }
         //Comments
-        // $comments = [];
+        $comments = [];
         foreach ($recipes as $recipe) {
-        for ($n = 0; $n < 15; $n++) {
+        for ($n = 0; $n < 5; $n++) {
             $comment = new Comment();
             $comment->setContent($this->faker->text())
                     ->setisApproved(mt_rand(0, 3) === 0 ? false : true)
