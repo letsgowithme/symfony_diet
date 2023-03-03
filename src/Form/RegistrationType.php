@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -49,6 +50,17 @@ class RegistrationType extends AbstractType
                     new Assert\Length(['min' => 8, 'max' => 180]),
                     new Assert\Email(),
                     new Assert\NotBlank()
+                ]
+            ])
+            ->add('dateOfBirth', BirthdayType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'label' => 'Date de naissance',
+                'label_attr' => [
+                    'class' => 'form-label mt-4'
                 ]
             ])
 
