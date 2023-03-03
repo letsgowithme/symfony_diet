@@ -1,30 +1,11 @@
 {% extends 'base.html.twig' %}
-{% block title %} Créer un nouveau ingrédient {% endblock %}
+
+{% block title %}New Ingredient{% endblock %}
+
 {% block body %}
-<div class="container">
+    <h1>Create new Ingredient</h1>
 
-    <h1 class="mt-4">Créer un ingrédient</h1>
-    {{ form_start(form) }}
+    {{ include('ingredient/_form.html.twig') }}
 
-
-    <div class="form-group">
-        {{ form_label(form.name) }}
-        {{ form_widget(form.name) }}
-        <div class="form-error">
-            {{ form_errors(form.name) }}
-    </div>
-</div>
-    <div class="form-group">
-        {{ form_label(form.isAllergen) }}
-        {{ form_widget(form.isAllergen) }}
-        <div class="form-error">
-            {{ form_errors(form.isAllergen) }}
-    </div>
-</div>
-
-    <div class="form-group">
-        {{ form_row(form.submit) }}
-    </div>
-    {{ form_end(form) }}
-</div>
+    <a href="{{ path('app_ingredient_index') }}">back to list</a>
 {% endblock %}

@@ -1,22 +1,13 @@
 {% extends 'base.html.twig' %}
-{% block title %} Éditer le régime {% endblock %}
+
+{% block title %}Modifier le régime{% endblock %}
+
 {% block body %}
-<div class="container">
+    <h1>Modifier le régime</h1>
 
-<h1 class="mt-4">Modifier le régime</h1>
+    {{ include('diet/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-{{ form_start(form) }}
-<div class="form-group">
-{{ form_label(form.name) }}
-{{ form_widget(form.name) }}
-    <div class="form-error">
-    {{ form_errors(form.name) }}
-    </div>
-</div>
+    <a href="{{ path('diet.index') }}">back to list</a>
 
-{{ form_end(form) }}
-
-</div>
+    {{ include('diet/_delete_form.html.twig') }}
 {% endblock %}
-
-

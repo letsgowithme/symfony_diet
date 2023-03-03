@@ -175,9 +175,9 @@ class RecipeType extends AbstractType
                     'class' => 'form-check-input mt-4',
                 ],
                 'required' => false,
-                'label' => 'Recette de base ? ',
+                'label' => 'Recette publique ? ',
                 'label_attr' => [
-                    'class' => 'form-check-label mt-4 text-dark fs-5'
+                    'class' => 'form-check-label mt-3 ms-3 text-dark fs-5'
                 ],
                 'constraints' => [
                     new Assert\NotNull()

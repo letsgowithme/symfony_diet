@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserCrudController extends AbstractCrudController
 {
@@ -29,14 +30,19 @@ return $crud
 ;
 }
 
+
+
 public function configureFields(string $pageName): iterable
 {
 return [
 IdField::new('id')
 ->hideOnForm(),
 TextField::new('fullName'),
-
 TextField::new('email'),
+TextField::new('password')
+            ->setFormType(PasswordType::class)
+            ->setFormTypeOption('empty_data', '')
+            ->setRequired(true),
 DateTimeField::new('dateOfBirth')
 ->hideOnForm(),
 AssociationField::new('allergens'),
@@ -49,6 +55,7 @@ DateTimeField::new('createdAt')
 ->setFormTypeOption('disabled', 'disabled'),
 ];
 }
+
 }
 
 

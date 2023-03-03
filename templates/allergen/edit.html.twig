@@ -1,22 +1,13 @@
 {% extends 'base.html.twig' %}
-{% block title %} Éditer l'allergène {% endblock %}
+
+{% block title %}Edit Allergen{% endblock %}
+
 {% block body %}
-<div class="container">
+    <h1>Edit Allergen</h1>
 
-<h1 class="mt-4">Modifier l'allergène</h1>
+    {{ include('allergen/_form.html.twig', {'button_label': 'Update'}) }}
 
-{{ form_start(form) }}
-<div class="form-group">
-{{ form_label(form.name) }}
-{{ form_widget(form.name) }}
-    <div class="form-error">
-    {{ form_errors(form.name) }}
-    </div>
-</div>
+    <a href="{{ path('app_allergen_index') }}">back to list</a>
 
-{{ form_end(form) }}
-
-</div>
+    {{ include('allergen/_delete_form.html.twig') }}
 {% endblock %}
-
-

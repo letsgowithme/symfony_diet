@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\User1Type;
+use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/user')]
+#[Route('/admin/user')]
 class UserController extends AbstractController
 {
     #[IsGranted('ROLE_ADMIN')]
@@ -38,11 +38,11 @@ class UserController extends AbstractController
         ): Response
     {
         $user = new User();
-        $form = $this->createForm(User1Type::class, $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-
             $manager->persist($user);
             $manager->flush();
 
@@ -51,9 +51,9 @@ class UserController extends AbstractController
                 'Votre user a bien été créé'
             );
 
-            return $this->redirectToRoute('recipe.index');
+            return $this->redirectToRoute('user.index');
         }
-return $this->render('pages/user/new.html.twig', [
+return $this->render('user/new.html.twig', [
     'form' => $form->createView()
 ]);
     }
@@ -70,62 +70,63 @@ return $this->render('pages/user/new.html.twig', [
             'user' => $user,
         ]);
     }
-    /**
+
+     /**
      * This function edits the user
      * @param Request $request
      * @param User $user
      * @return Response
      */
-     #[Route('user/edition/{id}', 'user.edit', methods: ['GET', 'POST'])]
-     #[IsGranted('ROLE_ADMIN')]
-     public function edit(
-        User $user,
-         EntityManagerInterface $manager,
-         Request $request
-     ) : Response {
-        $form = $this->createForm(UserType::class, $user);
-         $form->handleRequest($request);
- 
-         if ($form->isSubmitted() && $form->isValid()) {
-             $user = $form->getData();
- 
-             $manager->persist($user);
-             $manager->flush();
- 
-             $this->addFlash(
-                 'success',
-                 'Votre user a été modifié avec succès !'
-             );
- 
-             return $this->redirectToRoute('user.index');
-         }
- 
-         return $this->render('pages/user/edit.html.twig', [
-             'form' => $form->createView()
-         ]);
-     }
-/**
-     * This controller allows us to delete a user
-     *
-     * @param EntityManagerInterface $manager
-     * @param User $user
-     * @return Response
-     */
-    #[Route('/user/suppression/{id}', 'user.delete', methods: ['GET'])]
+    #[Route('/edit/{id}', 'user.edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    public function delete(
+    public function edit(
+       User $user,
         EntityManagerInterface $manager,
-        User $user
-    ): Response {
-       
-        $manager->remove($user);
-        $manager->flush();
+        Request $request
+    ) : Response {
+       $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
-        $this->addFlash(
-            'success',
-            'Votre user a été supprimé avec succès !'
-        );
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
 
-        return $this->redirectToRoute('user.index');
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre user a été modifié avec succès !'
+            );
+
+            return $this->redirectToRoute('user.index');
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
+/**
+    * This controller allows us to delete a user
+    *
+    * @param EntityManagerInterface $manager
+    * @param User $user
+    * @return Response
+    */
+   #[Route('/{id}/delete/', 'user.delete', methods: ['GET'])]
+   #[IsGranted('ROLE_ADMIN')]
+   public function delete(
+       EntityManagerInterface $manager,
+       User $user
+   ): Response {
+      
+       $manager->remove($user);
+       $manager->flush();
+
+       $this->addFlash(
+           'success',
+           'Votre user a été supprimé avec succès !'
+       );
+
+       return $this->redirectToRoute('user.index');
+   }
 }

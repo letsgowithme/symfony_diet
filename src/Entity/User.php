@@ -33,21 +33,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $plainPassword = null;
 
-/**
-* @var string The hashed password
-*/
-#[ORM\Column]
-#[Assert\NotBlank()]
-private ?string $password = 'password';
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    #[Assert\NotBlank()]
+    private ?string $password = 'password';
 
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergen::class)]
+    #[ORM\ManyToMany(targetEntity: Allergen::class)]
     private Collection $allergens;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Diet::class)]
+    #[ORM\ManyToMany(targetEntity: Diet::class)]
     private Collection $diets;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
+    #[ORM\ManyToMany(targetEntity: Recipe::class)]
     private Collection $recipes;
 
     #[ORM\Column]
@@ -97,83 +97,81 @@ private ?string $password = 'password';
 
         return $this;
     }
-/**
-* A visual identifier that represents this user.
-*
-* @see UserInterface
-*/
-public function getUserIdentifier(): string
-{
-return (string) $this->email;
-}
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
 
-/**
-* @see UserInterface
-*/
-public function getRoles(): array
-{
-$roles = $this->roles;
-// guarantee every user at least has ROLE_USER
-$roles[] = 'ROLE_USER';
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
 
-return array_unique($roles);
-}
+        return array_unique($roles);
+    }
 
-public function setRoles(array $roles): self
-{
-$this->roles = $roles;
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
-return $this;
-}
+        return $this;
+    }
 
-/**
-* Get the value of plainPassword
-*/
-public function getPlainPassword()
-{
-return $this->plainPassword;
-}
+    /**
+     * Get the value of plainPassword
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
 
-/**
-* Set the value of plainPassword
-*
-* @return self
-*/
-public function setPlainPassword($plainPassword)
-{
-$this->plainPassword = $plainPassword;
+    /**
+     * Set the value of plainPassword
+     *
+     * @return self
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
 
-return $this;
-}
+        return $this;
+    }
 
-/**
-* @see PasswordAuthenticatedUserInterface
-*/
-public function getPassword(): string
-{
-return $this->password;
-}
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
 
-public function setPassword(string $password): self
-{
-$this->password = $password;
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
-return $this;
-}
+        return $this;
+    }
 
-/**
-* @see UserInterface
-*/
-public function eraseCredentials()
-{
-// If you store any temporary, sensitive data on the user, clear it here
-// $this->plainPassword = null;
-}
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 
     /**
      *  @return Collection<int, Allergen>
      */
-     
     public function getAllergens(): Collection
     {
         return $this->allergens;
@@ -183,7 +181,6 @@ public function eraseCredentials()
     {
         if (!$this->allergens->contains($allergen)) {
             $this->allergens->add($allergen);
-            $allergen->setUser($this);
         }
 
         return $this;
@@ -191,21 +188,15 @@ public function eraseCredentials()
 
     public function removeAllergen(Allergen $allergen): self
     {
-        if ($this->allergens->removeElement($allergen)) {
-            // set the owning side to null (unless already changed)
-            if ($allergen->getUser() === $this) {
-                $allergen->setUser(null);
-            }
-        }
+        $this->allergens->removeElement($allergen);
 
         return $this;
     }
 
+
     /**
      *   @return Collection<int, Diet>
      */
-   
-     
     public function getDiets(): Collection
     {
         return $this->diets;
@@ -215,7 +206,6 @@ public function eraseCredentials()
     {
         if (!$this->diets->contains($diet)) {
             $this->diets->add($diet);
-            $diet->setUser($this);
         }
 
         return $this;
@@ -223,15 +213,12 @@ public function eraseCredentials()
 
     public function removeDiet(Diet $diet): self
     {
-        if ($this->diets->removeElement($diet)) {
-            // set the owning side to null (unless already changed)
-            if ($diet->getUser() === $this) {
-                $diet->setUser(null);
-            }
-        }
+        $this->diets->removeElement($diet);
 
         return $this;
     }
+
+
 
     /**
      * @return Collection<int, Recipe>
@@ -245,7 +232,6 @@ public function eraseCredentials()
     {
         if (!$this->recipes->contains($recipe)) {
             $this->recipes->add($recipe);
-            $recipe->setUser($this);
         }
 
         return $this;
@@ -253,15 +239,12 @@ public function eraseCredentials()
 
     public function removeRecipe(Recipe $recipe): self
     {
-        if ($this->recipes->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
-            if ($recipe->getUser() === $this) {
-                $recipe->setUser(null);
-            }
-        }
+        $this->recipes->removeElement($recipe);
 
         return $this;
     }
+
+
 
     public function getDateOfBirth(): ?\DateTimeInterface
     {
@@ -286,7 +269,7 @@ public function eraseCredentials()
 
         return $this;
     }
-   
+
 
     /**
      * @return Collection<int, Mark>
@@ -319,6 +302,6 @@ public function eraseCredentials()
     }
     public function __toString()
     {
-    return (string) $this->fullName;
+        return (string) $this->fullName;
     }
 }

@@ -12,15 +12,15 @@
                 <td>{{ diet.id }}</td>
             </tr>
             <tr>
-                <th>Nom</th>
+                <th>Name</th>
                 <td>{{ diet.name }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('diet.index') }}">Liste de régimes</a>
+    <a href="{{ path('app_diet_index') }}">back to list</a>
 
-    <a href="{{ path('diet_edit', {'id': diet.id}) }}">Modifier</a>
+    <a href="{{ path('app_diet_edit', {'id': diet.id}) }}">edit</a>
 
-    
+    {{ include('diet/_delete_form.html.twig') }}
 {% endblock %}

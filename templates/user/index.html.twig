@@ -4,35 +4,45 @@
 {% endblock %}
 
 {% block body %}
-	<divListeCréerNom/Prénom</th class="container mt-4" <h1> de patients</h1> <a href="{{ path('user.new') }}"> un nouveau patient</a> <table class="table"> <thead> <tr> <th>>
-		<th>Email</th>
-		<th>Date de naissance</th>
-		<th>Créé</th>
-		<th>Voir</th>
-		<th>Modifier</th>
-	</tr>
-</thead>
-<tbody>
-	{% for user in users %}
-		<tr>
-			<td>{{ user.fullName }}</td>
-			<td>{{ user.email }}</td>
-			<td>{{ user.dateOfBirth ? user.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
-			<td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-			<td>
-				<button type="button" class="btn btn-danger">
-					<a href="{{ path('user.show', {'id': user.id}) }}">Voir</a>
-				</button>
-			</td>
-			<td>
-				<button type="button" class="btn btn-danger">
-					<a href="{{ path('user.edit', {'id': user.id}) }}">Modifier</a>
-				</button>
-			</td>
-		</tr>
-	{% else %}
-		<tr>
-			<td colspan="8">Pas de données</td>
-		</tr>
-	{% endfor %}
-</tbody></table></div>{% endblock %}
+	<div class="container mt-4">
+		<h1 class="mb-4">Liste de patients</h1>
+		<a href="{{ path('user.new') }}" class="fs-5 text-light mb-4">Créer un nouveau patient</a>
+
+		<table class="table mt-4">
+			<thead>
+				<tr>
+					<th>Nom/Prénom</th>
+					<th>Email</th>
+					<th>Date de naissance</th>
+					<th>Créé</th>
+					<th>Voir</th>
+					<th>Modifier</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.fullName }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.dateOfBirth ? user.dateOfBirth|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>
+							<button type="button" class="btn btn-danger">
+								<a href="{{ path('user.show', {'id': user.id}) }}">Voir</a>
+							</button>
+						</td>
+						<td>
+							<button type="button" class="btn btn-danger">
+								<a href="{{ path('user.edit', {'id': user.id}) }}">Modifier</a>
+							</button>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">Pas de données</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

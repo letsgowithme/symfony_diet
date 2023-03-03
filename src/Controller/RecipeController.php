@@ -2,12 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Mark;
 use App\Entity\Recipe;
+use App\Form\RecipeType;
 use App\Form\CommentType;
 use App\Form\MarkType;
-use App\Form\RecipeType;
 use App\Repository\MarkRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,51 +15,42 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-
-
-
 
 #[Route('/recipe')]
 class RecipeController extends AbstractController
 {
+    #[Route('/', name: 'recipe.index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function index(RecipeRepository $repository): Response
+    {
+        $recipes = $repository->findBy(['user' => $this->getUser()]);
+        return $this->render('recipe/index.html.twig', [
+            'recipes' => $recipes,
+        ]);
+    }
+
      /**
- * Show the recipes if user is connected
- * @param RecipeRepository $recipeRepository
- * @return Response
- */
-
-#[IsGranted('ROLE_USER')]
-#[Route('/', name: 'recipe.index', methods: ['GET'])]
-public function index(RecipeRepository $recipeRepository): Response
-{
-    $recipes = $recipeRepository->findBy(['user' => $this->getUser()]);
-    return $this->render('recipe/index.html.twig', [
-        'recipes' => $recipes,
-    ]);
-}
-  /**
- * Show the recipes if user is connected
- * @param RecipeRepository $recipeRepository
- * @return Response
- */
-
- #[IsGranted('ROLE_ADMIN')]
- #[Route('/all_recipes', name: 'recipe.recipes', methods: ['GET'])]
- public function allRecipes(RecipeRepository $recipeRepository): Response
- {
-     $recipes = $recipeRepository->findAll();
-     return $this->render('recipe/recipes.html.twig', [
-         'recipes' => $recipes,
-     ]);
- }
- 
-
-    /**
-     * Show the public recipes for all
+     * Show the recipes if user is connected
      * @param RecipeRepository $recipeRepository
-     * @return Response 
+     * @return Response
      */
+
+     #[IsGranted('ROLE_ADMIN')]
+     #[Route('/all_recipes', name: 'recipe.recipes', methods: ['GET'])]
+     public function allRecipes(RecipeRepository $recipeRepository): Response
+     {
+         $recipes = $recipeRepository->findAll();
+         return $this->render('recipe/recipes.html.twig', [
+             'recipes' => $recipes,
+         ]);
+     }
+ 
+ 
+     /**
+      * Show the public recipes for all
+      * @param RecipeRepository $recipeRepository
+      * @return Response 
+      */
  
      #[Route('/public', 'recipe.index_public', methods: ['GET'])]
      public function indexPublic(RecipeRepository $recipeRepository): Response
@@ -70,20 +60,37 @@ public function index(RecipeRepository $recipeRepository): Response
              'recipes' => $recipes
          ]);
      }
-     
 
-    #[IsGranted('ROLE_ADMIN')]
+ /**
+     * This function creates a recipe
+     * @param Recipe $recipe
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+
+     #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'recipe.new', methods: ['GET', 'POST'])]
-    public function new(Request $request, RecipeRepository $recipeRepository): Response
+    public function new(Request $request, EntityManagerInterface $manager): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
+        $recipe = new Recipe();
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipeRepository->save($recipe, true);
-
-            return $this->redirectToRoute('recipe.index', [], Response::HTTP_SEE_OTHER);
+            $recipe = $form->getData();
+            $recipe->setUser($this->getUser());
+            $manager->persist($recipe);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                'Votre recette a bien été créé'
+            );
+            return $this->redirectToRoute('recipe.index');
         }
 
         return $this->render('recipe/new.html.twig', [
@@ -92,33 +99,205 @@ public function index(RecipeRepository $recipeRepository): Response
         ]);
     }
 
-   
-
- /**
-     * This function edits the recipe
+    /**
+     * Show the recipe detail of a user
      * @param Recipe $recipe
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
      */
+
+     #[IsGranted('ROLE_USER')]
+     #[Route('/show/{id}', 'recipe.show', methods: ['GET', 'POST'])]
+     public function show(
+         Recipe $recipe,
+         Request $request,
+         MarkRepository $markRepository,
+         EntityManagerInterface $manager
+     ): Response {
+ 
+         $comment = new \App\Entity\Comment();
+         if ($this->getUser()) {
+             $comment->setAuthor($this->getUser());
+         }
+         $mark = new Mark();
+ 
+ 
+         $formComment = $this->createForm(CommentType::class, $comment);
+         $formMark = $this->createForm(MarkType::class, $mark);
+ 
+         $formComment->handleRequest($request);
+         $formMark->handleRequest($request);
+ 
+         /* form comments */
+ 
+         if ($formComment->isSubmitted() && $formComment->isValid()) {
+             $comment->setAuthor($this->getUser())
+                 ->setRecipe($recipe);
+             $manager->persist($comment);
+             $manager->flush();
+             $this->addFlash(
+                 'success',
+                 'Votre commentaire a bien été prise en compte'
+             );
+             return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()]);
+         }
+ 
+         /* form marks   */
+         if ($formMark->isSubmitted() && $formMark->isValid()) {
+             $mark->setUser($this->getUser())
+                 ->setRecipe($recipe);
+             $manager->persist($mark);
+ 
+             $existingMark = $markRepository->findOneBy([
+                 'user' => $this->getUser(),
+                 'recipe' => $recipe
+             ]);
+             if (!$existingMark) {
+                 $manager->persist($mark);
+             } else {
+                 $existingMark->setmark(
+                     $formMark->getData()->getMark()
+                 );
+             }
+ 
+ 
+             $manager->flush();
+             $this->addFlash(
+                 'success',
+                 'Votre note a bien été prise en compte'
+             );
+             return $this->redirectToRoute('recipe.show', [
+                 'id' => $recipe->getId()
+             ]);
+         }
+ 
+         return $this->render('recipe/show.html.twig', [
+             'recipe' => $recipe,
+             'formMark' => $formMark->createView(),
+             'formComment' => $formComment->createView()
+ 
+         ]);
+     }
+     /**
+      * Show a public recipes 
+      * @param Recipe $recipe
+      * @param Request $request
+      * @param EntityManagerInterface $manager
+      * @return Response
+      */
+ 
+     #[Route('/public/show/{id}', 'recipe.show_public', methods: ['GET', 'POST'])]
+     public function show_public(
+         Recipe $recipe,
+         Request $request,
+         MarkRepository $markRepository,
+         EntityManagerInterface $manager
+     ): Response {
+         $comment = new \App\Entity\Comment();
+         if ($this->getUser()) {
+             $comment->setAuthor($this->getUser());
+         }
+         $mark = new Mark();
+ 
+ 
+         $formComment = $this->createForm(CommentType::class, $comment);
+         $formMark = $this->createForm(MarkType::class, $mark);
+ 
+         $formComment->handleRequest($request);
+         $formMark->handleRequest($request);
+ 
+         /* form comments */
+ 
+         if ($formComment->isSubmitted() && $formComment->isValid()) {
+             $comment->setAuthor($this->getUser())
+                 ->setRecipe($recipe);
+             $manager->persist($comment);
+             $manager->flush();
+             $this->addFlash(
+                 'success',
+                 'Votre commentaire a bien été prise en compte'
+             );
+             return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()]);
+         }
+ 
+         /* form marks   */
+         if ($formMark->isSubmitted() && $formMark->isValid()) {
+             $mark->setUser($this->getUser())
+                 ->setRecipe($recipe);
+             $manager->persist($mark);
+ 
+             $existingMark = $markRepository->findOneBy([
+                 'user' => $this->getUser(),
+                 'recipe' => $recipe
+             ]);
+             if (!$existingMark) {
+                 $manager->persist($mark);
+             } else {
+                 $existingMark->setmark(
+                     $formMark->getData()->getMark()
+                 );
+             }
+ 
+ 
+             $manager->flush();
+             $this->addFlash(
+                 'success',
+                 'Votre note a bien été prise en compte'
+             );
+             return $this->redirectToRoute('recipe.show', [
+                 'id' => $recipe->getId()
+             ]);
+         }
+ 
+         return $this->render('recipe/show.html.twig', [
+             'recipe' => $recipe,
+             'formMark' => $formMark->createView(),
+             'formComment' => $formComment->createView()
+ 
+         ]);
+     }
+
+   /**
+     * This function edits the recipe
+     * @param Recipe $recipe
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+
+     */
+    #[Route('recipe/{id}/edit/', 'recipe.edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/edit/{id}', name: 'recipe.edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
-    {
+    public function edit(
+
+        Recipe $recipe,
+        EntityManagerInterface $manager,
+        Request $request
+    ): Response {
+
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipeRepository->save($recipe, true);
+            $recipe = $form->getData();
 
-            return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()]);
+            $manager->persist($recipe);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre recette a été modifié avec succès !'
+            );
+
+            return $this->redirectToRoute('recipe.recipes');
         }
 
+
         return $this->render('recipe/edit.html.twig', [
-            'recipe' => $recipe,
-            'form' => $form,
+            'form' => $form->createView()
         ]);
     }
+
     /**
      * This controller allows us to delete a recipe
      *
@@ -126,8 +305,8 @@ public function index(RecipeRepository $recipeRepository): Response
      * @param Recipe $recipe
      * @return Response
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
-    #[Route('/recette/suppression/{id}', 'recipe.delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/recipe/{id}/delete/', 'recipe.delete', methods: ['GET'])]
 
     public function delete(
         EntityManagerInterface $manager,
@@ -142,165 +321,6 @@ public function index(RecipeRepository $recipeRepository): Response
             'Votre recette a été supprimé avec succès !'
         );
 
-        return $this->redirectToRoute('recipe.recipes');
+        return $this->redirectToRoute('recipe.index');
     }
-     /**
-     * Show the recipe detail of a user
-     * @param Recipe $recipe
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
-     */
-    
-     #[IsGranted('ROLE_USER')]
-     #[Route('/show/{id}', 'recipe.show', methods: ['GET', 'POST'])]
-     public function show(
-         Recipe $recipe,
-         Request $request,
-         MarkRepository $markRepository,
-         EntityManagerInterface $manager
-     ): Response {
-        
-         $comment = new Comment();
-         if ($this->getUser()) {
-             $comment->setAuthor($this->getUser());
-         }
-         $mark = new Mark();
-         
- 
-         $formComment = $this->createForm(CommentType::class, $comment);
-         $formMark = $this->createForm(MarkType::class, $mark);
- 
-         $formComment->handleRequest($request);
-         $formMark->handleRequest($request);
- 
- /* form comments */
- 
-         if ($formComment->isSubmitted() && $formComment->isValid()) {
-             $comment->setAuthor($this->getUser())
-                     ->setRecipe($recipe);
-             $manager->persist($comment);
-             $manager->flush();
-             $this->addFlash(
-                 'success',
-                 'Votre commentaire a bien été prise en compte'
-             );
-             return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()]);
- 
-         }          
-           
- /* form marks   */
-             if ($formMark->isSubmitted() && $formMark->isValid()) {
-                 $mark->setUser($this->getUser())
-                     ->setRecipe($recipe);
-                     $manager->persist($mark);
- 
-                 $existingMark = $markRepository->findOneBy([
-                     'user' => $this->getUser(),
-                     'recipe' => $recipe
-                 ]);
-                 if (!$existingMark) {
-                     $manager->persist($mark);
-                 } else {
-                     $existingMark->setmark(
-                         $formMark->getData()->getMark()
-                     );
-                 }
-             
- 
-             $manager->flush();
-             $this->addFlash(
-                 'success',
-                 'Votre note a bien été prise en compte'
-             );
-             return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()
-         ]);
-     }
- 
-         return $this->render('recipe/show.html.twig', [
-             'recipe' => $recipe,
-             'formMark' => $formMark->createView(),
-             'formComment' => $formComment->createView()
- 
-         ]);
-     }
-      /**
-      * Show a public recipes 
-      * @param Recipe $recipe
-      * @param Request $request
-      * @param EntityManagerInterface $manager
-      * @return Response
-      */
-         
-      #[Route('/public/show/{id}', 'recipe.show_public', methods: ['GET', 'POST'])]
-      public function show_public(
-          Recipe $recipe,
-          Request $request,
-          MarkRepository $markRepository,
-          EntityManagerInterface $manager
-      ): Response {
-          $comment = new Comment();
-          if ($this->getUser()) {
-              $comment->setAuthor($this->getUser());
-          }
-          $mark = new Mark();
-          
-  
-          $formComment = $this->createForm(CommentType::class, $comment);
-          $formMark = $this->createForm(MarkType::class, $mark);
-  
-          $formComment->handleRequest($request);
-          $formMark->handleRequest($request);
-  
-  /* form comments */
-  
-          if ($formComment->isSubmitted() && $formComment->isValid()) {
-              $comment->setAuthor($this->getUser())
-                      ->setRecipe($recipe);
-              $manager->persist($comment);
-              $manager->flush();
-              $this->addFlash(
-                  'success',
-                  'Votre commentaire a bien été prise en compte'
-              );
-              return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()]);
-  
-          }          
-            
-  /* form marks   */
-              if ($formMark->isSubmitted() && $formMark->isValid()) {
-                  $mark->setUser($this->getUser())
-                      ->setRecipe($recipe);
-                      $manager->persist($mark);
-  
-                  $existingMark = $markRepository->findOneBy([
-                      'user' => $this->getUser(),
-                      'recipe' => $recipe
-                  ]);
-                  if (!$existingMark) {
-                      $manager->persist($mark);
-                  } else {
-                      $existingMark->setmark(
-                          $formMark->getData()->getMark()
-                      );
-                  }
-              
-  
-              $manager->flush();
-              $this->addFlash(
-                  'success',
-                  'Votre note a bien été prise en compte'
-              );
-              return $this->redirectToRoute('recipe.show', ['id' => $recipe->getId()
-          ]);
-      }
-  
-          return $this->render('recipe/show.html.twig', [
-              'recipe' => $recipe,
-              'formMark' => $formMark->createView(),
-              'formComment' => $formComment->createView()
-  
-          ]);
-      }
-    
 }

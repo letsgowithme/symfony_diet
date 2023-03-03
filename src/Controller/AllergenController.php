@@ -5,131 +5,74 @@ namespace App\Controller;
 use App\Entity\Allergen;
 use App\Form\AllergenType;
 use App\Repository\AllergenRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
-
+#[Route('/allergen')]
 class AllergenController extends AbstractController
 {
-    /**
-     * This function displays all allergens
-     *
-     * @param AllergenRepository $repository
-     * @return Response
-     */
-    #[Route('/allergen', name: 'allergen.index', methods: ['GET'])]
-    public function index(AllergenRepository $repository): Response
+    #[Route('/', name: 'app_allergen_index', methods: ['GET'])]
+    public function index(AllergenRepository $allergenRepository): Response
     {
-        $allergens = $repository->findBy(['user' => $this->getUser()]);
-        return $this->render('pages/allergen/index.html.twig', [
-            'allergens' =>  $allergens
+        return $this->render('allergen/index.html.twig', [
+            'allergens' => $allergenRepository->findAll(),
         ]);
     }
 
-    /**
-     * This function creates an allergen
-     * @param Request $request
-     * @param EntityManagerInterface $manager
-     * @return Response
-     */
-    #[Route('/allergen/creation', 'allergen.new', methods: ['GET', 'POST'])]
-    public function new(
-        Request $request,
-        EntityManagerInterface $manager
-
-    ) : Response
+    #[Route('/new', name: 'app_allergen_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, AllergenRepository $allergenRepository): Response
     {
         $allergen = new Allergen();
         $form = $this->createForm(AllergenType::class, $allergen);
-
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $allergen = $form->getData();
-            $allergen->setUser($this->getUser());
+            $allergenRepository->save($allergen, true);
 
-            $manager->persist($allergen);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'Votre allergène a bien été créé'
-            );
-
-            return $this->redirectToRoute('allergen.index');
+            return $this->redirectToRoute('app_allergen_index', [], Response::HTTP_SEE_OTHER);
         }
-return $this->render('pages/allergen/new.html.twig', [
-    'form' => $form->createView()
-]);
+
+        return $this->renderForm('allergen/new.html.twig', [
+            'allergen' => $allergen,
+            'form' => $form,
+        ]);
     }
 
-    /**
-     * This function edits the allergen
-     * @param Request $request
-     * @param Allergen $allergen
-     * @return Response
-     */
-
-
-
-     #[Route('allergen/edition/{id}', 'allergen.edit', methods: ['GET', 'POST'])]
-     public function edit(
- 
-        Allergen $allergen,
-         EntityManagerInterface $manager,
-         Request $request
-     ) : Response {
- 
-         $form = $this->createForm(AllergenType::class, $allergen);
-         $form->handleRequest($request);
- 
-         if ($form->isSubmitted() && $form->isValid()) {
-             $allergen = $form->getData();
- 
-             $manager->persist($allergen);
-             $manager->flush();
- 
-             $this->addFlash(
-                 'success',
-                 'Votre allergène a été modifié avec succès !'
-             );
- 
-             return $this->redirectToRoute('allergen.index');
-         }
- 
- 
-         return $this->render('pages/allergen/edit.html.twig', [
-             'form' => $form->createView()
-         ]);
-     }
-    /**
-     * This controller allows us to delete a diet
-     *
-     * @param EntityManagerInterface $manager
-     * @param Allergen $allergen
-     * @return Response
-     */
-    #[Route('/allergen/suppression/{id}', 'allergen.delete', methods: ['GET'])]
-
-    public function delete(
-        EntityManagerInterface $manager,
-        Allergen $allergen
-    ): Response {
-       
-        $manager->remove($allergen);
-        $manager->flush();
-
-        $this->addFlash(
-            'success',
-            'Votre allergène a été supprimé avec succès !'
-        );
-
-        return $this->redirectToRoute('allergen.index');
+    #[Route('/{id}', name: 'app_allergen_show', methods: ['GET'])]
+    public function show(Allergen $allergen): Response
+    {
+        return $this->render('allergen/show.html.twig', [
+            'allergen' => $allergen,
+        ]);
     }
 
+    #[Route('/{id}/edit', name: 'app_allergen_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Allergen $allergen, AllergenRepository $allergenRepository): Response
+    {
+        $form = $this->createForm(AllergenType::class, $allergen);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $allergenRepository->save($allergen, true);
 
+            return $this->redirectToRoute('app_allergen_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('allergen/edit.html.twig', [
+            'allergen' => $allergen,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_allergen_delete', methods: ['POST'])]
+    public function delete(Request $request, Allergen $allergen, AllergenRepository $allergenRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$allergen->getId(), $request->request->get('_token'))) {
+            $allergenRepository->remove($allergen, true);
+        }
+
+        return $this->redirectToRoute('app_allergen_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

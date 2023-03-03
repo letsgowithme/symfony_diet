@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Repository\AllergenRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity('name')]
 #[ORM\Entity(repositoryClass: AllergenRepository::class)]
 class Allergen
 {
@@ -13,6 +15,7 @@ class Allergen
     #[ORM\Column]
     private ?int $id = null;
 
+   
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 

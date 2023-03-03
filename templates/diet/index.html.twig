@@ -1,38 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} La liste de régimes {% endblock %}
+{% block title %}Diet index{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-<h1>Les régimes</h1>
+    <h1>Diet index</h1>
 
-<a href="{{ path('diet.new') }} " class="btn btn-info">Créer une régime</a>
-{% for message in app.flashes('success') %}
-<div class="alert alert-success">
-{{ message }}
-</div>
-{%endfor %}
-<table class="table table-hover">
-<thead>
-<tr>
-<th scope="col">Numéro</th>
-<th scope="col">Nom</th>
-<th scope="col">Edition</th>
-<th scope="col">Suppression</th>
-</tr>
-</thead>
-<tbody>
-{% for diet in diets %}
-<tr class="table-primary">
-<th scope="row">{{ diet.id }}</th>
-<td>{{ diet.name }}</td>
-<td><a href="{{ path('diet.edit', {id: diet.id}) }}" class="btn btn-danger">Modifier</a></td>
-<td><a href="{{ path('diet.delete', {id: diet.id}) }}" class="btn btn-warning">Supprimer</a>
-</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for diet in diets %}
+            <tr>
+                <td>{{ diet.id }}</td>
+                <td>{{ diet.name }}</td>
+                <td>
+                    <a href="{{ path('app_diet_show', {'id': diet.id}) }}">show</a>
+                    <a href="{{ path('app_diet_edit', {'id': diet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_diet_new') }}">Create new</a>
 {% endblock %}
-

@@ -85,11 +85,7 @@ class Recipe
         $this->updatedAt = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
     }
-// #[ORM\PrePersist()]
-//     public function setUpdatedAtValue()
-//     {
-//         $this->updatedAt = new \DateTimeImmutable();
-//     }
+
 
     public function getId(): ?int
     {
