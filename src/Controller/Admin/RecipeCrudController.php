@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -13,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\FileUploadType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class RecipeCrudController extends AbstractCrudController
 {
@@ -20,6 +22,11 @@ class RecipeCrudController extends AbstractCrudController
     {
         return Recipe::class;
     }
+    public function configureCrud(Crud $crud): Crud
+{
+  return $crud
+      ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
+}
 
     public function configureFields(string $pageName): iterable
     {
@@ -35,6 +42,7 @@ class RecipeCrudController extends AbstractCrudController
                         ->setRequired(false)
                         ->setLabel('Image'),
             TextEditorField::new('description')
+            ->setFormType(CKEditorType::class)
             ->hideOnIndex(),
             NumberField::new('preparationTime')
                         ->setLabel('Temps de préparation (en minutes)')
@@ -50,6 +58,7 @@ class RecipeCrudController extends AbstractCrudController
             ->setLabel('Ingrédients')
             ->hideOnIndex(),
             TextEditorField::new('steps')
+            ->setFormType(CKEditorType::class)
             ->setLabel('Étapes')
             ->hideOnIndex(),
             AssociationField::new('allergens')

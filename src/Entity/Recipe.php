@@ -63,11 +63,11 @@ class Recipe
     #[ORM\Column]
     private ?bool $isPublic = false;
 
-    
+
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class, orphanRemoval: true)]
     private Collection $marks;
-  
+
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -76,18 +76,9 @@ class Recipe
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'recipe', orphanRemoval: true)]
     private Collection $comments;
 
-    // #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: User::class)]
-    // private Collection $users;
-
-    // #[ORM\ManyToOne(inversedBy: 'recipes')]
-    // private ?User $user = null;   
-
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'recipe')]
     private Collection $users;
 
-
-
-   
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -98,7 +89,6 @@ class Recipe
         $this->updatedAt = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -117,7 +107,7 @@ class Recipe
         return $this;
     }
 
-     /**
+    /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
@@ -271,11 +261,11 @@ class Recipe
 
         return $this;
     }
-   
+
 
     /**
      * Get the value of steps
-     */ 
+     */
     public function getSteps()
     {
         return $this->steps;
@@ -285,7 +275,7 @@ class Recipe
      * Set the value of steps
      *
      * @return  self
-     */ 
+     */
     public function setSteps($steps)
     {
         $this->steps = $steps;
@@ -305,7 +295,7 @@ class Recipe
 
         return $this;
     }
-  
+
 
     /**
      * @return Collection<int, Mark>
@@ -338,20 +328,20 @@ class Recipe
     }
     /**
      * Get the value of average
-     */ 
+     */
     public function getAverage()
     {
         $marks = $this->marks;
 
         if ($marks->toArray() === []) {
-                $this->average = null;
-                return $this->average;
+            $this->average = null;
+            return $this->average;
         }
-     $total = 0;
-     foreach ($marks as $mark) {
-        $total += $mark->getMark();
-        $this->average = $total / count($marks);
-     }
+        $total = 0;
+        foreach ($marks as $mark) {
+            $total += $mark->getMark();
+            $this->average = $total / count($marks);
+        }
 
         return $this->average;
     }
@@ -359,7 +349,7 @@ class Recipe
 
     /**
      * Get the value of updatedAt
-     */ 
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
@@ -369,7 +359,7 @@ class Recipe
      * Set the value of updatedAt
      *
      * @return  self
-     */ 
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
@@ -379,7 +369,7 @@ class Recipe
 
     /**
      * Get the value of comments
-     */ 
+     */
     public function getComments()
     {
         return $this->comments;
@@ -389,57 +379,18 @@ class Recipe
      * Set the value of comments
      *
      * @return  self
-     */ 
+     */
     public function setComments($comments)
     {
         $this->comments = $comments;
 
         return $this;
     }
-    public function __toString() {
+    public function __toString()
+    {
         return (string) $this->name;
-        }
+    }
 
-
-
-    // /**
-    //  * @return Collection<int, User>
-    //  */
-    // public function getUsers(): Collection
-    // {
-    //     return $this->users;
-    // }
-
-    // public function addUser(User $user): self
-    // {
-    //     if (!$this->users->contains($user)) {
-    //         $this->users->add($user);
-    //         $user->addRecipe($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeUser(User $user): self
-    // {
-    //     if ($this->users->removeElement($user)) {
-    //         $user->removeRecipe($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function getUser(): ?User
-    // {
-    //     return $this->user;
-    // }
-
-    // public function setUser(?User $user): self
-    // {
-    //     $this->user = $user;
-
-    //     return $this;
-    // }
 
     /**
      * @return Collection<int, User>
