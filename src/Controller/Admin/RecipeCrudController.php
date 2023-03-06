@@ -6,6 +6,7 @@ use App\Entity\Recipe;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -25,19 +26,40 @@ class RecipeCrudController extends AbstractCrudController
         return [
             // IdField::new('id')
             // ->hideOnForm(),
-            TextField::new('name'),
+            TextField::new('name')
+                    ->setLabel('Nom'),
+                    
             ImageField::new('imageName')
                         ->setFormType(FileUploadType::class)
                         ->setUploadDir('/public/images/recipe')
-                        ->setRequired(false),
-            TextEditorField::new('description'),
-            NumberField::new('preparationTime'),
-            NumberField::new('pauseTime'),
-            NumberField::new('cookingTime'),
-            AssociationField::new('ingredients'),
-            TextEditorField::new('steps'),
-            AssociationField::new('allergens'),
+                        ->setRequired(false)
+                        ->setLabel('Image'),
+            TextEditorField::new('description')
+            ->hideOnIndex(),
+            NumberField::new('preparationTime')
+                        ->setLabel('Temps de préparation (en minutes)')
+                        ->hideOnIndex(),
+                        
+            NumberField::new('pauseTime')
+            ->setLabel('Temps de pause (en minutes)')
+            ->hideOnIndex(),
+            NumberField::new('cookingTime')
+            ->setLabel('Temps de cuisson (en minutes)')
+            ->hideOnIndex(),
+            AssociationField::new('ingredients')
+            ->setLabel('Ingrédients')
+            ->hideOnIndex(),
+            TextEditorField::new('steps')
+            ->setLabel('Étapes')
+            ->hideOnIndex(),
+            AssociationField::new('allergens')
+            ->setLabel('Allergènes'),
             AssociationField::new('diets')
+            ->setLabel('Régimes'),
+            // AssociationField::new('users')
+            // ->setLabel('Users'),
+            BooleanField::new('isPublic')
+            ->setLabel('Recette publque ?')
             ];
             }
             }

@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -27,9 +28,9 @@ class UserCrudController extends AbstractCrudController
 return $crud
 ->setEntityLabelInPlural('Patients')
 ->setEntityLabelInSingular('Patient')
-
+->setSearchFields(['fullName'])
 ->setPageTitle("index", "Diet - Administration des patients")
-
+->setDefaultSort(['fullName' => 'asc'])
 ;
 }
 
@@ -37,23 +38,29 @@ return $crud
 
 public function configureFields(string $pageName): iterable
 {
-    $roles = ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER'];
+    // $roles = ['ROLE_ADMIN', 'ROLE_USER'];
 return [
 IdField::new('id')
 ->hideOnForm(),
-TextField::new('fullName'),
+TextField::new('fullName')
+->setLabel('Nom/Prénom'),
 TextField::new('email'),
 TextField::new('plainPassword', 'password')
     ->setFormType(PasswordType::class)
     ->setRequired($pageName === Crud::PAGE_NEW)
-    ->onlyOnForms(),
+    ->onlyOnForms()
+    ->setLabel('Mot de passe'),
 DateTimeField::new('dateOfBirth')
-->hideOnForm(),
-AssociationField::new('allergens'),
-AssociationField::new('diets'), 
-AssociationField::new('recipes'),
-
-ArrayField::new('roles'),
+->hideOnForm()
+->setLabel('Date de naissance'),
+AssociationField::new('allergens')
+->setLabel('Allergènes'),
+AssociationField::new('diets')
+->setLabel('Régimes'), 
+AssociationField::new('recipes')
+->setLabel('Recettes'),
+// ArrayField::new('roles')
+//         ->setLabel('Rôle'),
 DateTimeField::new('createdAt')
 ->hideOnForm()
 ->setFormTypeOption('disabled', 'disabled'),

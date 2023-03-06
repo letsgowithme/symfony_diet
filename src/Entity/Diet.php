@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\DietRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity('name')]
 #[ORM\Entity(repositoryClass: DietRepository::class)]
@@ -18,12 +19,18 @@ class Diet
 
    
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank()]
-
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'diets')]
-    private ?User $user = null;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'diets')]
+    private Collection $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -34,26 +41,43 @@ class Diet
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
-    public function getUser(): ?User
+   
+
+    public function __toString() {
+        return $this->name;
+        }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
     {
-        return $this->user;
+        return $this->users;
     }
 
-    public function setUser(?User $user): self
+    public function addUser(User $user): self
     {
-        $this->user = $user;
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addDiet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeDiet($this);
+        }
 
         return $this;
     }
    
-    public function __toString() {
-        return $this->name;
-        }
-        
 }

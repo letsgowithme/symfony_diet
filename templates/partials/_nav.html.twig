@@ -14,54 +14,47 @@
 				<li class="nav-item">
 					<a class="nav-link fs-5 fw-bold" href="{{ path('contact.index') }}">Contact</a>
 				</li>
-				
-				 {% if is_granted('ROLE_ADMIN') %}
+				{% if is_granted('ROLE_ADMIN') %}
 					<li class="nav-item lg-ms-5">
-						<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.recipes') }}"> Collection de recettes</a>
-
+						<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.recipes') }}">
+							Collection de recettes</a>
+					</li>
 				{% elseif app.user %}
 					<li class="nav-item">
 						<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.index') }}">Mes recettes</a>
 					</li>
-				
-					{% else %}
+				{% else %}
 					<li class="nav-item">
-					<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.index_public') }}">Recettes</a>
-				</li>
+						<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.index_public') }}">Recettes</a>
+					</li>
 				{% endif %}
-				
-			</li> 
-			
-		</ul>
-	</div>
-</div>
-
-<div class="d-flex">
-
-<ul class="navbar-nav me-auto">
-
-	{% if app.user %}
-		<li class="nav-item dropdown" style="margin-right: 5rem;">
-			<a class="nav-link dropdown-toggle fs-5 fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">{{ app.user.fullName }}</a>
-			<div class="dropdown-menu">
-				{# <a class="dropdown-item" href="{{ path('user.edit', {id: app.user.id}) }}">Modifier mes informations</a> #}
-
-				{% if 'ROLE_ADMIN' in app.user.roles %}
-					<a class="dropdown-item  fw-bold" href="/admin">Tableau de bord</a>
-				{% endif %}
-
-
-				<div class="dropdown-divider"></div>
-				<a class="dropdown-item fw-bold" href="{{ path('security.logout') }}">Déconnextion</a>
-
-			{% else %}
-				<li class="nav-item me-2 fs-5 fw-bold">
+			</ul>
+			{% if not app.user %}
+			<ul class="navbar-nav me-1 d-lg-flex align-items-lg-end">
+				<li class="nav-item me-2 fs-5 fw-bold lg-ms-4">
 					<a class="nav-link" href="/connexion">Connexion</a>
 				</li>
 				<li class="nav-item me-4 fs-5 fw-bold">
 					<a class="nav-link" href="/inscription">Inscription</a>
 				</li>
+			</ul>
 			{% endif %}
-		</li>
+		</div>
 	</div>
-</li></ul></div></div></nav>
+	<div class="d-flex">
+		<ul class="navbar-nav me-auto">
+			{% if app.user %}
+				<li class="nav-item dropdown" style="margin-right: 5rem;">
+					<a class="nav-link dropdown-toggle fs-5 fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">{{ app.user.fullName }}</a>
+					<div class="dropdown-menu">
+						{% if 'ROLE_ADMIN' in app.user.roles %}
+							<a class="dropdown-item  fw-bold" href="/admin">Tableau de bord</a>
+						{% endif %}
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item fw-bold" href="{{ path('security.logout') }}">Déconnextion</a>
+										{% endif %}
+				</li>
+			</div>
+		</li>
+	</ul>
+</div></div></nav>

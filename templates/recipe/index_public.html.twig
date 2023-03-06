@@ -4,10 +4,11 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4"">
+	<div class="container mt-4">
 		<h1>Recettes de base</h1>
 		<div class="d-flex justify-content-center flex-wrap">
 			{% for recipe in recipes %}
+			{% if recipe.isPublic is same as true %}
 				<div class="card border-primary mb-3 me-3" style="width: 20rem;">
 					<div class="card-header">Recette numéro
 						{{ recipe.id }}</div>
@@ -21,6 +22,7 @@
 						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 					</div>
 				</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 	</div>

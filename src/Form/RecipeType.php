@@ -6,9 +6,11 @@ use App\Entity\Allergen;
 use App\Entity\Diet;
 use App\Entity\Ingredient;
 use App\Entity\Recipe;
+use App\Entity\User;
 use App\Repository\AllergenRepository;
 use App\Repository\DietRepository;
 use App\Repository\IngredientRepository;
+use App\Repository\UserRepository;
 // use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -147,7 +149,7 @@ class RecipeType extends AbstractType
                 },
                 'label' => 'Allergènes',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 text-dark fs-5'
+                    'class' => 'form-label mt-4 mb-4 text-dark fs-5'
                 ],
                 
                 'choice_label' => 'name',
@@ -163,16 +165,17 @@ class RecipeType extends AbstractType
                 },
                 'label' => 'Régimes',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 text-dark fs-5'
+                    'class' => 'form-label mt-4 mb-4 text-dark fs-5'
                 ],
                 
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true
             ])
+            
             ->add('isPublic', CheckboxType::class, [
                 'attr' => [
-                    'class' => 'form-check-input mt-4',
+                    'class' => 'form-check-input mt-4 mb-4',
                 ],
                 'required' => false,
                 'label' => 'Recette publique ? ',
@@ -186,7 +189,7 @@ class RecipeType extends AbstractType
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image de la recette',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 w-350 h-auto'
+                    'class' => 'form-label mt-4 w-350 h-auto mt-4 mb-4'
                 ],
                 'required' => false
             ])

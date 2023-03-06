@@ -59,11 +59,11 @@ class Recipe
     #[ORM\ManyToMany(targetEntity: Diet::class)]
     private Collection $diets;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?User $user = null;
 
     #[ORM\Column]
     private ?bool $isPublic = false;
+
+    
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class, orphanRemoval: true)]
     private Collection $marks;
@@ -76,11 +76,24 @@ class Recipe
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'recipe', orphanRemoval: true)]
     private Collection $comments;
 
+    // #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: User::class)]
+    // private Collection $users;
+
+    // #[ORM\ManyToOne(inversedBy: 'recipes')]
+    // private ?User $user = null;   
+
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'recipe')]
+    private Collection $users;
+
+
+
+   
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->allergens = new ArrayCollection();
         $this->diets = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->marks = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
@@ -279,18 +292,7 @@ class Recipe
 
         return $this;
     }
-    
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
 
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     public function getIsPublic(): ?bool
     {
@@ -398,23 +400,74 @@ class Recipe
         return (string) $this->name;
         }
 
-    /**
-     * Get the value of image
-     */ 
-    // public function getImage()
-    // {
-    //     return $this->image;
-    // }
+
 
     // /**
-    //  * Set the value of image
-    //  *
-    //  * @return  self
-    //  */ 
-    // public function setImage($image)
+    //  * @return Collection<int, User>
+    //  */
+    // public function getUsers(): Collection
     // {
-    //     $this->image = $image;
+    //     return $this->users;
+    // }
+
+    // public function addUser(User $user): self
+    // {
+    //     if (!$this->users->contains($user)) {
+    //         $this->users->add($user);
+    //         $user->addRecipe($this);
+    //     }
 
     //     return $this;
     // }
+
+    // public function removeUser(User $user): self
+    // {
+    //     if ($this->users->removeElement($user)) {
+    //         $user->removeRecipe($this);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function getUser(): ?User
+    // {
+    //     return $this->user;
+    // }
+
+    // public function setUser(?User $user): self
+    // {
+    //     $this->user = $user;
+
+    //     return $this;
+    // }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getRecipes() === $this) {
+                $user->addRecipe($this);
+            }
+        }
+
+        return $this;
+    }
 }

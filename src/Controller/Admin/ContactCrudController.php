@@ -36,12 +36,15 @@ public function configureFields(string $pageName): iterable
 return [
 IdField::new('id')
 ->hideOnIndex(),
-TextField::new('fullName'),
+TextField::new('fullName')
+->setLabel('Nom/Prénom'),
 TextField::new('email'),
-TextField::new('subject'),
+TextField::new('subject')
+->setLabel('Sujet'),
 TextareaField::new('message')
 ->setFormType(CKEditorType::class)
-->hideOnIndex(),
+->hideOnIndex()
+->setLabel('Message'),
 DateTimeField::new('createdAt')
 ->hideOnForm()
 ];

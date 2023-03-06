@@ -6,8 +6,10 @@
 	<div class="container mt-4">
 		<h1>Mes recettes</h1>
 		<div class="d-flex justify-content-center flex-wrap">
-			{% for recipe in recipes %}
-				<div class="card border-primary mb-3 me-3" style="width: 20rem;">
+			   	{% if app.user.recipes %}
+					{% for recipe in app.user.recipes %}
+					
+						<div class="card border-primary mb-3 me-3" style="width: 20rem;">
 					<div class="card-header">Recette numéro
 						{{ recipe.id }}</div>
 					<div class="card-body">
@@ -20,7 +22,10 @@
 						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 					</div>
 				</div>
-			{% endfor %}
+				{% endfor %}
+				{% endif %}
+			
+			
 		</div>
 	</div>
 {% endblock %}

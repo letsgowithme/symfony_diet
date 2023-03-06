@@ -27,5 +27,18 @@ class HomeController extends AbstractController
             'recipes' => $recipeRepository->findPublicRecipe(3)
         ]);
     }
-    
+    #[Route('/legal_notice', name: 'footer.legal_notice', methods: ['GET'])]
+    public function legalNotice(
+        RecipeRepository $recipeRepository
+    ): Response
+    {
+        return $this->render('pages/footer/legal_notice.html.twig');
+    }
+    #[Route('/privacy', name: 'footer.privacy_policy', methods: ['GET'])]
+    public function privacy(
+        RecipeRepository $recipeRepository
+    ): Response
+    {
+        return $this->render('pages/footer/privacy_policy.html.twig');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Allergen;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -19,7 +20,11 @@ class AllergenCrudController extends AbstractCrudController
     {
         return [
             
-            TextField::new('name'),
+            TextField::new('name')
+            ->setLabel('Nom'),
+            // AssociationField::new('user')
+            // ->setLabel('User'),
+           
           
         ];
     }

@@ -21,6 +21,15 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
+    // public function getUsersRecipes()
+    // {
+    //     return  $this->createQueryBuilder('r')
+    //     ->select('r.id')
+    //     ->from('user_recipe', 'u')
+    //     ->where('recipe.id = user_recipe.id')
+    //     ->getQuery()
+    //     ->getResult();
+    // }
     public function save(Recipe $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -53,6 +62,7 @@ class RecipeRepository extends ServiceEntityRepository
                     ->getQuery()
                     ->getResult();
     } 
+   
 
 
 //    /**

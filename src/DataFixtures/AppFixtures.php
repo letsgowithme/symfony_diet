@@ -72,7 +72,7 @@ class AppFixtures extends Fixture
         for ($n = 0; $n < 5; $n++) {
             $allergen = new Allergen();
             $allergen->setName($this->faker->word());
-            $allergen->setUser($users[mt_rand(0, count($users) - 1)]);
+            $allergen->addUser($users[mt_rand(0, count($users) - 1)]);
             $allergens[] = $allergen;
             $manager->persist($allergen);
         }
@@ -82,7 +82,7 @@ class AppFixtures extends Fixture
         for ($n = 0; $n < 5; $n++) {
             $diet = new Diet();
             $diet->setName($this->faker->word());
-            $diet->setUser($users[mt_rand(0, count($users) - 1)]);
+            $diet->addUser($users[mt_rand(0, count($users) - 1)]);
             $diets[] = $diet;
             $manager->persist($diet);
         }
@@ -110,7 +110,7 @@ class AppFixtures extends Fixture
             }
             $recipe->setisPublic(mt_rand(0, 1) == 1 ? true : false);
             
-            $recipe->setUser($users[mt_rand(0, count($users) - 1)]);
+            $recipe->addUser($users[mt_rand(0, count($users) - 1)]);
 
             $recipes[] = $recipe;
             $manager->persist($recipe);

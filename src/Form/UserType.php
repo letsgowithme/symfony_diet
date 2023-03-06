@@ -63,7 +63,7 @@ class UserType extends AbstractType
             ])
             ->add('roles', ChoiceType::class, [
                 'attr' => [
-                    'class' => 'ms-4'
+                    'class' => 'form-control ms-4 mb-4'
                 ],
                 'multiple' => true,
                 'choices'  => [

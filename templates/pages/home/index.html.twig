@@ -1,42 +1,34 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}
 	Page d'Accueil
 {% endblock %}
-
 {% block body %}
-<div style="height: 510px; z-index: -3;">{% include "partials/_header_img.html.twig" %}</div>
-	
-	
-	<div class="container mt-4">
-
+	<div style="height: 510px; z-index: -3;">{% include "partials/_header_img.html.twig" %}</div>
+	<div class="container">
 		<h1 class="display-5 text-center mb-5 bg-primary py-3">Sandrine Coupart
 			<br>
 			diététicienne-nutritionniste
 			<span class="mt-4" class="margin-top: 5em;">{% include "partials/_doctor_img.html.twig" %}</span>
 		</h1>
-
 		<div class="jumbotron">
-
-			<div class="d-flex flex-row justify-between about align-items-center" style="background-color: rgb(135, 219, 237); height: auto;">
+			<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-center" style="background-color: rgb(135, 219, 237); height: auto;">
 				<div class="col-md-6 col-sm-6 col-xs-12  d-flex flex-column text-center me-5">
-					<h3 class="mb-5">À  propos</h3>
-					<p class="lead fs-4">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
-										            professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques.
-										            J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
+					<h3 class="mb-5 mt-4">À  propos</h3>
+					<p class="lead fs-4 text-center ms-5">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
+				  professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques. J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
 				</div>
-
-				<div class="col-md-6 col-sm-6 col-xs-12 me-0">
-					{% include "partials/_home_img1.html.twig" %}
+				<div class="col-12  d-flex  text-center">
+					<div class="col-md-6 col-sm-12 me-0">
+						{% include "partials/_home_img1.html.twig" %}
+					</div>
 				</div>
 			</div>
-
 			<hr class="mt-5 mb-5">
 			<br>
 			<br>
 		</div>
-		<div class="d-flex flex-row about align-items-center about" style="background-color: rgb(135, 219, 237); height: auto;">
-			<div class="col-md-6 col-sm-6 col-xs-12">
+		<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-center about" style="background-color: rgb(135, 219, 237); height: auto;">
+			<div class="d-lg-block col-md-6 col-sm-6 col-xs-12 d-sm-none">
 				{% include "partials/_home_img2.html.twig" %}
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12 me-2 d-flex flex-column text-center">
@@ -49,21 +41,25 @@
 					<li>
 						<h5>Suivi nutritionnel</h5>
 						<p>50€ séance</p>
+					</li>
 					<li>
 						<h5>Coaching diététiquel</h5>
 						<p>100€/mois</p>
+					</li>
 					<li>
 						<h5>Accompagnement menus</h5>
 						<p>45€/mois</p>
+					</li>
 					<li>
 						<h5>Suivi grossesse</h5>
 						<p>120€/mois</p>
+					</li>
 				</ul>
 			</div>
 		</div>
-			<hr class="mt-5 mb-5">
-			<br>
-			<br>
+		<hr class="mt-5 mb-5">
+		<br>
+		<br>
 		<div class="recipes mb-5">
 			<h3 class="mt-4 text-center mb-5" style="background-color: rgb(135, 219, 237); height: auto;">Recettes</h3>
 			<div class="d-flex justify-content-lg-between flex-wrap mt-4 justify-content-sm-center">
@@ -78,7 +74,6 @@
 							<div class="recipe__image card-image">
 								<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 							</div>
-
 							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 						</div>
 					</div>
@@ -86,6 +81,4 @@
 			</div>
 		</div>
 	</div>
-
-
 {% endblock %}

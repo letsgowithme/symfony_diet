@@ -19,7 +19,8 @@ class IngredientCrudController extends AbstractCrudController
     {
         return [
             // IdField::new('id'),
-            TextField::new('name'),
+            TextField::new('name')
+            ->setLabel('Nom'),
             
         ];
     }
