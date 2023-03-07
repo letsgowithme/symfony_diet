@@ -26,5 +26,6 @@ Chaque recette possédera :
                            Procédure d'installation du projet:
 
 Récupérer le dépôt git git clone https://github.com/letsgowithme/symfony_diet
-Installation des dépendances php composer update
+
+Installation des dépendances: composer require
 
