@@ -1,4 +1,4 @@
-#                                        Site de la dieteticienne
+#                                        Symfony_diet
 
                                            Contexte du projet
                                            
