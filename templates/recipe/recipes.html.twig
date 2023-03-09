@@ -1,75 +1,32 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}
-	La liste de recettes
+	Mes recettes
 {% endblock %}
-
 {% block body %}
 	<div class="container mt-4">
-		<h1 class="text-center">La liste de recettes</h1>
-		{# <a href="{{ path('recipe.new') }}" class="btn btn-info">Créer une recette</a> #}
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-success">
-				{{ message }}
-			</div>
-		{% endfor %}
+		<h1>Collection de recettes</h1>
 
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th scope="col">Numéro</th>
-					<th scope="col text-uppercase">Nom</th>
-					<th scope="col">Régime</th>
-					<th scope="col">Allergènes</th>
-					<th scope="col">Public</th>
-					<th scope="col">Voir</th>
-					{# <th scope="col">Edition</th>
-					<th scope="col">Suppression</th> #}
-				</tr>
-			</thead>
-			<tbody>
+		<div class="d-flex justify-content-center flex-wrap">
+			{% if is_granted('ROLE_ADMIN') %}
 				{% for recipe in recipes %}
-					<tr class="table-primary">
-						<th scope="row">{{ recipe.id }}</th>
-						<td class="text-capitalize">{{ recipe.name }}</td>
-						<td>
-							{% for diet in recipe.diets %}
-								{{ diet.name }}
-							{% endfor %}
-						</td>
-						<td>
-							{% for allergen in recipe.allergens %}
-								{{ allergen.name }}
-							{% endfor %}
-						</td>
-						<td class="text-capitalize">
-							{% if recipe.isPublic is same as false %}
-								<p style="color: darkblue;">
-									No
-								</p>
-							{% else %}
-								<p style="color: darkblue; font-weight: semi-bold">
-									Oui
-								</p>
-							{% endif %}
-						</td>
+					<div class="card border-primary mb-3 me-3" style="width: 20rem;">
+						<div class="card-header">Recette numéro
+							{{ recipe.id }}</div>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a>
+							</h4>
+							<div class="recipe__image card-image">
+								<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+							</div>
+							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+						</div>
+					</div>
 
-						<td>
-						{% if recipe.isPublic is same as false %}
-							<a href="{{ path('recipe.show', {id: recipe.id}) }}" class="btn btn-info">Voir</a>
-							{% else %}
-							<a href="{{ path('recipe.show_public', {id: recipe.id}) }}" class="btn btn-info">Voir</a>
-							{% endif %}
-						</td>
-						{# <td>
-							<a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-danger">Modifier</a>
-						</td>
-						<td>
-							<a href="{{ path('recipe.delete', {id: recipe.id}) }}" class="btn btn-warning">Supprimer</a>
-						</td> #}
-					</tr>
 				{% endfor %}
-			</tbody>
-		</table>
+			{% endif %}
+
+
+		</div>
 	</div>
 {% endblock %}
