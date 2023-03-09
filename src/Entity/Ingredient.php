@@ -20,6 +20,8 @@ class Ingredient
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
+    
+
     #[ORM\Column(nullable: true)]
     private ?bool $isAllergen = null;
 
@@ -76,4 +78,9 @@ class Ingredient
      * Get the value of name
      */ 
    
+
+    /**
+     * Get the value of quantity
+     */ 
+    
     }

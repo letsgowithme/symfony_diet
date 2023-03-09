@@ -52,7 +52,7 @@ class UserController extends AbstractController
                 'Votre user a bien été créé'
             );
 
-            return $this->redirectToRoute('recipe.index');
+            return $this->redirectToRoute('user.index');
         }
 return $this->render('user/new.html.twig', [
     'form' => $form->createView()

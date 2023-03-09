@@ -49,6 +49,7 @@ class Recipe
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $ingredients;
+    
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $steps = null;

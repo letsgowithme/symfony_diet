@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Allergen;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,12 @@ class AllergenType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('user')
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-primary mt-4 fs-4'
+                ],
+                'label' => 'Sauvegarder',
+            ]);
         ;
     }
 

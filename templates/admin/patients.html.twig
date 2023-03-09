@@ -1,16 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends "@EasyAdmin/page/content.html.twig" %}
 
-{% block title %}Liste de patients
-{% endblock %}
+{% block content %}
 
-{% block body %}
+
 	<div class="container mt-4">
 		<h1 class="mb-4">Liste de patients</h1>
-		<button type="button" class="btn btn-primary my-4">
-
-		<a href="{{ path('user.new') }}" class="fs-5 text-light mb-4 text-decoration-none"  >Créer un nouveau patient</a>
-		</button>
-		
+		<a href="{{ path('user.new') }}" class="fs-5 text-light mb-4">Créer un nouveau patient</a>
 
 		<table class="table mt-4">
 			<thead>
@@ -49,4 +44,6 @@
 			</tbody>
 		</table>
 	</div>
+
+
 {% endblock %}

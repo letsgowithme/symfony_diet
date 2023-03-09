@@ -9,7 +9,6 @@ use App\Entity\Ingredient;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Repository\RecipeRepository;
-use App\Repository\UserRecipeRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,13 +43,13 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Diet - Administration')
+            ->setTitle('Administration')
             ->renderContentMaximized();
     }
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-home');
         yield MenuItem::linkToRoute('Collection de recettes', 'fas fa-list', 'recipe.recipes');
         yield MenuItem::linkToCrud('Patients', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Demandes de contact', 'fas fa-envelope', Contact::class);

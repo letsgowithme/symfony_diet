@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -12,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -26,19 +28,36 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
 {
 return $crud
-->setEntityLabelInPlural('Patients')
-->setEntityLabelInSingular('Patient')
-->setSearchFields(['fullName'])
-->setPageTitle("index", "Diet - Administration des patients")
-->setDefaultSort(['fullName' => 'asc'])
+            ->setEntityLabelInPlural('Patients')
+            ->setEntityLabelInSingular('Patient')
+            ->setSearchFields(['fullName'])
+            ->setPageTitle("index", "Administration des patients")
+            ->setDefaultSort(['fullName' => 'asc'])
+            ->setPageTitle(pageName:Crud::PAGE_INDEX, title: 'Patients')
+            ->setPageTitle(pageName:Crud::PAGE_NEW, title: 'Créer un patient')
+            ->setPageTitle(pageName:Crud::PAGE_EDIT, title: 'Modifier le patient')
 ;
 }
 
+public function configureActions(Actions $actions): Actions
+{
+    $linkExterne = Action::new('linkExterne', 'Générer le mot de passe', 'fa fa-glob')
+        ->linkToUrl("https://www.motdepasse.xyz/")
+        ->setHtmlAttributes([
+            'target' => '_blank'
+        ])
+        
+        ->addCssClass('btn btn-success')
+    ;
+    return $actions
+    ->add(Crud::PAGE_NEW, $linkExterne)
 
+    ;
+}
 
 public function configureFields(string $pageName): iterable
 {
-    // $roles = ['ROLE_ADMIN', 'ROLE_USER'];
+     $roles = ['ROLE_ADMIN', 'ROLE_USER'];
 return [
 IdField::new('id')
 ->hideOnForm(),
@@ -59,8 +78,8 @@ AssociationField::new('diets')
 ->setLabel('Régimes'), 
 AssociationField::new('recipes')
 ->setLabel('Recettes'),
-// ArrayField::new('roles')
-//         ->setLabel('Rôle'),
+ArrayField::new('roles')
+        ->setLabel('Rôle'),
 DateTimeField::new('createdAt')
 ->hideOnForm()
 ->setFormTypeOption('disabled', 'disabled'),

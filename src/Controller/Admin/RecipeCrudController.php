@@ -23,52 +23,57 @@ class RecipeCrudController extends AbstractCrudController
         return Recipe::class;
     }
     public function configureCrud(Crud $crud): Crud
-{
-  return $crud
-      ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
-}
+    {
+        return $crud
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
+            ->setEntityLabelInSingular('Recette')
+            ->setEntityLabelInPlural('recettes')
+            ->setPageTitle(pageName: Crud::PAGE_INDEX, title: 'Recettes')
+            ->setPageTitle(pageName: Crud::PAGE_NEW, title: 'Créer une recette')
+            ->setPageTitle(pageName: Crud::PAGE_EDIT, title: 'Modifier la recette');
+    }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            // IdField::new('id')
-            // ->hideOnForm(),
+            IdField::new('id')
+            ->hideOnForm(),
             TextField::new('name')
-                    ->setLabel('Nom'),
-                    
+                ->setLabel('Nom'),
+
             ImageField::new('imageName')
-                        ->setFormType(FileUploadType::class)
-                        ->setUploadDir('/public/images/recipe')
-                        ->setRequired(false)
-                        ->setLabel('Image'),
+                ->setFormType(FileUploadType::class)
+                ->setUploadDir('/public/images/recipe')
+                ->setRequired(false)
+                ->setLabel('Image'),
             TextEditorField::new('description')
-            ->setFormType(CKEditorType::class)
-            ->hideOnIndex(),
+                ->setFormType(CKEditorType::class)
+                ->hideOnIndex(),
             NumberField::new('preparationTime')
-                        ->setLabel('Temps de préparation (en minutes)')
-                        ->hideOnIndex(),
-                        
+                ->setLabel('Temps de préparation (en minutes)')
+                ->hideOnIndex(),
+
             NumberField::new('pauseTime')
-            ->setLabel('Temps de pause (en minutes)')
-            ->hideOnIndex(),
+                ->setLabel('Temps de pause (en minutes)')
+                ->hideOnIndex(),
             NumberField::new('cookingTime')
-            ->setLabel('Temps de cuisson (en minutes)')
-            ->hideOnIndex(),
+                ->setLabel('Temps de cuisson (en minutes)')
+                ->hideOnIndex(),
             AssociationField::new('ingredients')
-            ->setLabel('Ingrédients')
-            ->hideOnIndex(),
+                ->setLabel('Ingrédients')
+                ->hideOnIndex(),
             TextEditorField::new('steps')
-            ->setFormType(CKEditorType::class)
-            ->setLabel('Étapes')
-            ->hideOnIndex(),
+                ->setFormType(CKEditorType::class)
+                ->setLabel('Étapes')
+                ->hideOnIndex(),
             AssociationField::new('allergens')
-            ->setLabel('Allergènes'),
+                ->setLabel('Allergènes'),
             AssociationField::new('diets')
-            ->setLabel('Régimes'),
+                ->setLabel('Régimes'),
             // AssociationField::new('users')
             // ->setLabel('Users'),
             BooleanField::new('isPublic')
-            ->setLabel('Recette publque ?')
-            ];
-            }
-            }
+                ->setLabel('Recette publque ?')
+        ];
+    }
+}
