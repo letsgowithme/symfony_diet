@@ -59,14 +59,15 @@ Récupérer le dépôt git git clone https://github.com/letsgowithme/symfony_die
 
 Installation des dépendances: composer require
 
-Pour créer d’un administrateur pour le back office
+                         Pour créer d’un administrateur pour le back office
 
 composer require admin
 composer require easycorp/easyadmin-bundle
 symfony console make:admin:dashboard
 symfony console make:admin:crud
 
-Pour Configurer une interface d'administration:
+                          Pour Configurer une interface d'administration:
+                            
 https://symfony.com/doc/current/the-fast-track/fr/9-backend.html
 
 
