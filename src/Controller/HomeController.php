@@ -18,15 +18,7 @@ class HomeController extends AbstractController
             'recipes' => $recipeRepository->findPublicRecipe(3)
         ]);
     }
-    #[Route('/', name: 'home', methods: ['GET'])]
-    public function mentions(
-        RecipeRepository $recipeRepository
-    ): Response
-    {
-        return $this->render('pages/home/index.html.twig', [
-            'recipes' => $recipeRepository->findPublicRecipe(3)
-        ]);
-    }
+   
     #[Route('/legal_notice', name: 'footer.legal_notice', methods: ['GET'])]
     public function legalNotice(
         RecipeRepository $recipeRepository
