@@ -47,10 +47,15 @@ soumission de l’avis ne devra pas recharger la page.
 US5. Découvrir les services du cabinet
 Plusieurs pages statiques devront être mises en place, et optimisées pour s’afficher correctement sur tout
 support :
+
  Une page d’accueil avec au moins une section "À propos" et “Mes services”,
+
  Une page de contact,
+
  Une page de mentions légales (Obligatoire depuis 2004),
+
  Une page de politique de confidentialité (Obligatoire depuis le RGPD en 2018).
+
                                           
 
                            Procédure d'installation du projet:
