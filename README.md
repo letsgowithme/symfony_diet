@@ -61,10 +61,14 @@ Installation des dépendances: composer require
 
                          Pour créer d’un administrateur pour le back office
 
-composer require admin
-composer require easycorp/easyadmin-bundle
-symfony console make:admin:dashboard
-symfony console make:admin:crud
+composer require admin 
+
+composer require easycorp/easyadmin-bundle 
+
+symfony console make:admin:dashboard 
+
+symfony console make:admin:crud 
+
 
                           Pour Configurer une interface d'administration:
                             
