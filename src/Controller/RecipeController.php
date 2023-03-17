@@ -85,9 +85,6 @@ class RecipeController extends AbstractController
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
-        $recipe = new Recipe();
-        $form = $this->createForm(RecipeType::class, $recipe);
-        $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
