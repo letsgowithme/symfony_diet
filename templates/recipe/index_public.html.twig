@@ -5,7 +5,7 @@
 
 {% block body %}
 	<div class="container mt-4 d-flex flex-sm-column justify-content-center">
-		<h1 class="text-center text-light">Recettes de base</h1>
+		<h1 class="text-center text-dark" style="font-family: \"Libre Baskerville\", serif;">Recettes de base</h1>
 		<div class="d-flex justify-content-center flex-wrap">
 			{% for recipe in recipes %}
 			{% if recipe.isPublic is same as true %}

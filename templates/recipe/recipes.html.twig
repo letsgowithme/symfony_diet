@@ -4,22 +4,22 @@
 {% endblock %}
 {% block body %}
 	<div class="container mt-4">
-		<h1>Collection de recettes</h1>
+		<h1 class="text-dark text-center mt-4 mb-4"  style="font-family: \"Libre Baskerville\", serif;">Collection de recettes</h1>
 
 		<div class="d-flex justify-content-center flex-wrap">
 			{% if is_granted('ROLE_ADMIN') %}
 				{% for recipe in recipes %}
 					<div class="card border-primary mb-3 me-3" style="width: 20rem;">
-						<div class="card-header">Recette numéro
+						<div class="card-header text-dark">Recette numéro
 							{{ recipe.id }}</div>
 						<div class="card-body">
 							<h4 class="card-title">
-								<a href="{{ path('recipe.show', {id: recipe.id}) }}">{{ recipe.name }}</a>
+								<a href="{{ path('recipe.show', {id: recipe.id}) }}" class="text-dark">{{ recipe.name }}</a>
 							</h4>
 							<div class="recipe__image card-image">
 								<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 							</div>
-							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+							<p class="card-text text-dark">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 						</div>
 					</div>
 
