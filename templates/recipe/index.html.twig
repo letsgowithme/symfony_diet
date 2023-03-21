@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 	<div class="container mt-4">
-		<h1>Mes recettes</h1>
+		<h1 class="text-center text-light">Mes recettes</h1>
 		<div class="d-flex justify-content-center flex-wrap">
 			   	{% if app.user.recipes %}
 					{% for recipe in app.user.recipes %}

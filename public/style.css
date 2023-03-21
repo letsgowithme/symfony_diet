@@ -13,7 +13,7 @@ body {
   min-height: 100vh;
   justify-content: space-between;
   width: 100%;
-  background-color: rgb(130 215 233);
+  background-color: #2d8b9e;
 }
 
 h1,
@@ -33,7 +33,7 @@ h5 {
 p,
 li {
   font-family: "Karla", sans-serif;
-  color: rgb(99, 97, 97);
+  color: #636161;
 }
 .recipe__image {
   width: 300px;
@@ -45,7 +45,7 @@ li {
   background-color: rgb(43, 72, 79);
 }
 .navbar {
-  background-color: rgb(7, 106, 103);
+  background-color: #076a67;
 }
 
 .dropdown-menu {
