@@ -61,10 +61,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
     private Collection $marks;
 
-    // #[ORM\ManyToMany(targetEntity: Recipe::class)]
-    // private Collection $recipes;
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
+    #[ORM\ManyToMany(targetEntity: Recipe::class)]
     private Collection $recipes;
+    // #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
+    // private Collection $recipes;
 
     public function __construct()
     {
@@ -317,31 +317,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    // /**
+    //  * @return Collection<int, Recipe>
+    //  */
+    // public function getRecipes(): Collection
+    // {
+    //     return $this->recipes;
+    // }
+
+    // public function addRecipe(Recipe $recipe): self
+    // {
+    //     if (!$this->recipes->contains($recipe)) {
+    //         $this->recipes->add($recipe);
+    //     }
+
+    //     return $this;
+    // }
+
+    // public function removeRecipe(Recipe $recipe): self
+    // {
+    //     if ($this->recipes->removeElement($recipe)) {
+    //         // set the owning side to null (unless already changed)
+    //         if ($recipe->getUser() === $this) {
+    //             $recipe->setUser(null);
+    //         }
+    //     }
+
+    //     return $this;
+    // }
+
     /**
-     * @return Collection<int, Recipe>
-     */
-    public function getRecipes(): Collection
+     * Get the value of recipes
+     */ 
+    public function getRecipes()
     {
         return $this->recipes;
     }
 
-    public function addRecipe(Recipe $recipe): self
+    /**
+     * Set the value of recipes
+     *
+     * @return  self
+     */ 
+    public function setRecipes($recipes)
     {
-        if (!$this->recipes->contains($recipe)) {
-            $this->recipes->add($recipe);
-        }
-
-        return $this;
-    }
-
-    public function removeRecipe(Recipe $recipe): self
-    {
-        if ($this->recipes->removeElement($recipe)) {
-            // set the owning side to null (unless already changed)
-            if ($recipe->getUser() === $this) {
-                $recipe->setUser(null);
-            }
-        }
+        $this->recipes = $recipes;
 
         return $this;
     }

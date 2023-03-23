@@ -62,9 +62,10 @@
 		<br>
 		<div class="recipes mb-5">
 			<h3 class="mt-4 text-center mb-5" style="background-color: rgb(135, 219, 237); height: auto;">Recettes</h3>
-			<div class="d-flex justify-content-lg-between flex-wrap mt-4 justify-content-sm-center">
+
+			<div class="d-flex justify-content-center flex-wrap">
 				{% for recipe in recipes %}
-					<div class="card border-primary mb-3" style="max-width: 20rem;">
+					<div class="card border-primary mb-3 me-3" style="max-width: 20rem;">
 						<div class="card-header">Recette numéro
 							{{ recipe.id }}</div>
 						<div class="card-body">
@@ -72,9 +73,9 @@
 								<a href="{{ path('recipe.show_public', {id: recipe.id}) }}">{{ recipe.name }}</a>
 							</h4>
 							<div class="recipe__image card-image">
-								<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+								<img style="min-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" class="img-fluid">
 							</div>
-							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+							<p class="card-text">{{ recipe.description|striptags|slice(0,50) ~ '...' }}</p>
 						</div>
 					</div>
 				{% endfor %}

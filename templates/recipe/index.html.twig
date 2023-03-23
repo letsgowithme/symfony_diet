@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 	<div class="container mt-4">
-		<h1>Mes recettes</h1>
+		<h1 class="text-center">Mes recettes</h1>
 		<div class="d-flex justify-content-center flex-wrap">
 			   	{% if app.user.recipes %}
 					{% for recipe in app.user.recipes %}
@@ -19,7 +19,8 @@
 						<div class="recipe__image card-image">
 							<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 						</div>
-						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+						{# <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p> #}
+							<p class="card-text">{{ recipe.description|raw }}</p>
 					</div>
 				</div>
 				{% endfor %}

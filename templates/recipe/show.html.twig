@@ -14,15 +14,7 @@
 		
 {% if recipe.isPublic is same as false %}
 		<h1 class="mt-4 mb-4 text-capitalize">{{ recipe.name }}</h1>
-{% if is_granted('ROLE_ADMIN') %}
-		{% if recipe.isPublic is same as true %}
-		<a href="{{ path('recipe.edit_public', {id: recipe.id}) }}" class="btn btn-danger">Modifier la recette</a>
-		<a href="{{ path('recipe.delete_public', {id: recipe.id}) }}" class="btn btn-danger">Supprimer la recette</a>
-    {% else %}
-		<a href="{{ path('recipe.edit', {id: recipe.id}) }}" class="btn btn-danger">Modifier la recette</a>
-		<a href="{{ path('recipe.delete', {id: recipe.id}) }}" class="btn btn-danger">Supprimer la recette</a>
-		{% endif %}
-		{% endif %}
+
 		<div class="recipe__image easyadmin-lightbox">
 			<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 		</div>

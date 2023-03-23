@@ -11,7 +11,7 @@ use App\Repository\AllergenRepository;
 use App\Repository\DietRepository;
 use App\Repository\IngredientRepository;
 use App\Repository\UserRepository;
-// use Doctrine\ORM\Mapping\OrderBy;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
@@ -51,7 +51,7 @@ class RecipeType extends AbstractType
         ])
         
 
-            ->add('description', TextareaType::class, [
+            ->add('description', CKEditorType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -128,7 +128,7 @@ class RecipeType extends AbstractType
 
             ])
 
-            ->add('steps', TextareaType::class, [
+            ->add('steps', CKEditorType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -163,6 +163,9 @@ class RecipeType extends AbstractType
                     return $r->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
                 },
+                'attr' => [
+                    'class' => 'mb-4'
+                ],
                 'label' => 'Régimes',
                 'label_attr' => [
                     'class' => 'form-label mt-4 mb-4 text-dark fs-5'
@@ -180,7 +183,7 @@ class RecipeType extends AbstractType
                 'required' => false,
                 'label' => 'Recette publique ? ',
                 'label_attr' => [
-                    'class' => 'form-check-label mt-3 ms-3 text-dark fs-5'
+                    'class' => 'form-check-label mt-3 ms-3 text-dark fs-5 mb-4'
                 ],
                 'constraints' => [
                     new Assert\NotNull()

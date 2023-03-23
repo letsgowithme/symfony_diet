@@ -5,7 +5,7 @@
 
 {% block body %}
 	<div class="container mt-4 d-flex flex-sm-column justify-content-center">
-		<h1 class="ms-5">Recettes de base</h1>
+		<h1 class="ms-5 text-center">Recettes publiques</h1>
 		<div class="d-flex justify-content-center flex-wrap">
 			{% for recipe in recipes %}
 			{% if recipe.isPublic is same as true %}
@@ -19,7 +19,8 @@
 						<div class="recipe__image card-image">
 							<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 						</div>
-						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+						{# <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p> #}
+						<p class="card-text">{{ recipe.description|raw }}</p>
 					</div>
 				</div>
 				{% endif %}

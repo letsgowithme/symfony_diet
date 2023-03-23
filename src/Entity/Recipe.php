@@ -66,12 +66,12 @@ class Recipe
 
     private ?float $average = null;
 
-    // #[ORM\ManyToMany(targetEntity: User::class)]
-    // private Collection $users;
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    private Collection $users;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'cascade')]
-    private ?User $user = null;
+    // #[ORM\ManyToOne(inversedBy: 'recipes')]
+    // #[ORM\JoinColumn(nullable: true, onDelete: 'cascade')]
+    // private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class)]
     private Collection $marks;
@@ -366,17 +366,6 @@ class Recipe
     }
 
 
-public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
 
     /**
      * Get the value of marks
@@ -402,4 +391,24 @@ public function getUser(): ?User
         }
 
 
+
+    /**
+     * Get the value of users
+     */ 
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    /**
+     * Set the value of users
+     *
+     * @return  self
+     */ 
+    public function setUsers($users)
+    {
+        $this->users = $users;
+
+        return $this;
+    }
 }

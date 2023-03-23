@@ -11,7 +11,7 @@
 				{{ message }}
 			</div>
 		{% endfor %}
-		{# {% if recipe.isPublic is same as true %} #}
+	
 		<h1 class="mt-4">{{ recipe.name }}</h1>
 
 		<div class="recipe__image">
@@ -105,7 +105,7 @@
 						</div>
 					{% endif %}
 				{% endfor %}
-				{# {% endif %} #}
+			
 
 				{% if is_granted('ROLE_ADMIN') %}
 					<button class="btn btn-primary fs-5 fw-bold mb-5"><a href="{{ path('recipe.recipes') }}">Collection de recettes</a></button>
@@ -115,4 +115,9 @@
 			</div>
 		</div>
 	</div>
-</div></div>{% endblock %}
+</div></div>
+	<br>
+		<br>
+		<br>
+		<br>
+		<br>{% endblock %}

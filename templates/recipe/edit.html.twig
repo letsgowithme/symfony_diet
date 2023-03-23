@@ -21,7 +21,7 @@
 
 		<div class="form-group">
 			{{ form_label(form.description) }}
-			{{ form_widget(form.description) }}
+			{{ form_widget(form.description|raw) }}
 			<div class="form-error">
 				{{ form_errors(form.description) }}
 			</div>
@@ -109,4 +109,9 @@
 
 			{{ form_end(form) }}
 		</div>
+			<br>
+		<br>
+		<br>
+		<br>
+		<br>
 	{% endblock %}
