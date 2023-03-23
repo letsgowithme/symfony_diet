@@ -28,7 +28,7 @@ class RegistrationType extends AbstractType
                 'label' => 'Nom / Prénom',
                 'label_attr' => [
                     'class' => 'form-label mt-4',
-                    
+
                 ],
                 'constraints' => [
                     new Assert\Length(['min' => 2, 'max' => 50]),
@@ -44,7 +44,7 @@ class RegistrationType extends AbstractType
                 'label' => 'Email',
                 'label_attr' => [
                     'class' => 'form-label mt-4',
-                    
+
                 ],
                 'constraints' => [
                     new Assert\Length(['min' => 8, 'max' => 180]),
@@ -90,9 +90,8 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-                 'label' => 'Enregistrer'
-        ]);
-        ;
+                'label' => 'Enregistrer'
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

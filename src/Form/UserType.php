@@ -9,12 +9,10 @@ use App\Entity\User;
 use App\Repository\AllergenRepository;
 use App\Repository\DietRepository;
 use App\Repository\RecipeRepository;
-// use Doctrine\DBAL\Types\DateTimeImmutableType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-// use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,21 +26,21 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('fullName', TextType::class, [
-            'attr' => [
-                'class' => 'form-control',
-                'minlenght' => '2',
-                'maxlenght' => '50',
-            ],
-            'label' => 'Nom / Prénom',
-            'label_attr' => [
-                'class' => 'form-label  mt-4'
-            ],
-            'constraints' => [
-                new Assert\NotBlank(),
-                new Assert\Length(['min' => 2, 'max' => 50])
-            ]
-        ])
+            ->add('fullName', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '50',
+                ],
+                'label' => 'Nom / Prénom',
+                'label_attr' => [
+                    'class' => 'form-label  mt-4'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Length(['min' => 2, 'max' => 50])
+                ]
+            ])
 
             ->add('email', EmailType::class, [
                 'attr' => [
@@ -53,7 +51,7 @@ class UserType extends AbstractType
                 'label' => 'Email',
                 'label_attr' => [
                     'class' => 'form-label mt-4',
-                    
+
                 ],
                 'constraints' => [
                     new Assert\Length(['min' => 2, 'max' => 180]),
@@ -81,7 +79,7 @@ class UserType extends AbstractType
                     'class' => 'form-label  mt-4'
                 ]
             ])
-            ->add('allergens', EntityType::class,[
+            ->add('allergens', EntityType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -96,8 +94,8 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-         
-            ->add('diets', EntityType::class,[
+
+            ->add('diets', EntityType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -111,7 +109,7 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('recipes', EntityType::class,[
+            ->add('recipes', EntityType::class, [
                 'attr' => [
                     'class' => 'form-control'
                 ],
@@ -132,25 +130,14 @@ class UserType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
                 'label' => 'Date de naissance',
-                ])
-
-            //  ->add('createdAt',  DateTimeImmutableType::class, [
-            //     'attr' => [
-            //         'class' => 'ms-3'
-            //     ],
-            //     'widget' => 'single_text',
-            //     // this is actually the default format for single_text
-            //     'format' => 'yyyy-MM-dd',
-            //     'label' => 'Créé:',
-            // ])
+            ])
 
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4 fs-4'
                 ],
                 'label' => 'Sauvegarder',
-            ]);
-        ;
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

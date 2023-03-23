@@ -17,7 +17,7 @@ class Comment
     private ?string $content = null;
 
 
-    #[ORM\Column(type: 'boolean')]  
+    #[ORM\Column(type: 'boolean')]
     private ?bool $isApproved = false;
 
 
@@ -32,10 +32,11 @@ class Comment
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Recipe $recipe = null;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->createdAt = new \DateTimeImmutable();
     }
-        
+
 
     public function getId(): ?int
     {
@@ -44,7 +45,7 @@ class Comment
 
     /**
      * Get the value of content
-     */ 
+     */
     public function getContent()
     {
         return $this->content;
@@ -54,7 +55,7 @@ class Comment
      * Set the value of content
      *
      * @return  self
-     */ 
+     */
     public function setContent($content)
     {
         $this->content = $content;
@@ -62,11 +63,11 @@ class Comment
         return $this;
     }
 
-    
+
 
     /**
      * Get the value of isApproved
-     */ 
+     */
     public function getisApproved()
     {
         return $this->isApproved;
@@ -76,18 +77,18 @@ class Comment
      * Set the value of isApproved
      *
      * @return  self
-     */ 
+     */
     public function setisApproved($isApproved)
     {
         $this->isApproved = $isApproved;
 
         return $this;
     }
-    
+
 
     /**
      * Get the value of createdAt
-     */ 
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
@@ -97,7 +98,7 @@ class Comment
      * Set the value of createdAt
      *
      * @return  self
-     */ 
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
@@ -105,11 +106,11 @@ class Comment
         return $this;
     }
 
-  
+
 
     /**
      * Get the value of author
-     */ 
+     */
     public function getAuthor()
     {
         return $this->author;
@@ -119,7 +120,7 @@ class Comment
      * Set the value of author
      *
      * @return  self
-     */ 
+     */
     public function setAuthor($author)
     {
         $this->author = $author;

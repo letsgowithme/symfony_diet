@@ -30,7 +30,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::JSON)]
     private array $roles = [];
-
     private ?string $plainPassword = null;
 
     /**
@@ -46,7 +45,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-
     #[ORM\ManyToMany(targetEntity: Allergen::class, inversedBy: 'users')]
     private Collection $allergens;
 
@@ -54,17 +52,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $diets;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
-   
+
     private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Mark::class)]
-    
+
     private Collection $marks;
 
     #[ORM\ManyToMany(targetEntity: Recipe::class)]
     private Collection $recipes;
-    // #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
-    // private Collection $recipes;
 
     public function __construct()
     {
@@ -177,7 +173,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    
 
     public function getDateOfBirth(): ?\DateTimeInterface
     {
@@ -203,10 +198,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-   
-    public function __toString() {
+    public function __toString()
+    {
         return (string) $this->fullName;
-        }
+    }
 
     /**
      * @return Collection<int, Allergen>
@@ -256,7 +251,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-       /**
+    /**
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection
@@ -286,7 +281,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    
+
     /**
      * @return Collection<int, Mark>
      */
@@ -317,38 +312,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // /**
-    //  * @return Collection<int, Recipe>
-    //  */
-    // public function getRecipes(): Collection
-    // {
-    //     return $this->recipes;
-    // }
-
-    // public function addRecipe(Recipe $recipe): self
-    // {
-    //     if (!$this->recipes->contains($recipe)) {
-    //         $this->recipes->add($recipe);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeRecipe(Recipe $recipe): self
-    // {
-    //     if ($this->recipes->removeElement($recipe)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($recipe->getUser() === $this) {
-    //             $recipe->setUser(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
-
     /**
      * Get the value of recipes
-     */ 
+     */
     public function getRecipes()
     {
         return $this->recipes;
@@ -358,7 +324,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of recipes
      *
      * @return  self
-     */ 
+     */
     public function setRecipes($recipes)
     {
         $this->recipes = $recipes;

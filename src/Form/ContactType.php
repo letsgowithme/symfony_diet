@@ -2,8 +2,6 @@
 
 namespace App\Form;
 
-use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
-use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,21 +16,21 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('fullName', TextType::class, [
-            'attr' => [
-                'class' => 'form-control',
-                'minlenght' => '2',
-                'maxlenght' => '50',
-            ],
-            'label' => 'Nom / Prénom',
-            'label_attr' => [
-                'class' => 'form-label mt-4 text-dark fs-5'
-            ],
-            'constraints' => [
-                new Assert\NotBlank(),
-                new Assert\Length(['min' => 2, 'max' => 50])
-            ]
-        ])
+            ->add('fullName', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'minlenght' => '2',
+                    'maxlenght' => '50',
+                ],
+                'label' => 'Nom / Prénom',
+                'label_attr' => [
+                    'class' => 'form-label mt-4 text-dark fs-5'
+                ],
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Length(['min' => 2, 'max' => 50])
+                ]
+            ])
 
             ->add('email', EmailType::class, [
                 'attr' => [
@@ -43,7 +41,7 @@ class ContactType extends AbstractType
                 'label' => 'Email',
                 'label_attr' => [
                     'class' => 'form-label mt-4 text-dark fs-5'
-                    
+
                 ],
                 'constraints' => [
                     new Assert\Length(['min' => 2, 'max' => 180]),
@@ -82,11 +80,8 @@ class ContactType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4'
                 ],
-            'label' => 'Envoyer'
+                'label' => 'Envoyer'
             ]);
-
-
-        
     }
 
     public function configureOptions(OptionsResolver $resolver): void

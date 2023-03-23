@@ -45,7 +45,7 @@ li {
   background-color: rgb(43, 72, 79);
 }
 .navbar {
-  background-color: rgb(7, 106, 103);
+  background-color: #076a67;
 }
 
 .dropdown-menu {
@@ -53,4 +53,7 @@ li {
 }
 .dropdown-item:hover {
   background-color: rgb(35, 190, 190);
+}
+.choose_color {
+  background-color: #87dbed;
 }

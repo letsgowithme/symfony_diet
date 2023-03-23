@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+<div style="height: 50px; z-index: -3;">{% include "partials/_show_bg.html.twig" %}</div>
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success">
 			{{ message }}
@@ -13,7 +14,7 @@
 	<div class="container">
 		
 {% if recipe.isPublic is same as false %}
-		<h1 class="mt-4 mb-4 text-capitalize">{{ recipe.name }}</h1>
+		<h1 class="mt-4 mb-4 text-capitalize text-light">{{ recipe.name }}</h1>
 
 		<div class="recipe__image easyadmin-lightbox">
 			<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
@@ -22,43 +23,43 @@
 		<h6s>La moyenne de cette recette est de
 			{{ recipe.average|number_format(2,'.', '.') }}
 			/ 5</h6s>
-
-		<h5 class="mt-3 text-dark">Description:</h5>
+<div style="background-color: #87dbed; padding: 10px;">
+		<h5 class="mt-3 text-light">Description:</h5>
 		<p class="fs-4">{{ recipe.description|raw }}</p>
+</div>
 
-
-		<h5 class="mt-3 text-dark">Temps de préparation (en minutes):
+		<h5 class="mt-3 text-light">Temps de préparation (en minutes):
 			<span class="badge bg-primary mt-1">{{ recipe.preparationTime }}</span>
 		</h5>
 
 		{% if recipe.pauseTime %}
-			<h5 class="mt-3 text-dark">Temps de pause (en minutes):
+			<h5 class="mt-3 text-light">Temps de pause (en minutes):
 				<span class="badge bg-primary mt-1">
 					{{ recipe.pauseTime }}</span>
 			</h5>
 		{% else %}
-			<h5 class="mt-3 text-dark">Temps non renseigné</p>
+			<h5 class="mt-3 text-light">Temps non renseigné</p>
 		{% endif %}
 
-		<h5 class="mt-3 text-dark">Temps de cuisson (en minutes):
+		<h5 class="mt-3 text-light">Temps de cuisson (en minutes):
 			<span class="badge bg-primary mt-1">
 				{{ recipe.cookingTime }}</span>
 		</h5>
 
-		<h5 class="mt-3 text-dark">Ingrédients:</h5>
+		<h5 class="mt-3 text-light">Ingrédients:</h5>
 		{% for ingredient in recipe.ingredients %}
 			<span class="badge bg-primary mb-4 fs-6">{{ ingredient.name }}</span>
 		{% endfor %}
-
-		<h5 class="mt-3 text-dark">Étapes :</h5>
+<div style="background-color: #87dbed; padding: 10px;">
+		<h5 class="mt-3 text-light">Étapes :</h5>
 		{{ recipe.steps|raw }}
-
-		<h5 class="mt-3 text-dark">Allergènes :</h5>
+</div>
+		<h5 class="mt-3 text-light">Allergènes :</h5>
 		{% for allergen in recipe.allergens %}
 			<span class="badge bg-primary mb-4 fs-6">{{ allergen.name|raw }}</span>
 		{% endfor %}
 
-		<h5 class="mt-3 text-dark">Régime :</h5>
+		<h5 class="mt-3 text-light">Régime :</h5>
 		{% for diets in recipe.diets %}
 			<span class="badge bg-primary mb-4 fs-6">{{ diets.name }}</span>
 		{% endfor %}
@@ -73,7 +74,7 @@
 			{% endif %}
 		</div>
 		<div class="mt-4">
-			<h2 class="text-2xl mb-8">Commentaire(s)</h2>
+			<h2 class="text-2xl mb-8 text-light">Commentaire(s)</h2>
 			<div class="comments">
 				{% if app.user %}
 					<div class="comments__new">

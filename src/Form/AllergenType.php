@@ -19,8 +19,7 @@ class AllergenType extends AbstractType
                     'class' => 'btn btn-primary mt-4 fs-4'
                 ],
                 'label' => 'Sauvegarder',
-            ]);
-        ;
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

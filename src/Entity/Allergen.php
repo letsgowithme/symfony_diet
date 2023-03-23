@@ -17,7 +17,7 @@ class Allergen
     #[ORM\Column]
     private ?int $id = null;
 
-   
+
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
@@ -29,7 +29,7 @@ class Allergen
         $this->users = new ArrayCollection();
     }
 
-    
+
 
     public function getId(): ?int
     {
@@ -47,11 +47,12 @@ class Allergen
 
         return $this;
     }
-   
 
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->name;
-        }
+    }
 
     /**
      * @return Collection<int, User>
@@ -79,5 +80,4 @@ class Allergen
 
         return $this;
     }
-   
 }

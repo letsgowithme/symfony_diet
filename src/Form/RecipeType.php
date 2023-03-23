@@ -28,28 +28,28 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RecipeType extends AbstractType
 {
-    
-   
+
+
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('name', TextType::class, [
-            'attr' => [
-                'class' => 'form-control'
-            ],
-            'label' => 'Nom',
-            'label_attr' => [
-                'class' => 'form-label mt-4 text-dark fs-5',
-                'minLength' => '2',
-                'maxLength' => '50'
-            ],
-            'constraints' => [
-                new Assert\Length(['min' => 2, 'max' => 50]),
-                new Assert\NotBlank()
-            ]
-        ])
-        
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label' => 'Nom',
+                'label_attr' => [
+                    'class' => 'form-label mt-4 text-dark fs-5',
+                    'minLength' => '2',
+                    'maxLength' => '50'
+                ],
+                'constraints' => [
+                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\NotBlank()
+                ]
+            ])
+
 
             ->add('description', CKEditorType::class, [
                 'attr' => [
@@ -65,9 +65,9 @@ class RecipeType extends AbstractType
             ])
             ->add('preparationTime', IntegerType::class, [
                 'attr' => [
-                'class' => 'form-control',
-                'min' => 1,
-                'max' => 1440
+                    'class' => 'form-control',
+                    'min' => 1,
+                    'max' => 1440
                 ],
                 'label' => 'Temps de préparation en minutes',
                 'label_attr' => [
@@ -80,9 +80,9 @@ class RecipeType extends AbstractType
             ])
             ->add('pauseTime', IntegerType::class, [
                 'attr' => [
-                'class' => 'form-control',
-                'min' => 0,
-                'max' => 1440
+                    'class' => 'form-control',
+                    'min' => 0,
+                    'max' => 1440
                 ],
                 'label' => 'Temps de repos en minutes',
                 'label_attr' => [
@@ -95,9 +95,9 @@ class RecipeType extends AbstractType
             ])
             ->add('cookingTime', IntegerType::class, [
                 'attr' => [
-                'class' => 'form-control',
-                'min' => 0,
-                'max' => 1440
+                    'class' => 'form-control',
+                    'min' => 0,
+                    'max' => 1440
                 ],
                 'label' => 'Temps de cuisson en minutes',
                 'label_attr' => [
@@ -108,23 +108,21 @@ class RecipeType extends AbstractType
                     new Assert\LessThan(1440)
                 ]
             ])
-            
 
-            ->add('ingredients', EntityType::class,[
+
+            ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
                 'query_builder' => function (IngredientRepository $r) {
                     return $r->createQueryBuilder('i')
                         ->orderBy('i.name', 'ASC');
-                    },
+                },
                 'label' => 'Ingrédients',
                 'label_attr' => [
                     'class' => 'form-label mt-4 text-dark fs-5'
                 ],
-                
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true
-                
 
             ])
 
@@ -134,14 +132,14 @@ class RecipeType extends AbstractType
                 ],
                 'label' => 'Étapes',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 text-dark fs-5'
-                
+                    'class' => 'form-label mt-4 text-light fs-5'
+
                 ],
                 'constraints' => [
                     new Assert\NotBlank()
                 ]
             ])
-              ->add('allergens', EntityType::class,[
+            ->add('allergens', EntityType::class, [
                 'class' => Allergen::class,
                 'query_builder' => function (AllergenRepository $r) {
                     return $r->createQueryBuilder('i')
@@ -151,13 +149,13 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4 mb-4 text-dark fs-5'
                 ],
-                
+
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true
             ])
-            
-            ->add('diets', EntityType::class,[
+
+            ->add('diets', EntityType::class, [
                 'class' => Diet::class,
                 'query_builder' => function (DietRepository $r) {
                     return $r->createQueryBuilder('i')
@@ -170,12 +168,12 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4 mb-4 text-dark fs-5'
                 ],
-                
+
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true
             ])
-            
+
             ->add('isPublic', CheckboxType::class, [
                 'attr' => [
                     'class' => 'form-check-input mt-4 mb-4',
@@ -196,13 +194,13 @@ class RecipeType extends AbstractType
                 ],
                 'required' => false
             ])
-    
+
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-primary mt-4 mb-4 fs-5'
                 ],
-            'label' => 'Sauvegarder la recette'
-        ]);
+                'label' => 'Sauvegarder la recette'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

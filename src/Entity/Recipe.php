@@ -46,7 +46,6 @@ class Recipe
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
     private Collection $ingredients;
-    
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $steps = null;
@@ -56,7 +55,6 @@ class Recipe
 
     #[ORM\ManyToMany(targetEntity: Diet::class)]
     private Collection $diets;
-
 
     #[ORM\Column]
     private ?bool $isPublic = false;
@@ -68,10 +66,6 @@ class Recipe
 
     #[ORM\ManyToMany(targetEntity: User::class)]
     private Collection $users;
-
-    // #[ORM\ManyToOne(inversedBy: 'recipes')]
-    // #[ORM\JoinColumn(nullable: true, onDelete: 'cascade')]
-    // private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class)]
     private Collection $marks;
@@ -261,7 +255,6 @@ class Recipe
         return $this;
     }
 
-
     /**
      * Get the value of steps
      */
@@ -347,7 +340,7 @@ class Recipe
 
     /**
      * Get the value of average
-     */ 
+     */
     public function getAverage()
     {
         return $this->average;
@@ -357,7 +350,7 @@ class Recipe
      * Set the value of average
      *
      * @return  self
-     */ 
+     */
     public function setAverage($average)
     {
         $this->average = $average;
@@ -365,11 +358,9 @@ class Recipe
         return $this;
     }
 
-
-
     /**
      * Get the value of marks
-     */ 
+     */
     public function getMarks()
     {
         return $this->marks;
@@ -379,22 +370,21 @@ class Recipe
      * Set the value of marks
      *
      * @return  self
-     */ 
+     */
     public function setMarks($marks)
     {
         $this->marks = $marks;
 
         return $this;
     }
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
-        }
-
-
+    }
 
     /**
      * Get the value of users
-     */ 
+     */
     public function getUsers()
     {
         return $this->users;
@@ -404,7 +394,7 @@ class Recipe
      * Set the value of users
      *
      * @return  self
-     */ 
+     */
     public function setUsers($users)
     {
         $this->users = $users;

@@ -20,13 +20,11 @@ class Ingredient
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    
-
     #[ORM\Column(nullable: true)]
     private ?bool $isAllergen = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
-    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    // #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?User $user = null;
 
     public function getId(): ?int
@@ -57,7 +55,7 @@ class Ingredient
 
         return $this;
     }
-    
+
 
     public function getUser(): ?User
     {
@@ -70,18 +68,18 @@ class Ingredient
 
         return $this;
     }
-    public function __toString() {
+    public function __toString()
+    {
         return (string) $this->getName();
-        }
+    }
 
 
     /**
      * Get the value of name
-     */ 
-   
+     */
+
 
     /**
      * Get the value of quantity
-     */ 
-    
-    }
+     */
+}

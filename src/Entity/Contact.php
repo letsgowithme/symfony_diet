@@ -38,7 +38,8 @@ class Contact
     #[Assert\NotBlank()]
     private ?\DateTimeImmutable $createdAt = null;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->createdAt = new \DateTimeImmutable();
     }
 

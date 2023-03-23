@@ -25,6 +25,7 @@ class Mark
     #[Assert\LessThan(6)]
     private ?int $mark = null;
 
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -38,12 +39,13 @@ class Mark
 
 
     public function __construct()
- {
-    $this->createdAt = new \DateTimeImmutable();
- }    public function getId(): ?int
-                      {
-                          return $this->id;
-                      }
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getMark(): ?int
     {
@@ -69,7 +71,7 @@ class Mark
         return $this;
     }
 
-   
+
     public function getRecipe(): ?Recipe
     {
         return $this->recipe;
@@ -93,6 +95,4 @@ class Mark
 
         return $this;
     }
-
-   
 }

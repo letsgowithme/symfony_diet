@@ -27,7 +27,7 @@ class MarkType extends AbstractType
                 ],
                 'label' => 'Noter la recette',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 text-dark'
+                    'class' => 'form-label mt-4 text-light'
                 ]
 
             ])
@@ -35,9 +35,8 @@ class MarkType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4 mb-4 fs-5'
                 ],
-            'label' => 'Noter la recette'
-        ]);
-        
+                'label' => 'Noter la recette'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
