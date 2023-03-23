@@ -85,6 +85,9 @@ class RecipeController extends AbstractController
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
+        $recipe = new Recipe();
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe = $form->getData();
@@ -359,7 +362,8 @@ class RecipeController extends AbstractController
         EntityManagerInterface $manager,
         Recipe $recipe
     ): Response {
-
+        
+       
         $manager->remove($recipe);
         $manager->flush();
 
@@ -367,6 +371,7 @@ class RecipeController extends AbstractController
             'success',
             'Votre recette a été supprimé avec succès !'
         );
+    
 
         return $this->redirectToRoute('recipe.recipes');
     }

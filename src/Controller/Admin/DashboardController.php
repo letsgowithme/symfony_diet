@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Allergen;
+use App\Entity\Comment;
 use App\Entity\Contact;
 use App\Entity\Diet;
 use App\Entity\Ingredient;
@@ -53,6 +54,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Collection de recettes', 'fas fa-list', 'recipe.recipes');
         yield MenuItem::linkToCrud('Patients', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Demandes de contact', 'fas fa-envelope', Contact::class);
+        yield MenuItem::linkToCrud('Comments', 'fas fa-envelope', Comment::class);
         yield MenuItem::linkToCrud('Ingrédients', 'fas fa-carrot', Ingredient::class);
         yield MenuItem::linkToCrud('Allergènes', 'fas fa-hand-dots', Allergen::class);
         yield MenuItem::linkToCrud('Recettes', 'fas fa-bowl-food', Recipe::class);

@@ -26,7 +26,7 @@ class ContactType extends AbstractType
             ],
             'label' => 'Nom / Prénom',
             'label_attr' => [
-                'class' => 'form-label mt-4 fs-5 text-dark'
+                'class' => 'form-label mt-4 text-dark fs-5'
             ],
             'constraints' => [
                 new Assert\NotBlank(),
@@ -42,7 +42,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Email',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 fs-5 text-dark'
+                    'class' => 'form-label mt-4 text-dark fs-5'
                     
                 ],
                 'constraints' => [
@@ -58,7 +58,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Sujet',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 fs-5 text-dark'
+                    'class' => 'form-label mt-4 text-dark fs-5'
                 ],
                 'constraints' => [
                     new Assert\NotBlank(),
@@ -72,7 +72,7 @@ class ContactType extends AbstractType
                 ],
                 'label' => 'Message',
                 'label_attr' => [
-                    'class' => 'form-label mt-4 fs-5 text-dark'
+                    'class' => 'form-label mt-4 text-dark fs-5'
                 ],
                 'constraints' => [
                     new Assert\NotBlank()
@@ -80,7 +80,7 @@ class ContactType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-info mt-4'
+                    'class' => 'btn btn-primary mt-4'
                 ],
             'label' => 'Envoyer'
             ]);

@@ -46,16 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Mark::class, orphanRemoval: true)]
-    private Collection $marks;
-
-
-   
-
-    // #[ORM\OneToMany(mappedBy: 'user', targetEntity: Diet::class)]
-    // private Collection $diets;
-    // #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
-    // private Collection $recipes;
 
     #[ORM\ManyToMany(targetEntity: Allergen::class, inversedBy: 'users')]
     private Collection $allergens;
@@ -63,19 +53,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Diet::class, inversedBy: 'users')]
     private Collection $diets;
 
-    // #[ORM\ManyToOne(inversedBy: 'users')]
-    // private ?Recipe $recipe = null;
-
-    // #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
-    // private Collection $recipes;
-    
-    #[ORM\ManyToMany(targetEntity: Recipe::class, inversedBy: 'users')]
-    private Collection $recipes;
-
-    
-
-
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
    
+    private Collection $comments;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Mark::class)]
+    
+    private Collection $marks;
+
+    // #[ORM\ManyToMany(targetEntity: Recipe::class)]
+    // private Collection $recipes;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recipe::class)]
+    private Collection $recipes;
 
     public function __construct()
     {
@@ -85,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->dateOfBirth = new \DateTime();
         $this->createdAt = new \DateTimeImmutable();
         $this->marks = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,40 +203,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
-    /**
-     * @return Collection<int, Mark>
-     */
-    public function getMarks(): Collection
-    {
-        return $this->marks;
-    }
-
-    public function addMark(Mark $mark): self
-    {
-        if (!$this->marks->contains($mark)) {
-            $this->marks->add($mark);
-            $mark->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMark(Mark $mark): self
-    {
-        if ($this->marks->removeElement($mark)) {
-            // set the owning side to null (unless already changed)
-            if ($mark->getUser() === $this) {
-                $mark->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-   
-
-
    
     public function __toString() {
         return (string) $this->fullName;
@@ -300,7 +256,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+       /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
     
+    /**
+     * @return Collection<int, Mark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): self
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks->add($mark);
+            $mark->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): self
+    {
+        if ($this->marks->removeElement($mark)) {
+            // set the owning side to null (unless already changed)
+            if ($mark->getUser() === $this) {
+                $mark->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
     /**
      * @return Collection<int, Recipe>
@@ -314,7 +329,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->recipes->contains($recipe)) {
             $this->recipes->add($recipe);
-            $recipe->addUser($this);
         }
 
         return $this;
@@ -324,15 +338,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->recipes->removeElement($recipe)) {
             // set the owning side to null (unless already changed)
-            if ($recipe->getUsers() === $this) {
-                $recipe->addUser($this);
+            if ($recipe->getUser() === $this) {
+                $recipe->setUser(null);
             }
         }
 
         return $this;
     }
-
-    
-
-    
 }

@@ -16,26 +16,26 @@ class Comment
     #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
-    private User $author;
 
-    #[ORM\ManyToOne(targetEntity: Recipe::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Recipe $recipe; 
-
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean')]  
     private ?bool $isApproved = false;
 
 
     #[ORM\Column(type: 'datetime_immutable')]
     private \DateTimeImmutable $createdAt;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?User $author = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?Recipe $recipe = null;
+
     public function __construct(){
         $this->createdAt = new \DateTimeImmutable();
     }
         
-
 
     public function getId(): ?int
     {
@@ -62,45 +62,7 @@ class Comment
         return $this;
     }
 
-    /**
-     * Get the value of author
-     */ 
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * Set the value of author
-     *
-     * @return  self
-     */ 
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of recipe
-     */ 
-    public function getRecipe()
-    {
-        return $this->recipe;
-    }
-
-    /**
-     * Set the value of recipe
-     *
-     * @return  self
-     */ 
-    public function setRecipe($recipe)
-    {
-        $this->recipe = $recipe;
-
-        return $this;
-    }
+    
 
     /**
      * Get the value of isApproved
@@ -139,6 +101,40 @@ class Comment
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+  
+
+    /**
+     * Get the value of author
+     */ 
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set the value of author
+     *
+     * @return  self
+     */ 
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(?Recipe $recipe): self
+    {
+        $this->recipe = $recipe;
 
         return $this;
     }

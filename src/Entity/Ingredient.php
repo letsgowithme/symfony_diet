@@ -26,6 +26,7 @@ class Ingredient
     private ?bool $isAllergen = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?User $user = null;
 
     public function getId(): ?int

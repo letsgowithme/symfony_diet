@@ -5,21 +5,21 @@
 
 {% block body %}
 	<div class="container mt-4 d-flex flex-sm-column justify-content-center">
-		<h1 class="text-center text-dark" style="font-family: \"Libre Baskerville\", serif;">Recettes de base</h1>
+		<h1 class="ms-5">Recettes de base</h1>
 		<div class="d-flex justify-content-center flex-wrap">
 			{% for recipe in recipes %}
 			{% if recipe.isPublic is same as true %}
 				<div class="card border-primary mb-3 me-3" style="width: 20rem;">
-					<div class="card-header text-light">Recette numéro
+					<div class="card-header">Recette numéro
 						{{ recipe.id }}</div>
 					<div class="card-body">
-						<h4 class="card-title text-light">
-						<a href="{{ path('recipe.show_public', {id: recipe.id}) }}" class="text-light">{{ recipe.name }}</a></h4>
+						<h4 class="card-title">
+						<a href="{{ path('recipe.show_public', {id: recipe.id}) }}">{{ recipe.name }}</a></h4>
 
 						<div class="recipe__image card-image">
 							<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 						</div>
-						<p class="card-text" style=" color: #636161;">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+						<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 					</div>
 				</div>
 				{% endif %}

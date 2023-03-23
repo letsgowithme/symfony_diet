@@ -5,7 +5,7 @@
 {% block body %}
 	<div style="height: 510px; z-index: -3;">{% include "partials/_header_img.html.twig" %}</div>
 	<div class="container">
-		<h1 class="display-5 text-center mb-5 py-3 text-light" style="background-color: #82d7e9;">Sandrine Coupart
+		<h1 class="display-5 text-center mb-5 bg-primary py-3">Sandrine Coupart
 			<br>
 			diététicienne-nutritionniste
 			<span class="mt-4" class="margin-top: 5em;">{% include "partials/_doctor_img.html.twig" %}</span>
@@ -13,8 +13,8 @@
 		<div class="jumbotron">
 			<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-center" style="background-color: rgb(135, 219, 237); height: auto;">
 				<div class="col-md-6 col-sm-6 col-xs-12  d-flex flex-column text-center me-5">
-					<h3 class="mb-5 mt-4 text-light">À  propos</h3>
-					<p class="lead fs-4 text-center ms-5" style="color: #636161;">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
+					<h3 class="mb-5 mt-4">À  propos</h3>
+					<p class="lead fs-4 text-center ms-5">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
 				  professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques. J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
 				</div>
 				<div class="col-12  d-flex  text-center">
@@ -32,8 +32,8 @@
 				{% include "partials/_home_img2.html.twig" %}
 			</div>
 			<div class="col-md-6 col-sm-6 col-xs-12 me-2 d-flex flex-column text-center">
-				<h3 class="mb-4 mt-3 text-light">Mes services</h3>
-				<ul class="lead fs-4" style="list-style-type: none; color: #636161;">
+				<h3 class="mb-4 mt-3">Mes services</h3>
+				<ul class="lead fs-4" style="list-style-type: none;">
 					<li>
 						<h5>Bilan nutritionnel</h5>
 						<p>50€ séance</p>
@@ -61,11 +61,11 @@
 		<br>
 		<br>
 		<div class="recipes mb-5">
-			<h3 class="mt-4 text-center mb-5" style="background-color: rgb(135, 219, 237); height: auto; color: #636161;">Recettes</h3>
-			<div class="d-flex justify-content-lg-between flex-wrap mt-4 justify-content-sm-center" style="background-color: #82d7e9;">
+			<h3 class="mt-4 text-center mb-5" style="background-color: rgb(135, 219, 237); height: auto;">Recettes</h3>
+			<div class="d-flex justify-content-lg-between flex-wrap mt-4 justify-content-sm-center">
 				{% for recipe in recipes %}
-					<div class="card border-primary mb-3" style="width: 20rem; margin: 10px 20px">
-						<div class="card-header text-light">Recette numéro
+					<div class="card border-primary mb-3" style="max-width: 20rem;">
+						<div class="card-header">Recette numéro
 							{{ recipe.id }}</div>
 						<div class="card-body">
 							<h4 class="card-title">
@@ -74,7 +74,7 @@
 							<div class="recipe__image card-image">
 								<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 							</div>
-							<p class="card-text" style="color: #636161;">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
+							<p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p>
 						</div>
 					</div>
 				{% endfor %}

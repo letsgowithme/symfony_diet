@@ -25,25 +25,25 @@ class Mark
     #[Assert\LessThan(6)]
     private ?int $mark = null;
 
-    #[ORM\ManyToOne(inversedBy: 'marks')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'marks')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Recipe $recipe = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'marks')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?Recipe $recipe = null;
+
+    #[ORM\ManyToOne(inversedBy: 'marks')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?User $user = null;
 
 
     public function __construct()
  {
     $this->createdAt = new \DateTimeImmutable();
  }    public function getId(): ?int
-    {
-        return $this->id;
-    }
+                      {
+                          return $this->id;
+                      }
 
     public function getMark(): ?int
     {
@@ -53,6 +53,31 @@ class Mark
     public function setMark(int $mark): self
     {
         $this->mark = $mark;
+
+        return $this;
+    }
+
+    public function getcreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setcreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+   
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(?Recipe $recipe): self
+    {
+        $this->recipe = $recipe;
 
         return $this;
     }
@@ -69,27 +94,5 @@ class Mark
         return $this;
     }
 
-    public function getRecipe(): ?Recipe
-    {
-        return $this->recipe;
-    }
-
-    public function setRecipe(?Recipe $recipe): self
-    {
-        $this->recipe = $recipe;
-
-        return $this;
-    }
-
-    public function getcreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setcreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
+   
 }

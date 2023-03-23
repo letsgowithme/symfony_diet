@@ -26,9 +26,6 @@ class Recipe
     #[Assert\NotBlank()]
     private ?string $name = null;
 
-    // #[ORM\Column(length: 250)]
-    // private ?string $image = null;
-
     #[Vich\UploadableField(mapping: 'recipe_images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
@@ -64,28 +61,29 @@ class Recipe
     #[ORM\Column]
     private ?bool $isPublic = false;
 
-
-
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class, orphanRemoval: true)]
-    private Collection $marks;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
     private ?float $average = null;
 
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'recipe', orphanRemoval: true)]
-    private Collection $comments;
+    // #[ORM\ManyToMany(targetEntity: User::class)]
+    // private Collection $users;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'recipe')]
-    private Collection $users;
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'cascade')]
+    private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Mark::class)]
+    private Collection $marks;
+
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Comment::class)]
+    private Collection $comments;
 
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->allergens = new ArrayCollection();
         $this->diets = new ArrayCollection();
-        $this->users = new ArrayCollection();
         $this->marks = new ArrayCollection();
         $this->updatedAt = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
@@ -297,57 +295,6 @@ class Recipe
         return $this;
     }
 
-
-    /**
-     * @return Collection<int, Mark>
-     */
-    public function getMarks(): Collection
-    {
-        return $this->marks;
-    }
-
-    public function addMark(Mark $mark): self
-    {
-        if (!$this->marks->contains($mark)) {
-            $this->marks->add($mark);
-            $mark->setRecipe($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMark(Mark $mark): self
-    {
-        if ($this->marks->removeElement($mark)) {
-            // set the owning side to null (unless already changed)
-            if ($mark->getRecipe() === $this) {
-                $mark->setRecipe(null);
-            }
-        }
-
-        return $this;
-    }
-    /**
-     * Get the value of average
-     */
-    public function getAverage()
-    {
-        $marks = $this->marks;
-
-        if ($marks->toArray() === []) {
-            $this->average = null;
-            return $this->average;
-        }
-        $total = 0;
-        foreach ($marks as $mark) {
-            $total += $mark->getMark();
-            $this->average = $total / count($marks);
-        }
-
-        return $this->average;
-    }
-
-
     /**
      * Get the value of updatedAt
      */
@@ -369,57 +316,90 @@ class Recipe
     }
 
     /**
-     * Get the value of comments
+     * @return Collection<int, Comment>
      */
-    public function getComments()
+    public function getComments(): Collection
     {
         return $this->comments;
     }
 
-    /**
-     * Set the value of comments
-     *
-     * @return  self
-     */
-    public function setComments($comments)
+    public function addComment(Comment $comment): self
     {
-        $this->comments = $comments;
-
-        return $this;
-    }
-    public function __toString()
-    {
-        return (string) $this->name;
-    }
-
-
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addRecipe($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setRecipe($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeComment(Comment $comment): self
     {
-        if ($this->users->removeElement($user)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($user->getRecipes() === $this) {
-                $user->addRecipe($this);
+            if ($comment->getRecipe() === $this) {
+                $comment->setRecipe(null);
             }
         }
 
         return $this;
     }
+
+    /**
+     * Get the value of average
+     */ 
+    public function getAverage()
+    {
+        return $this->average;
+    }
+
+    /**
+     * Set the value of average
+     *
+     * @return  self
+     */ 
+    public function setAverage($average)
+    {
+        $this->average = $average;
+
+        return $this;
+    }
+
+
+public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of marks
+     */ 
+    public function getMarks()
+    {
+        return $this->marks;
+    }
+
+    /**
+     * Set the value of marks
+     *
+     * @return  self
+     */ 
+    public function setMarks($marks)
+    {
+        $this->marks = $marks;
+
+        return $this;
+    }
+    public function __toString() {
+        return $this->name;
+        }
+
+
 }

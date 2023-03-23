@@ -110,7 +110,7 @@ class AppFixtures extends Fixture
             }
             $recipe->setisPublic(mt_rand(0, 1) == 1 ? true : false);
             
-            $recipe->addUser($users[mt_rand(0, count($users) - 1)]);
+            $recipe->setUser($users[mt_rand(0, count($users) - 1)]);
 
             $recipes[] = $recipe;
             $manager->persist($recipe);
