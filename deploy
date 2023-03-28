@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av ./ iryna@192.168.1.60:~/diet --include=public/build --include=public/.htaccess --include=vendor --exclude-from=.gitignore --exclude=".*"

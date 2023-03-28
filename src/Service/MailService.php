@@ -5,7 +5,6 @@ namespace App\Service;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
-
 class MailService
 {
     /**
@@ -23,7 +22,7 @@ class MailService
         string $subject,
         string $htmlTemplate,
         array $context,
-        string $to = 'admin@diet.com'
+        string $to = 'admin@exemple.com'
     ): void {
         $email = (new TemplatedEmail())
             ->from($from)

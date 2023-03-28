@@ -381,23 +381,20 @@ class Recipe
     {
         return $this->name;
     }
-
-    /**
-     * Get the value of users
+    
+/**
+     * @return Collection<int, User>
      */
-    public function getUsers()
+    public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    /**
-     * Set the value of users
-     *
-     * @return  self
-     */
-    public function setUsers($users)
+    public function addUser(User $user): self
     {
-        $this->users = $users;
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+        }
 
         return $this;
     }
