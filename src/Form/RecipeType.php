@@ -42,10 +42,10 @@ class RecipeType extends AbstractType
                 'label_attr' => [
                     'class' => 'form-label mt-4 text-dark fs-5',
                     'minLength' => '2',
-                    'maxLength' => '50'
+                    'maxLength' => '255'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 50]),
+                    new Assert\Length(['min' => 2, 'max' => 255]),
                     new Assert\NotBlank()
                 ]
             ])

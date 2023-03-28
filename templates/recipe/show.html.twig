@@ -63,7 +63,7 @@
 		{% for diets in recipe.diets %}
 			<span class="badge bg-primary mb-4 fs-6">{{ diets.name }}</span>
 		{% endfor %}
-
+{% if app.user %}
 		<div class="fs-5">
 			{% if formMark is defined %}
 				{{ form_start(formMark) }}
@@ -71,6 +71,7 @@
 				{{ form_widget(formMark.mark) }}
 				{{ form_row(formMark.submit) }}
 				{{ form_end(formMark) }}
+			{% endif %}
 			{% endif %}
 		</div>
 		<div class="mt-4">

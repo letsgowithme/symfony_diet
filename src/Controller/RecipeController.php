@@ -142,7 +142,7 @@ class RecipeController extends AbstractController
  
          if ($formComment->isSubmitted() && $formComment->isValid()) {
              $comment->setAuthor($this->getUser())
-                 ->setRecipe($recipe);
+                     ->setRecipe($recipe);
              $manager->persist($comment);
              $manager->flush();
              $this->addFlash(
