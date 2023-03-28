@@ -199,7 +199,7 @@ class RecipeType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary mt-4 mb-4 fs-5'
                 ],
-                'label' => 'Sauvegarder la recette'
+                'label' => 'Sauvegarder la recette'  
             ]);
     }
 
