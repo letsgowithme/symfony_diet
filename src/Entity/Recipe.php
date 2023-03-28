@@ -73,7 +73,7 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Comment::class)]
     private Collection $comments;
 
-    public function __construct()
+    public function __construct()  
     {
         $this->ingredients = new ArrayCollection();
         $this->allergens = new ArrayCollection();
