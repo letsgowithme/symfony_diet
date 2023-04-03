@@ -5,37 +5,37 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarColor01">
-			<ul class="navbar-nav me-auto">
+			<ul class="navbar-nav me-auto text-center">
 				<li class="nav-item">
-					<a class="nav-link fs-5 active fw-bold" href="/">Accueil
+					<a class="nav-link active fw-bold fs-sm-4 fs-lg-5" href="/">Accueil
 						<span class="visually-hidden">(current)</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link fs-5 fw-bold" href="{{ path('contact.index') }}">Contact</a>
+					<a class="nav-link fw-bold fs-sm-4 fs-lg-5" href="{{ path('contact.index') }}">Contact</a>
 				</li>
 				{% if is_granted('ROLE_ADMIN') %}
-					<li class="nav-item lg-ms-5">
-						<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.recipes') }}">
+					<li class="nav-item">
+						<a class="nav-link fw-bold fs-sm-4 fs-lg-5" href="{{ path('recipe.recipes') }}">
 							Collection de recettes</a>
 					</li>
 				{% elseif app.user %}
 					<li class="nav-item">
-						<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.index') }}">Mes recettes</a>
+						<a class="nav-link fw-bold fs-sm-4 fs-lg-5" href="{{ path('recipe.index') }}">Mes recettes</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link fs-5 fw-bold" href="{{ path('recipe.index_public') }}">Recettes</a>
+						<a class="nav-link fw-bold fs-sm-4 fs-lg-5" href="{{ path('recipe.index_public') }}">Recettes</a>
 					</li>
 				{% endif %}
 			</ul>
 			{% if not app.user %}
-			<ul class="navbar-nav me-1 d-lg-flex align-items-lg-end">
-				<li class="nav-item me-2 fs-5 fw-bold lg-ms-4">
-					<a class="nav-link" href="/connexion">Connexion</a>
+			<ul class="navbar-nav lg-me-1 d-lg-flex align-items-lg-end text-center">
+				<li class="nav-item me-2 fw-bold">
+					<a class="nav-link fs-sm-4 fs-lg-5" href="/connexion">Connexion</a>
 				</li>
-				<li class="nav-item me-4 fs-5 fw-bold">
-					<a class="nav-link" href="/inscription">Inscription</a>
+				<li class="nav-item lg-me-4 fw-bold">
+					<a class="nav-link fs-sm-4 fs-lg-5" href="/inscription">Inscription</a>
 				</li>
 			</ul>
 			{% endif %}
