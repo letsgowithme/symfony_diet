@@ -43,7 +43,7 @@ class RecipeCrudController extends AbstractCrudController
 
             ImageField::new('imageName')
                 ->setFormType(FileUploadType::class)
-                ->setUploadDir('/public/images/recipe')
+                ->setUploadDir('/public/uploads')
                 ->setRequired(false)
                 ->setLabel('Image'),
             TextEditorField::new('description')

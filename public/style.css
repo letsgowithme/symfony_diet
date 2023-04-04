@@ -1,3 +1,5 @@
+@media screen and (min-width: 375px) {
+
 .choiceList-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -25,11 +27,18 @@ th {
 h2,
 h3,
 h4,
-h5 {
+h5, 
+.nav-link {
   color: rgb(45, 44, 44);
   font-family: "Libre Baskerville", serif;
 }
-
+.nav-link {
+  font-size: 4em;
+  padding-bottom: 2em;
+} 
+.lead {
+  font-size: 3em;
+}
 p,
 li {
   font-family: "Karla", sans-serif;
@@ -46,6 +55,7 @@ li {
 }
 .navbar {
   background-color: rgb(7, 106, 103);
+  
 }
 
 .dropdown-menu {
@@ -53,4 +63,31 @@ li {
 }
 .dropdown-item:hover {
   background-color: rgb(35, 190, 190);
+}
+}
+.truc {
+  transform: translateX(-50%);
+}
+@media screen and (min-width: 568px) {
+  .nav-link {
+    font-size: 3em;
+  }
+  .lead {
+    font-size: 3em;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .nav-link {
+    font-size: 2.5em;
+    
+  }
+}
+
+
+@media screen and (min-width: 1000px) {
+  .nav-link {
+    font-size: 1.7em;
+    padding-bottom: 0;
+  }
 }

@@ -24,7 +24,7 @@
 			/ 5</h5>
 <div style="background-color: #87dbed; padding: 10px;" class="rounded">
 		<h5 class="mt-3 text-light">Description:</h5>
-		<p class="text-light">{{ recipe.description|raw }}</p>
+		<p class="lead text-dark">{{ recipe.description|raw }}</p>
 </div>
 		<h5 class="mt-3 text-light">Temps de préparation (en minutes):
 			<span class="badge bg-primary mt-1">{{ recipe.preparationTime }}</span>
@@ -52,7 +52,7 @@
 <div style="background-color:  #87dbed; padding: 10px;" class="rounded">
 		<h5 class="mt-3 text-light">Étapes: </h5>
 		
-		<p>{{ recipe.steps|raw }}</p>
+		<p class="lead text-dark">{{ recipe.steps|raw }}</p>
 </div>
 		<h5 class="mt-3 text-light">Allergènes :</h5>
 			{% for allergen in recipe.allergens %}
@@ -116,9 +116,9 @@
 			
 
 				{% if is_granted('ROLE_ADMIN') %}
-					<button class="btn btn-primary fs-5 fw-bold mb-5"><a href="{{ path('recipe.recipes') }}">Collection de recettes</a></button>
+					<button class="btn btn-primary fs-5 fw-bold mb-5"><a href="{{ path('recipe.recipes') }}" class="text-light">Collection de recettes</a></button>
 				{% else %}
-						<button class="btn btn-primary fs-5 fw-bold mb-5"><a href="{{ path('recipe.index_public') }}">Vers la liste de recettes</a></button>
+						<button class="btn btn-primary fs-5 fw-bold mb-5"><a href="{{ path('recipe.index_public') }}" class="text-light">Vers la liste de recettes</a></button>
 				{% endif %}
 			</div>
 		</div>

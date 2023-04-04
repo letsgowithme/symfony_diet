@@ -5,26 +5,24 @@
 {% block body %}
 	<div style="height: 510px; z-index: -3;">{% include "partials/_header_img.html.twig" %}</div>
 	<div class="container">
-		<h1 class="display-5 text-center mb-5 bg-primary py-3">Sandrine Coupart
+		<h1 class="display-5 text-center mb-5 bg-primary py-3 text-light" style="font-family: 'Libre Baskerville', serif;">Sandrine Coupart
 			<br>
 			diététicienne-nutritionniste
 			<span class="mt-4" class="margin-top: 5em;">{% include "partials/_doctor_img.html.twig" %}</span>
 		</h1>
 		<div class="jumbotron">
-			<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-center" 
-			style="background-color: rgb(135, 219, 237); height: auto;">
-				<div class="col-md-6 col-sm-6 col-xs-12  d-flex flex-column text-center me-5">
-					<h3 class="mb-5 mt-4">À  propos</h3>
-					<p class="lead fs-4 text-center ms-5">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
-										  professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques. J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
+			<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-sm-center" style="background-color: rgb(135, 219, 237); height: auto;">
+				<div class="col-md-6 col-sm-12 col-xs-12 d-flex flex-column text-center">
+					<h3 class="mb-5 mt-4" style="font-family: 'Libre Baskerville', serif;">À  propos</h3>
+					<p class="lead text-center text-dark p-4">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
+																						  professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques. J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
 				</div>
-				<div class="col-12  d-flex  text-center">
-					<div class="col-md-6 col-sm-12 me-0">
-						{% include "partials/_home_img1.html.twig" %}
-					</div>
+				<div class="col-md-6 col-sm-12 col-xs-12">
+					{% include "partials/_home_img1.html.twig" %}
 				</div>
 			</div>
-			<hr class="mt-5 mb-5">
+<br><br>
+
 			<br>
 			<br>
 		</div>
@@ -32,9 +30,9 @@
 			<div class="d-lg-block col-md-6 col-sm-6 col-xs-12 d-sm-none">
 				{% include "partials/_home_img2.html.twig" %}
 			</div>
-			<div class="col-md-6 col-sm-6 col-xs-12 me-2 d-flex flex-column text-center">
-				<h3 class="mb-4 mt-3">Mes services</h3>
-				<ul class="lead fs-4" style="list-style-type: none;">
+			<div class="col-md-6 col-sm-6 col-xs-12 d-flex flex-column text-center">
+				<h3 class="lead mb-4 mt-3" style="font-family: 'Libre Baskerville', serif;">Mes services</h3>
+				<ul class="lead" style="list-style-type: none;">
 					<li>
 						<h5>Bilan nutritionnel</h5>
 						<p>50€ séance</p>
@@ -62,23 +60,21 @@
 		<br>
 		<br>
 		<div class="recipes mb-5">
-			<h3 class="mt-4 text-center mb-5 rounded" 
-			style="background-color: rgb(135, 219, 237); height: auto;">Recettes</h3>
+			<h3 class="mt-4 text-center mb-5 rounded bg-primary" style="height: auto; font-family: 'Libre Baskerville', serif;">Recettes</h3>
 
-			<div class="d-flex justify-content-between flex-wrap rounded" 
-			style="background-color: rgb(135, 219, 237);">
+			<div class="d-flex flex-sm-column flex-lg-row justify-content-lg-between text-center" style="background-color: rgb(135, 219, 237);">
 				{% for recipe in recipes %}
-					<div class="card border-primary mb-3" style="max-width: 20rem; margin: 0;">
-						<div class="card-header" style="background-color: rgb(135, 219, 237);">Recette numéro
+					<div class="card border-primary mb-3" style="min-width: 33%;">
+						<div class="card-header lead" style="background-color: rgb(135, 219, 237);">Recette numéro
 							{{ recipe.id }}</div>
-						<div class="card-body"  style="background-color: rgb(135, 219, 237);">
+						<div class="card-body" style="background-color: rgb(135, 219, 237);">
 							<h4 class="card-title text-light">
 								<a href="{{ path('recipe.show_public', {id: recipe.id}) }}" class="text-light">{{ recipe.name }}</a>
 							</h4>
-							<div class="recipe__image card-image">
-								<img style="min-width: 350px; min-height: 250;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" class="img-fluid rounded">
-							</div>
-							<p class="card-text text-dark fs-5">{{ recipe.description|raw }}</p>
+
+							<img style="min-width: 350px; min-height: 250px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" class="recipe__image card-image img-fluid rounded">
+
+							<p class="lead card-text text-dark">{{ recipe.description|raw }}</p>
 						</div>
 					</div>
 				{% endfor %}
