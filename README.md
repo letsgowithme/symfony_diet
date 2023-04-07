@@ -29,3 +29,14 @@ Récupérer le dépôt git git clone https://github.com/letsgowithme/symfony_die
 
 Installation des dépendances: composer require
 
+                                   Administration du site
+                                   
+L'accès au back office permet de créer du contenu (créer des recettes, ajouter des photos), et de gérer les fonctionnalités (création d'ingrédients, allergènes,  patients, la possibilité d'approuver les commentaires).
+
+                                Comment se connecter au back office ?
+
+L'administration du site (ou back office) est accessible depuis le lien «Se connecter».
+Cliquez sur le lien « Se connecter ».
+Tapez votre identifiant (le nom d'utilisateur qui vous a été communiqué par l'administrateur du site)
+Tapez votre mot de passe. 
+Validez
