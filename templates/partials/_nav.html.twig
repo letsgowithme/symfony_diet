@@ -7,35 +7,35 @@
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav me-auto text-center">
 				<li class="nav-item">
-					<a class="nav-link active fw-bold" href="/">Accueil
+					<a class="nav-link nav-link-name active fw-bold" href="/">Accueil
 						<span class="visually-hidden">(current)</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link fw-bold" href="{{ path('contact.index') }}">Contact</a>
+					<a class="nav-link nav-link-name fw-bold" href="{{ path('contact.index') }}">Contact</a>
 				</li>
 				{% if is_granted('ROLE_ADMIN') %}
 					<li class="nav-item">
-						<a class="nav-link fw-bol" href="{{ path('recipe.recipes') }}">
+						<a class="nav-link nav-link-name fw-bol" href="{{ path('recipe.recipes') }}">
 							Collection de recettes</a>
 					</li>
 				{% elseif app.user %}
 					<li class="nav-item">
-						<a class="nav-link fw-bold" href="{{ path('recipe.index') }}">Mes recettes</a>
+						<a class="nav-link nav-link-name fw-bold" href="{{ path('recipe.index') }}">Mes recettes</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link fw-bold" href="{{ path('recipe.index_public') }}">Recettes</a>
+						<a class="nav-link nav-link-name fw-bold" href="{{ path('recipe.index_public') }}">Recettes</a>
 					</li>
 				{% endif %}
 			</ul>
 			{% if not app.user %}
 			<ul class="navbar-nav lg-me-1 d-lg-flex align-items-lg-end text-center">
 				<li class="nav-item me-2 fw-bold">
-					<a class="nav-link" href="/connexion">Connexion</a>
+					<a class="nav-link nav-link-name" href="/connexion">Connexion</a>
 				</li>
 				<li class="nav-item lg-me-4 fw-bold">
-					<a class="nav-link" href="/inscription">Inscription</a>
+					<a class="nav-link nav-link-name" href="/inscription">Inscription</a>
 				</li>
 			</ul>
 			{% endif %}
@@ -45,7 +45,7 @@
 		<ul class="navbar-nav me-auto">
 			{% if app.user %}
 				<li class="nav-item dropdown" style="margin-right: 5rem;">
-					<a class="nav-link dropdown-toggle fs-5 fw-bold" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">{{ app.user.fullName }}</a>
+					<a class="nav-link dropdown-toggle fs-5 fw-bold name_link" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">{{ app.user.fullName }}</a>
 					<div class="dropdown-menu bg-primary">
 						{% if 'ROLE_ADMIN' in app.user.roles %}
 							<a class="dropdown-item  fw-bold" href="/admin">Tableau de bord</a>

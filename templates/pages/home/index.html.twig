@@ -4,54 +4,55 @@
 {% endblock %}
 {% block body %}
 	<div style="height: 510px; z-index: -3;">{% include "partials/_header_img.html.twig" %}</div>
-	<div class="container">
-		<h1 class="display-5 text-center mb-5 bg-primary py-3 text-light" style="font-family: 'Libre Baskerville', serif;">Sandrine Coupart
+	<div class="container-fluid">
+		<h1 class="text-center mb-5 bg-primary py-3 text-light" style="font-family: 'Libre Baskerville', serif;">Sandrine Coupart
 			<br>
 			diététicienne-nutritionniste
 			<span class="mt-4" class="margin-top: 5em;">{% include "partials/_doctor_img.html.twig" %}</span>
 		</h1>
 		<div class="jumbotron">
-			<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-sm-center" style="background-color: rgb(135, 219, 237); height: auto;">
-				<div class="col-md-6 col-sm-12 col-xs-12 d-flex flex-column text-center">
+			<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-center about" style="background-color: rgb(135, 219, 237); height: auto;">
+				<div class="about-block col-md-6 col-sm-12 col-xs-12 d-flex flex-column text-center">
 					<h3 class="mb-5 mt-4" style="font-family: 'Libre Baskerville', serif;">À  propos</h3>
-					<p class="lead text-center text-dark p-4">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
-																						  professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques. J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
+					<p class="text-center text-dark about-text">Je m'appelle Sandrine Coupart et je suis diététicienne-nutritionniste dont le cabinet est situé à Caen. En tant que
+										  professionnelle de santé, je prends en charge des patients dans le cadre de consultations diététiques. J'anime également des ateliers de prévention et d’information sur la nutrition.</p>
 				</div>
-				<div class="col-md-6 col-sm-12 col-xs-12">
+				<div class="about-block col-md-6 col-sm-12 col-xs-12 text-center">
 					{% include "partials/_home_img1.html.twig" %}
 				</div>
 			</div>
-<br><br>
+			<br><br>
 
 			<br>
 			<br>
 		</div>
 		<div class="d-flex flex-lg-row justify-content-lg-between flex-sm-column about align-items-center about" style="background-color: rgb(135, 219, 237); height: auto;">
-			<div class="d-lg-block col-md-6 col-sm-6 col-xs-12 d-sm-none">
+			<div class="d-lg-block col-md-6 col-sm-12 col-xs-12 d-sm-none">
 				{% include "partials/_home_img2.html.twig" %}
 			</div>
-			<div class="col-md-6 col-sm-6 col-xs-12 d-flex flex-column text-center">
-				<h3 class="lead mb-4 mt-3" style="font-family: 'Libre Baskerville', serif;">Mes services</h3>
-				<ul class="lead" style="list-style-type: none;">
+
+			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 d-flex flex-column text-center">
+				<h3 class="mb-4 mt-3" style="font-family: 'Libre Baskerville', serif;">Mes services</h3>
+				<ul style="list-style-type: none;" class="mt-4">
 					<li>
-						<h5>Bilan nutritionnel</h5>
-						<p>50€ séance</p>
+						<h4 class="service_title">Bilan nutritionnel</h4>
+						<p class="service_text">50€ séance</p>
 					</li>
 					<li>
-						<h5>Suivi nutritionnel</h5>
-						<p>50€ séance</p>
+						<h4 class="service_title">Suivi nutritionnel</h4>
+						<p class="service_text">50€ séance</p>
 					</li>
 					<li>
-						<h5>Coaching diététiquel</h5>
-						<p>100€/mois</p>
+						<h4 class="service_title">Coaching diététiquel</h4>
+						<p class="service_text">100€/mois</p>
 					</li>
 					<li>
-						<h5>Accompagnement menus</h5>
-						<p>45€/mois</p>
+						<h4 class="service_title">Accompagnement menus</h4>
+						<p class="service_text">45€/mois</p>
 					</li>
 					<li>
-						<h5>Suivi grossesse</h5>
-						<p>120€/mois</p>
+						<h4 class="service_title">Suivi grossesse</h4>
+						<p class="service_text">120€/mois</p>
 					</li>
 				</ul>
 			</div>
@@ -60,21 +61,21 @@
 		<br>
 		<br>
 		<div class="recipes mb-5">
-			<h3 class="mt-4 text-center mb-5 rounded bg-primary" style="height: auto; font-family: 'Libre Baskerville', serif;">Recettes</h3>
+			<h3 class="mt-4 text-center mb-5 rounded bg-primary recipe_block_title" style="height: auto; font-family: 'Libre Baskerville', serif;">Recettes</h3>
 
-			<div class="d-flex flex-sm-column flex-lg-row justify-content-lg-between text-center" style="background-color: rgb(135, 219, 237);">
+			<div class="d-flex flex-sm-column align-items-sm-center flex-lg-row justify-content-lg-between text-center">
 				{% for recipe in recipes %}
 					<div class="card border-primary mb-3" style="min-width: 33%;">
-						<div class="card-header lead" style="background-color: rgb(135, 219, 237);">Recette numéro
+						<div class="card-header fs-5" style="background-color: rgb(135, 219, 237);">Recette numéro
 							{{ recipe.id }}</div>
 						<div class="card-body" style="background-color: rgb(135, 219, 237);">
-							<h4 class="card-title text-light">
-								<a href="{{ path('recipe.show_public', {id: recipe.id}) }}" class="text-light">{{ recipe.name }}</a>
+							<h4 class="card-title text-light mb-4">
+								<a href="{{ path('recipe.show_public', {id: recipe.id}) }}" class="text-light recipe_link">{{ recipe.name }}</a>
 							</h4>
 
 							<img style="min-width: 350px; min-height: 250px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}" class="recipe__image card-image img-fluid rounded">
-
-							<p class="lead card-text text-dark">{{ recipe.description|raw }}</p>
+             
+							<div class="card-text recipe_descr">{{ recipe.description|raw }}</div>
 						</div>
 					</div>
 				{% endfor %}

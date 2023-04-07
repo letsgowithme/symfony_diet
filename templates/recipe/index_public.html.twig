@@ -9,7 +9,7 @@
 		<div class="d-flex justify-content-center flex-wrap">
 			{% for recipe in recipes %}
 			{% if recipe.isPublic is same as true %}
-				<div class="card border-primary mb-3 me-3" style="width: 20rem;">
+				<div class="card border-primary mb-3 me-3 text-sm-center">
 					<div class="card-header">Recette numéro
 						{{ recipe.id }}</div>
 					<div class="card-body">
@@ -17,7 +17,9 @@
 						<a href="{{ path('recipe.show_public', {id: recipe.id}) }}">{{ recipe.name }}</a></h4>
 
 						<div class="recipe__image card-image">
-							<img style="max-width: 350px;" src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
+							<img 
+							style="max-width: 350px;" 
+							src="{{ vich_uploader_asset(recipe, 'imageFile') }}">
 						</div>
 						{# <p class="card-text">{{ recipe.description|slice(0, 100) ~ '...'  }}</p> #}
 						<p class="card-text">{{ recipe.description|raw }}</p>
