@@ -27,7 +27,7 @@ Chaque recette possédera :
 
 Récupérer le dépôt git git clone https://github.com/letsgowithme/symfony_diet
 
-Installation des dépendances: composer require
+Installation des dépendances: composer install
 
                                    Administration du site
                                    
