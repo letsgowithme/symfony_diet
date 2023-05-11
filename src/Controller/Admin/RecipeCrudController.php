@@ -40,12 +40,17 @@ class RecipeCrudController extends AbstractCrudController
             ->hideOnForm(),
             TextField::new('name')
                 ->setLabel('Nom'),
-
+            TextField::new('imageFile')
+                ->setFormType(VichImageType::class)
+                ->hideOnIndex(),
             ImageField::new('imageName')
+                ->onlyOnIndex()
                 ->setFormType(FileUploadType::class)
-                ->setUploadDir('/public/uploads')
-                ->setRequired(false)
+                ->setBasePath('/uploads')
+                ->setUploadDir('/uploads')
+                ->setRequired($pageName !== Crud::PAGE_EDIT)
                 ->setLabel('Image'),
+
             TextEditorField::new('description')
                 ->setFormType(CKEditorType::class)
                 ->hideOnIndex(),
